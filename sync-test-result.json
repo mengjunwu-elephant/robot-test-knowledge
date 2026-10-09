@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "checks": [
+    "dry run creates no files",
+    "exact commit export and lock hashes",
+    "existing lock refuses overwrite",
+    "existing skill refuses overwrite before writes",
+    "floating branch refused",
+    "skill mirror drift detected"
+  ],
+  "scope": "isolated temporary Git repository; no source project changes"
+}

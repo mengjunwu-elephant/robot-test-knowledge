@@ -1,0 +1,10 @@
+--- source/test_9_get_debug_state.py
++++ example/test_9_get_debug_state.py
+@@ -20,7 +20,7 @@
+     logger.info(f'》》》》》用例【{title}】开始测试《《《《《')
+     logger.debug(f'test_api:{case["api"]}')
+ 
+-    with allure.step("调用 get_atom_version 接口"):
++    with allure.step("调用 get_debug_state 接口"):
+         response = device.mc.get_debug_state()
+         logger.debug(f"接口返回：{response}")
