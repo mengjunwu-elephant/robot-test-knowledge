@@ -31,3 +31,5 @@
 安装后的更新流程见[技能包迭代维护](docs/技能包迭代维护.md)。
 
 团队使用与更新：见 docs/团队使用步骤.md；共同维护见 CONTRIBUTING.md。公共规则优先仅适用于团队测试规范，不改写 SDK 事实。
+
+0.4.0 用例编写入口：docs/用例编写技能使用.md；三类模板随 testcase-iteration/assets/templates 分发。

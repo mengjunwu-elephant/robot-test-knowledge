@@ -16,9 +16,12 @@ def validate(root=ROOT,sources=False):
   checks+=1
   if not re.match(r'---\nname: '+name+r'\ndescription: .+\n---\n',text):errors.append('invalid frontmatter '+name)
   for p in folder.rglob('*'):
-   if p.is_file():
+   if p.is_file() and '__pycache__' not in p.parts and p.suffix!='.pyc':
     checks+=1;relative=p.relative_to(root/'skills');copy=root/'.agents/skills'/relative
     if not copy.exists() or copy.read_bytes()!=p.read_bytes():errors.append('mirror mismatch '+str(relative))
+    if p.suffix=='.py':
+     try:ast.parse(p.read_text(encoding='utf-8'))
+     except SyntaxError as e:errors.append(str(e))
   for link in re.findall(r'\]\(([^)]+)\)',text):
    if '://' not in link and not (folder/link).exists():errors.append('broken skill reference '+link)
  if sources:

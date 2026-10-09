@@ -1,0 +1,64 @@
+{
+  "date": "2026-10-09",
+  "version": "0.4.0",
+  "files": [
+    {
+      "name": "通用软件测试用例模板_v1.0.xlsx",
+      "version": "1.0",
+      "source_project": "测试用例编写",
+      "sha256": "fde1a7849e6e1bc097ad79720ec48c5a5de4b2dabb19ecd9f74eb944d943d1e6",
+      "role": "template; explanation sheet contains demonstration results"
+    },
+    {
+      "name": "固件测试用例模板_v1.0.xlsx",
+      "version": "1.0",
+      "source_project": "测试用例编写",
+      "sha256": "94c435eeeda0783a2d23a584eeac95c6c796049fac08909763766e12a8581b82",
+      "role": "template; explanation sheet contains demonstration results"
+    },
+    {
+      "name": "ROS测试用例模板_v1.0.xlsx",
+      "version": "1.0",
+      "source_project": "测试用例编写",
+      "sha256": "abbbac39ffb22b6cbf1e9fb0e3f8ff515741796c0089f2e7474a9e955dadeca4",
+      "role": "template; explanation sheet contains demonstration results"
+    },
+    {
+      "name": "软件测试标准流程规范文档v2.1.0.docx",
+      "version": "2.1.0",
+      "source_project": "测试用例编写",
+      "sha256": "76a1b400c0182481f9671e182919ec76c2ca7d0e07de8f3faafd82ef40605d95",
+      "role": "excerpts only; original document not included"
+    },
+    {
+      "name": "AGENTS.md",
+      "source_project": "测试用例编写",
+      "sha256": "50e65f060df34bffc12ad1bc43210519f6f99915ddcd8ccdbdd9dffc6dcd3e41",
+      "role": "adapted rules; no raw conversation included"
+    },
+    {
+      "name": ".cursor/skills/general-software-cases/SKILL.md",
+      "source_project": "测试用例编写",
+      "sha256": "115c0f0513dee817e57bf3b68c4117bbc6ebe66f9af1e2c64d5464659ba7808b",
+      "role": "adapted rules; no raw conversation included"
+    },
+    {
+      "name": ".cursor/skills/firmware-cases/SKILL.md",
+      "source_project": "测试用例编写",
+      "sha256": "06569e18ded87eecfa6682335ba6b221e0f768a4347976b1f9ac8d989dbf78dc",
+      "role": "adapted rules; no raw conversation included"
+    },
+    {
+      "name": ".cursor/skills/ros-cases/SKILL.md",
+      "source_project": "测试用例编写",
+      "sha256": "ba4e04703a16f12b1beb5020b6006b19bdb41e40361552b7d6916d60df936337",
+      "role": "adapted rules; no raw conversation included"
+    },
+    {
+      "name": "elegripper.py",
+      "source_project": "elegripper",
+      "sha256": "4699d3852eb354f63b2aeeea74f8e34f5e8f80c68747b8f7dd7ec5ca550666f3",
+      "role": "static method evidence, not SDK contract"
+    }
+  ]
+}

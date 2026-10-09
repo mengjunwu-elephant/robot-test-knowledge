@@ -1,4 +1,4 @@
 interface:
-  display_name: "用例迭代"
-  short_description: "检查现有用例，补充有依据的测试点"
-  default_prompt: "使用 $testcase-iteration，读取当前项目规则和可信接口资料后完成任务。"
+  display_name: "用例编写与迭代"
+  short_description: "编写通用软件、固件和ROS用例，保留模板字段，提示资料冲突并检查未执行结果"
+  default_prompt: "使用 $testcase-iteration 审查或编写用例，先核对版本、模板和依据，提示冲突，不修改原件或连接设备。"

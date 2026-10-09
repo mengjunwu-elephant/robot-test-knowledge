@@ -1,6 +1,7 @@
 import base64, os, subprocess, tempfile, json, hashlib, zipfile, sys
 from pathlib import Path
 repo=Path(__file__).resolve().parents[1]; r=repo.parent
+version=json.loads((repo/'plugin.json').read_text(encoding='utf-8'))['version']
 ps=r'''$ErrorActionPreference = 'Stop'
 $log = $env:ROBOT_SKILL_BUNDLE + '.log'
 try {
@@ -11,7 +12,7 @@ try {
     $bytes = [Convert]::FromBase64String($parts[1].Trim())
     $dir = Join-Path ([IO.Path]::GetTempPath()) ('robot-test-skills-' + [Guid]::NewGuid().ToString('N'))
     [IO.Directory]::CreateDirectory($dir) | Out-Null
-    $archive = Join-Path $dir 'robot-test-knowledge-0.3.0.zip'
+    $archive = Join-Path $dir 'robot-test-knowledge-__VERSION__.zip'
     [IO.File]::WriteAllBytes($archive, $bytes)
     Add-Type -AssemblyName System.IO.Compression.FileSystem; [IO.Compression.ZipFile]::ExtractToDirectory($archive, $dir)
     $installer = Join-Path $dir 'robot-test-knowledge/install.py'
@@ -36,8 +37,9 @@ try {
     exit 1
 }
 '''
+ps=ps.replace('__VERSION__',version)
 encoded=base64.b64encode(ps.encode('utf-16le')).decode('ascii')
-archive=repo/'dist/robot-test-knowledge-0.3.0.zip'
+archive=repo/f'dist/robot-test-knowledge-{version}.zip'
 payload=base64.b64encode(archive.read_bytes()).decode('ascii')
 text=r'''@echo off
 setlocal
@@ -51,7 +53,7 @@ pause >nul
 exit /b %ROBOT_SKILL_EXIT%
 :ROBOT_PACKAGE_DATA
 '''+payload+'\n'
-launcher=r/'robot-test-knowledge-0.3.0-Install.cmd'
+launcher=r/f'robot-test-knowledge-{version}-Install.cmd'
 launcher.write_text(text,encoding='ascii',newline='\r\n')
 # Test the actual CMD entry point without touching the real user's plugin directory.
 with tempfile.TemporaryDirectory(prefix='robot-launcher-test-') as tmp:
@@ -67,7 +69,7 @@ with tempfile.TemporaryDirectory(prefix='robot-launcher-test-') as tmp:
     assert 'Installation stopped:' in failed.stdout
     assert 'Press any key' in failed.stdout
     print('Failure path retained error message and close prompt.')
-report={'date':'2026-10-09','version':'0.3.0','package_sha256':hashlib.sha256(archive.read_bytes()).hexdigest(),'installer_tests':7,'cmd_success_path':True,'cmd_failure_path':True,'scope':'temporary user root only; desktop plugin discovery not tested'}
+report={'date':'2026-10-09','version':version,'package_sha256':hashlib.sha256(archive.read_bytes()).hexdigest(),'installer_tests':7,'cmd_success_path':True,'cmd_failure_path':True,'scope':'temporary user root only; desktop plugin discovery not tested'}
 (repo/'packaging/bundle-validation.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
 print(json.dumps(report))
 

@@ -8,7 +8,7 @@ def run():
  with tempfile.TemporaryDirectory(prefix='robot-knowledge-') as tmp:
   root=Path(tmp);repo=root/'repo';repo.mkdir()
   import shutil
-  shutil.copytree(ROOT/'skills',repo/'skills')
+  shutil.copytree(ROOT/'skills',repo/'skills',ignore=shutil.ignore_patterns('__pycache__','*.pyc'))
   def git(*args):return subprocess.check_output(['git','-C',str(repo),*args],stderr=subprocess.PIPE).decode().strip()
   git('init','-b','main');git('add','skills');git('-c','user.name=Offline Test','-c','user.email=offline@example.invalid','commit','-m','fixture')
   commit=git('rev-parse','HEAD');target=root/'target'
