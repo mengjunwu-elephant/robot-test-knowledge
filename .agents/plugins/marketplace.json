@@ -1,0 +1,20 @@
+{
+  "name": "elephant-test-skills",
+  "interface": {
+    "displayName": "大象机器人测试技能"
+  },
+  "plugins": [
+    {
+      "name": "robot-test-knowledge",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

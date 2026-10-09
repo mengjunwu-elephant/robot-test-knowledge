@@ -1,0 +1,21 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "robot-test-knowledge",
+  "version": "0.2.0",
+  "description": "机器人软件测试：基于现有资料迭代用例、生成单接口 pytest，保留 Excel、Fixtures 和 Allure。",
+  "repository": "https://github.com/mengjunwu-elephant/robot-test-knowledge",
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "大象机器人测试技能包",
+        "shortDescription": "用例迭代与 pytest 生成",
+        "developerName": "mengjunwu-elephant",
+        "category": "Productivity",
+        "defaultPrompt": [
+          "检查当前项目的测试用例，指出缺少的测试点。",
+          "依据已确认用例生成单接口 pytest 测试。"
+        ]
+      }
+    }
+  }
+}

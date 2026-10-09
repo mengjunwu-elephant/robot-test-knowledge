@@ -9,3 +9,7 @@
 方案按 P0/P1/P2 保存到 docs 并同步 docs/方案总文档.md。任务完成仅更新 docs/项目交接文档.md，不按会话重复创建。
 规则变更更新本文件；技能变更更新 skills 并同步 .agents/skills，离线校验后发布。
 不得提交密钥、.env、现场连接配置、原始工作簿、日志或机器人地址。证据索引只保存路径、哈希和表头。
+
+插件打包以根 plugin.json 与 skills 为源；中文显示元数据同步 .agents/skills。ZIP 仅包含明确白名单、安装说明和哈希，不打包项目快照或原工作簿。安装器登记个人来源，保留既有 marketplace 条目和备份，不覆盖同名外部来源或已修改版本。发布需通过 Windows/Linux 隔离测试，不将模拟登记通过声称为用户桌面实际安装验收。
+
+Windows安装入口变更须实际运行CMD成功和失败路径，以临时user-root验证不写真实用户目录；命令构建避免JavaScript replacement string的$语义，交付窗口须保留错误与日志路径。

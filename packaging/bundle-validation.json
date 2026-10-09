@@ -1,0 +1,9 @@
+{
+  "date": "2026-10-09",
+  "version": "0.2.0",
+  "package_sha256": "8b86dfd0ffeb8debc75ded10cafe8cff69fa4fc6a09d1f17d2766395172aa573",
+  "installer_tests": 7,
+  "cmd_success_path": true,
+  "cmd_failure_path": true,
+  "scope": "temporary user root only; desktop plugin discovery not tested"
+}

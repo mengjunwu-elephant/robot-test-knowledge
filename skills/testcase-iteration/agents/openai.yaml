@@ -1,0 +1,4 @@
+interface:
+  display_name: "用例迭代"
+  short_description: "检查现有用例，补充有依据的测试点"
+  default_prompt: "使用 $testcase-iteration，读取当前项目规则和可信接口资料后完成任务。"
