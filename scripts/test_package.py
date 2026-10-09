@@ -18,7 +18,7 @@ class PackageTests(unittest.TestCase):
         first=build(self.root/"one").read_bytes();second=build(self.root/"two").read_bytes()
         self.assertEqual(first,second)
         self.assertFalse(any("/projects/" in n or n.endswith(".xlsx") or "/.git/" in n for n in self.names))
-        self.assertEqual(json.loads((self.package/"plugin.json").read_text(encoding="utf-8"))["version"],"0.2.0")
+        self.assertEqual(json.loads((self.package/"plugin.json").read_text(encoding="utf-8"))["version"],json.loads((ROOT/"plugin.json").read_text(encoding="utf-8"))["version"])
     def test_install_preview_then_apply_and_repeat(self):
         installer.install(self.package,self.home)
         self.assertFalse(self.home.exists())

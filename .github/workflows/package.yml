@@ -1,5 +1,6 @@
 name: Build robot test skill package
 on:
+  pull_request:
   push:
     branches: [main]
     paths: ['plugin.json', 'packaging/**', 'skills/**', 'scripts/*package*.py', '.github/workflows/package.yml']
@@ -20,17 +21,20 @@ jobs:
       - run: python -X utf8 scripts/validate_offline.py
       - run: python -X utf8 scripts/test_sync.py
       - run: python -X utf8 scripts/test_package.py
+      - run: python -X utf8 scripts/test_update.py
       - run: python -X utf8 scripts/build_package.py
       - uses: actions/upload-artifact@v4
         with:
           name: robot-test-package-${{ matrix.os }}
           path: dist/*
   release:
+    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main' && github.actor == 'mengjunwu-elephant'
     needs: verify
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
+      - uses: actions/checkout@v4
       - uses: actions/download-artifact@v4
         with:
           name: robot-test-package-ubuntu-latest
@@ -40,8 +44,9 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
         run: |
-          if gh release view v0.2.0 >/dev/null 2>&1; then
-            echo "v0.2.0 already exists; keeping published assets unchanged."
+          VERSION=$(python -c "import json; print(json.load(open('plugin.json'))['version'])")
+          if gh release view "v$VERSION" >/dev/null 2>&1; then
+            echo "Version already exists; keeping published assets unchanged."
           else
-            gh release create v0.2.0 dist/robot-test-knowledge-0.2.0.zip dist/SHA256SUMS.txt --target "${{ github.sha }}" --title "大象机器人测试技能包 v0.2.0" --notes "下载 ZIP 并完整解压。Windows 双击 Install.cmd 登记个人插件来源，重启桌面应用后在插件目录安装。包含用例迭代与 pytest 生成；无机器人连接。"
+            gh release create "v$VERSION" "dist/robot-test-knowledge-$VERSION.zip" dist/SHA256SUMS.txt --target "${{ github.sha }}" --title "大象机器人测试技能包 v$VERSION" --notes "完整解压后运行 Install.cmd。Update.cmd 跟随最新正式版；更新后刷新插件并开启新对话。团队公共测试规范优先，保留项目差异；不连接机器人。"
           fi

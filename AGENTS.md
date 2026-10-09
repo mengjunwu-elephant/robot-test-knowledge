@@ -2,7 +2,7 @@
 
 从可观察结果、输入边界、证据和恢复责任出发设计测试。
 每次任务先检索当前项目 AGENTS.md、.cursorrules、.agents/skills、.cursor/skills、.codex 中现有规则技能，读取相关内容再行动。
-当前用户授权决定任务范围；公共流程不得覆盖目标项目明确约束。冲突标注并依据来源版本澄清，不能跨项目复制 SDK 契约。
+当前用户授权决定任务范围；团队测试规范冲突时公共规则优先，项目规则补充差异；用户指令与平台约束优先。公共流程不能覆盖可信 SDK 事实和受保护的测试结构。冲突标注并依据来源版本澄清，不能跨项目复制 SDK 契约。
 不连接或控制实体机器人，不启动 SSH、ROS、串口、TCP；不执行原项目测试或 collection，除非审查导入无连接后另有授权。
 保护 Excel 字段、顺序、Sheet、公式、格式、ID、pytest Fixtures、Allure、marker、skip、单接口测试与恢复流程。
 新方案至少提出三个收敛问题，并取得用户“确认执行”后输出方案；已确认范围内无需重复确认。本轮用户已明确执行方案 A。
@@ -13,3 +13,5 @@
 插件打包以根 plugin.json 与 skills 为源；中文显示元数据同步 .agents/skills。ZIP 仅包含明确白名单、安装说明和哈希，不打包项目快照或原工作簿。安装器登记个人来源，保留既有 marketplace 条目和备份，不覆盖同名外部来源或已修改版本。发布需通过 Windows/Linux 隔离测试，不将模拟登记通过声称为用户桌面实际安装验收。
 
 Windows安装入口变更须实际运行CMD成功和失败路径，以临时user-root验证不写真实用户目录；命令构建避免JavaScript replacement string的$语义，交付窗口须保留错误与日志路径。
+
+团队治理见 standards/team-rules.md 与 CONTRIBUTING.md；正式发布由 @mengjunwu-elephant 审核执行，禁止每次 main 推送自动发布。

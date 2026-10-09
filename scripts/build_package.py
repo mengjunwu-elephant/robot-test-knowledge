@@ -13,7 +13,9 @@ def build(output):
     entries = {"plugin.json": (ROOT/"plugin.json").read_bytes(),
                "install.py": (ROOT/"packaging/install.py").read_bytes(),
                "Install.cmd": (ROOT/"packaging/Install.cmd").read_bytes(),
-               "INSTALL.md": (ROOT/"packaging/INSTALL.md").read_bytes()}
+               "INSTALL.md": (ROOT/"packaging/INSTALL.md").read_bytes(),
+               "update.py": (ROOT/"packaging/update.py").read_bytes(),
+               "Update.cmd": (ROOT/"packaging/Update.cmd").read_bytes()}
     for name in NAMES:
         folder = ROOT/"skills"/name
         for p in folder.rglob("*"):

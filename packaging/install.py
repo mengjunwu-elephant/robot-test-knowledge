@@ -33,7 +33,7 @@ def install(package, user_root, apply=False):
         p = package/rel
         if p.is_symlink() or not p.is_file() or digest(p) != sha:
             raise ValueError("package checksum mismatch: " + name)
-        if name == "plugin.json" or name.startswith("skills/"):
+        if name in ("plugin.json", "update.py", "install.py", "Update.cmd") or name.startswith("skills/"):
             payload[name] = p
     for skill in ("testcase-iteration", "pytest-generation"):
         if f"skills/{skill}/SKILL.md" not in payload:

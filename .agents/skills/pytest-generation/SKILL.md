@@ -5,6 +5,8 @@ description: 依据已确认用例和项目源码生成或修改单接口 pytest
 
 # pytest-generation
 
+先读取并遵循 [团队公共规则](references/team-rules.md)。本技能版本 0.3.0；最新正式版更新通过安装目录 Update.cmd。发现新版时完成更新并刷新插件、开启新对话后使用；离线时报告当前版本，不能声称已是最新版。
+
 读取目标当前 AGENTS、规则、用例技能、目录 conftest、Excel loader、代表测试与接口源码证据；读取 [项目差异参考](references/project-context.md) 定位差异。
 确认接口签名、fixture、数据路径、Sheet、字段、ID、异常类、断言与恢复契约。资料不完整则完成缺口清单，不生成猜测性可执行调用。
 以邻近单接口用例为骨架；调用、等待、断言、回读与恢复直接写在测试函数。禁止新增连接、万能 Executor/Adapter 或跨项目 SDK 规则。
