@@ -3,7 +3,7 @@ on:
   pull_request:
   push:
     branches: [main]
-    paths: ['plugin.json', 'packaging/**', 'skills/**', 'scripts/*package*.py', '.github/workflows/package.yml']
+    paths: ['plugin.json', 'packaging/**', 'skills/**', '.agents/skills/**', 'scripts/**', '.github/workflows/package.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -22,6 +22,7 @@ jobs:
       - run: python -X utf8 scripts/test_sync.py
       - run: python -X utf8 scripts/test_package.py
       - run: python -X utf8 scripts/test_update.py
+      - run: python -X utf8 scripts/test_case_review.py
       - run: python -X utf8 scripts/build_package.py
       - uses: actions/upload-artifact@v4
         with:

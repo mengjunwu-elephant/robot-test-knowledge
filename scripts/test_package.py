@@ -17,7 +17,9 @@ class PackageTests(unittest.TestCase):
     def test_archive_and_reproducibility(self):
         first=build(self.root/"one").read_bytes();second=build(self.root/"two").read_bytes()
         self.assertEqual(first,second)
-        self.assertFalse(any("/projects/" in n or n.endswith(".xlsx") or "/.git/" in n for n in self.names))
+        self.assertFalse(any("/projects/" in n or "/.git/" in n for n in self.names))
+        expected={"robot-test-knowledge/skills/testcase-iteration/assets/templates/"+name for name in ("通用软件测试用例模板_v1.0.xlsx","固件测试用例模板_v1.0.xlsx","ROS测试用例模板_v1.0.xlsx")}
+        self.assertEqual({n for n in self.names if n.endswith(".xlsx")},expected)
         self.assertEqual(json.loads((self.package/"plugin.json").read_text(encoding="utf-8"))["version"],json.loads((ROOT/"plugin.json").read_text(encoding="utf-8"))["version"])
     def test_install_preview_then_apply_and_repeat(self):
         installer.install(self.package,self.home)

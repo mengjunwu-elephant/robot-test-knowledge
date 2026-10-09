@@ -9,7 +9,7 @@ def sync(repo,revision,target,apply=False):
  target=Path(target).resolve();dest=target/'.agents/skills';lock=target/'knowledge.lock.json'
  if lock.exists():raise FileExistsError('existing knowledge.lock.json; review upgrade in a separate branch')
  payload={}
- listing=git(repo,'ls-tree','-r',revision,'--','skills').decode().splitlines()
+ listing=git(repo,'ls-tree','-r','-z',revision,'--','skills').decode('utf-8').rstrip('\0').split('\0')
  for line in listing:
   meta,name=line.split('\t',1);mode,kind,oid=meta.split()
   relative=PurePosixPath(name).relative_to('skills')
