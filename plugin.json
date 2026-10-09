@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "robot-test-knowledge",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "机器人测试：编写与迭代通用软件、固件、ROS用例，依据确认用例生成单接口pytest。",
   "repository": "https://github.com/mengjunwu-elephant/robot-test-knowledge",
   "extensions": {

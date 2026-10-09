@@ -14,6 +14,6 @@
 
 Windows安装入口变更须实际运行CMD成功和失败路径，以临时user-root验证不写真实用户目录；命令构建避免JavaScript replacement string的$语义，交付窗口须保留错误与日志路径。
 
-团队治理见 standards/team-rules.md 与 CONTRIBUTING.md；正式发布由 @mengjunwu-elephant 审核执行，禁止每次 main 推送自动发布。
+团队治理见 standards/team-rules.md 与 CONTRIBUTING.md；正式发布由 @mengjunwu-elephant 执行；本人提交或明确授权代提交免人工审批，其他成员修改须本人审核，禁止每次 main 推送自动发布。
 
 用例编写默认使用技能包规范；遇冲突须提示来源、差异和影响，记录使用者选择；接口契约不明不推断结果。0.4.0 ZIP新增白名单中的三份原样模板，不包含现场业务工作簿或原始会话。
