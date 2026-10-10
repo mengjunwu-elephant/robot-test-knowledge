@@ -1,5 +1,5 @@
 {
-  "stage": "test points approved; original 266-record trace index; delivered workbook has 441 independent cases",
+  "stage": "test points approved; current revision retains original 266 cases; prior 441-case draft rejected",
   "source_sha256": "47c8032f2881a90fe4c52c6e0960460756c1aee973488350c2cc7792c5eadaed",
   "counts": {
     "串口指令测试结果": 78,
