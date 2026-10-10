@@ -56,6 +56,21 @@ def team_profile(data, baseline, layouts):
                 row,col=xy(ref)
                 if start<=row<=header and value:
                     labels[addr(1,col)[:-1]]=value
+        headers={}
+        if layout:
+            declared={}
+            for col,value in labels.items():
+                if not isinstance(col,str) or not col.isalpha() or not col.isupper():raise ValueError('invalid layout column '+name)
+                if isinstance(value,str):label=role=value
+                elif isinstance(value,dict):label=value['label'];role=value['role']
+                else:raise ValueError('invalid layout field '+name)
+                if not isinstance(label,str) or not isinstance(role,str):raise ValueError('invalid layout field '+name)
+                if label in roles and role!=label:raise ValueError('known header cannot be remapped to another field '+name+' '+col)
+                candidates=[col+str(row) for row in range(start,header+1) if cells.get(col+str(row),'')]
+                ref=candidates[-1] if candidates else col+str(header)
+                headers[ref]={'label':label}
+                declared[col]=role
+            labels=declared
         fields={}
         for col,label in labels.items():
             if not isinstance(col,str) or not col.isalpha() or not col.isupper() or not isinstance(label,str):raise ValueError('invalid field layout '+name)
@@ -65,16 +80,17 @@ def team_profile(data, baseline, layouts):
         for col in range(1,maxcol+1):
             key=addr(1,col)[:-1]
             if key not in fields:fields[key]={'label':'未映射字段','expected':{'font':baseline['font'],'bold':False,'alignment':{'horizontal':'left','vertical':'center','wrapText':'1'},'border_style':'thin','border_rgb':baseline['body_border_rgb']},'unresolved':True}
-        result['sheets'][name]={'start_row':start,'header_rows':header,'headers':{},'fields':fields,'header_border_rgb':baseline['header_border_rgb']}
+        result['sheets'][name]={'start_row':start,'header_rows':header,'headers':headers,'fields':fields,'header_border_rgb':baseline['header_border_rgb']}
     return result
 
-def review(path,sheet_names=None,mapping=None,profile_path=None,baseline='gripper',layouts=None):
+def review(path,sheet_names=None,mapping=None,profile_path=None,baseline='team',layouts=None):
     path=Path(path);before=hashlib.sha256(path.read_bytes()).hexdigest()
     data=read_workbook(path);styles=load_styles(path)
     if profile_path:profile=json.loads(Path(profile_path).read_text(encoding='utf-8'))
     elif baseline=='team':profile=team_profile(data,json.loads((PROFILE.parent/'team-format.json').read_text(encoding='utf-8')),layouts or {})
     elif baseline=='gripper':profile=json.loads(PROFILE.read_text(encoding='utf-8'))
     else:raise ValueError('unknown baseline')
+    if layouts is not None and (not isinstance(layouts,dict) or any(n not in data for n in layouts)):raise ValueError('layout contains unknown sheet')
     mapping=mapping or {}
     if not isinstance(mapping,dict) or not all(isinstance(k,str) and isinstance(v,str) for k,v in mapping.items()):raise ValueError('mapping must be a sheet-name object')
     names=sheet_names if sheet_names is not None else [n for n in data if n not in ('测试需求与环境','填写说明与示例')]

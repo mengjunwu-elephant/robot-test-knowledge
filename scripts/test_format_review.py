@@ -40,9 +40,9 @@ class FormatTests(unittest.TestCase):
         with zipfile.ZipFile(path,'w') as z:
             for name,root in [('xl/styles.xml',st),('xl/workbook.xml',wb),('xl/_rels/workbook.xml.rels',rels),('xl/worksheets/sheet1.xml',sheet)]:z.writestr(name,E.tostring(root))
         return path
-    def codes(self,path):return {i['code'] for i in checker.review(path)['issues']}
+    def codes(self,path):return {i['code'] for i in checker.review(path,baseline='gripper')['issues']}
     def test_valid_and_read_only(self):
-        p=self.fixture();before=p.read_bytes();r=checker.review(p)
+        p=self.fixture();before=p.read_bytes();r=checker.review(p,baseline='gripper')
         self.assertTrue(r['static_format_passed']);self.assertTrue(r['source_unchanged']);self.assertEqual(before,p.read_bytes())
     def test_font_size_and_name(self):
         def change(st,sh):
@@ -59,15 +59,15 @@ class FormatTests(unittest.TestCase):
         def change(st,sh):st.find('m:fills',checker.NS)[0].find('m:patternFill',checker.NS).set('patternType','solid')
         self.assertIn('BODY_FILL',self.codes(self.fixture(change)))
     def test_merged_perimeter(self):
-        self.assertTrue(checker.review(self.fixture(merged=True))['static_format_passed'])
+        self.assertTrue(checker.review(self.fixture(merged=True),baseline='gripper')['static_format_passed'])
         def change(st,sh):
             for c in sh.findall('.//m:c',checker.NS):
                 if c.get('r')=='B4':c.set('s','0')
         self.assertIn('BORDER',self.codes(self.fixture(change,True)))
     def test_missing_and_unknown_sheet(self):
         p=self.fixture()
-        with self.assertRaises(ValueError):checker.review(p,['missing'])
-        self.assertTrue(checker.review(p,mapping={'串口指令测试结果':'unknown'})['unresolved'])
+        with self.assertRaises(ValueError):checker.review(p,['missing'],baseline='gripper')
+        self.assertTrue(checker.review(p,baseline='gripper',mapping={'串口指令测试结果':'unknown'})['unresolved'])
     def test_changed_header(self):
         def change(st,sh):sh.find('.//m:c/m:is/m:t',checker.NS).text='不同字段'
         self.assertIn('FORMAT_FIELD',self.codes(self.fixture(change)))
@@ -109,5 +109,21 @@ class FormatTests(unittest.TestCase):
         self.assertEqual(run.returncode,0,run.stderr)
         result=json.loads(report.read_text(encoding='utf-8'))
         self.assertEqual(result['baseline'],'team');self.assertEqual(result['field_mapping']['任意软件功能']['B'],'测试目的')
+
+    def test_python_default_is_team(self):
+        r=checker.review(self.team_case())
+        self.assertEqual(r['baseline'],'team');self.assertGreater(r['checked_cells'],0);self.assertFalse(r['unresolved'])
+    def test_incorrect_layout_cannot_pass(self):
+        r=checker.review(self.team_case(),layouts={'任意软件功能':{'header_rows':1,'fields':{'A':'优先级','B':'测试目的','C':'编号'}}})
+        self.assertFalse(r['static_format_passed']);self.assertIn('FORMAT_FIELD',{i['code'] for i in r['issues']})
+    def test_alias_layout_checks_actual_header(self):
+        p=self.team_case(unknown=True)
+        layout={'任意软件功能':{'header_rows':1,'fields':{'A':'编号','B':'测试目的','C':{'label':'未知自定义字段','role':'优先级'}}}}
+        r=checker.review(p,layouts=layout)
+        self.assertTrue(r['static_format_passed']);self.assertFalse(r['unresolved'])
+        layout['任意软件功能']['fields']['C']['label']='不存在的字段'
+        self.assertFalse(checker.review(p,layouts=layout)['static_format_passed'])
+    def test_unknown_layout_sheet_rejected(self):
+        with self.assertRaises(ValueError):checker.review(self.team_case(),layouts={'错名Sheet':{'header_rows':1,'fields':{'A':'编号'}}})
 
 if __name__=='__main__':unittest.main()
