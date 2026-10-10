@@ -3,6 +3,8 @@ name: pytest-generation
 description: 依据已确认用例和项目源码生成或修改单接口 pytest 测试，保护 Fixtures、Allure、Excel 参数化和恢复逻辑。
 ---
 
+
+用例编写与自动化编写/自检分开授权。仅要求编写、完善或评审用例时，不开展pytest源码审查、数据映射检查、AST自检、collection或执行；可阅读必要SDK源码核实接口事实。历史试用意向不代表当前自动化授权。明确要求自动化后，区分生成、静态检查、collection和执行范围，静态检查授权不等于运行授权。
 # pytest-generation
 
 先读取并遵循 [团队公共规则](references/team-rules.md)。本技能版本0.5.0；Codex/Work通过安装目录Update.cmd更新正式版，Cursor通过插件来源刷新/更新。更新后开启新对话；离线时报告当前版本，不能声称已是最新版或将分支刷新当成正式版锁定。

@@ -355,3 +355,6 @@ Windows 安装入口变更后运行 `python -X utf8 scripts/test_launcher_window
 - [变更日志](CHANGELOG.md)
 - [官方插件打包和本地安装说明](https://developers.openai.com/plugins/build/plugins)
 - [官方Skills概念说明](https://developers.openai.com/plugins/concepts/skills)
+
+## 当前使用边界（未发布修订）
+仅要求用例编写或评审时，按Sheet表格显示测试点，先看需修改和缺依据的重点，再看完整清单。可以阅读必要SDK源码核实接口，但不自动开展pytest审查、自检或运行。自动化生成、静态检查、collection、执行需按用户明确指令分别确定范围。这项修订已在仓库源文件中同步，正式v0.5.0下载包尚未包含；不修改个人安装缓存。

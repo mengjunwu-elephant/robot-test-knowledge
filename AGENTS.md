@@ -1,5 +1,9 @@
 # 知识库规则
 
+用例编写与自动化编写/自检分开授权。仅要求编写、完善或评审用例时，不开展pytest源码审查、数据映射检查、AST自检、collection或执行；可阅读必要SDK源码核实接口事实。历史试用意向不代表当前自动化授权。明确要求自动化后，区分生成、静态检查、collection和执行范围，静态检查授权不等于运行授权。
+测试点评审默认按Sheet分组使用表格：先列缺依据、需修改、建议新增的重点，再列完整清单；列明原ID/行号、测试点、接口、优先级、处理建议、预期依据及待确认事项。相同内容尽量精简，长证据移至来源说明；表格只是评审视图，不擅自给原Excel加列或改字段。
+
+
 用例编写的强制关口为Sheet范围确认→测试点独立确认→完整方案及“确认执行”→用例副本；已确认相同范围不重复确认，技能升级不授权后续所有Sheet。样式基线须逐字段明确，参见skills/testcase-iteration/references/cell-format.md；采用夹爪基线时执行review_format.py和原结构校验，静态样式不等于视觉与语义验收。
 
 Cursor GitHub 导入由 .cursor-plugin/marketplace.json 与 .cursor-plugin/plugin.json 提供，技能路径只引用现有 skills；禁止复制出第二套 Cursor 技能源。修改版本时同步根与 Cursor 插件版本，运行离线检查。Cursor 更新走插件来源入口；Install.cmd/Update.cmd 仅用于 Codex/Work。分支刷新不等于只跟随正式 Release，不声称未经客户端验收的安装或自动更新已通过。

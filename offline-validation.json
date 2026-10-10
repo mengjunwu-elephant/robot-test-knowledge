@@ -1,6 +1,6 @@
 {
   "passed": true,
-  "checks": 92,
+  "checks": 51,
   "errors": [],
   "scope": "static files only; no source project imports, collection, hardware or network"
 }
