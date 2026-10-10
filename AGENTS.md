@@ -1,5 +1,7 @@
 # 知识库规则
 
+用例编写的强制关口为Sheet范围确认→测试点独立确认→完整方案及“确认执行”→用例副本；已确认相同范围不重复确认，技能升级不授权后续所有Sheet。样式基线须逐字段明确，参见skills/testcase-iteration/references/cell-format.md；采用夹爪基线时执行review_format.py和原结构校验，静态样式不等于视觉与语义验收。
+
 Cursor GitHub 导入由 .cursor-plugin/marketplace.json 与 .cursor-plugin/plugin.json 提供，技能路径只引用现有 skills；禁止复制出第二套 Cursor 技能源。修改版本时同步根与 Cursor 插件版本，运行离线检查。Cursor 更新走插件来源入口；Install.cmd/Update.cmd 仅用于 Codex/Work。分支刷新不等于只跟随正式 Release，不声称未经客户端验收的安装或自动更新已通过。
 
 从可观察结果、输入边界、证据和恢复责任出发设计测试。

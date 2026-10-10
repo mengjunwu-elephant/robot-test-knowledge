@@ -2,7 +2,7 @@
 
 这是测试团队共同维护的测试规范、项目经验和 Codex Skills 仓库。测试人员提供项目资料，在对话中调用技能，辅助完成用例编写、用例审查和单接口 pytest 代码生成。
 
-**当前正式版本：0.4.1。** 本页更新日期：2026-10-10。版本信息以 [plugin.json](plugin.json) 和 [正式发布页](https://github.com/mengjunwu-elephant/robot-test-knowledge/releases/latest) 为准。
+**当前待发布版本：0.5.0（最近正式版0.4.1）。** 本页更新日期：2026-10-10。版本信息以 [plugin.json](plugin.json) 和 [正式发布页](https://github.com/mengjunwu-elephant/robot-test-knowledge/releases/latest) 为准。
 
 第一次使用，先读第 3、4 节；编写用例看第 5、6 节；维护或发布看第 9、11 节。只使用技能的测试人员不需要先学会仓库全部脚本。
 
@@ -37,6 +37,14 @@
 共享规范不能替代接口契约。例如，Python 库对非法参数抛出 `ValueError`，并不能证明设备对非法协议帧会返回某个错误码。
 
 ## 2. 当前有哪些可用能力
+
+### 0.5.0：用例确认与格式规则
+
+写用例分四步：**确认实际Sheet范围 → 单独评审并确认测试点 → 确认完整方案 → 生成Excel副本**。前一阶段认可后才进入下一阶段；批准技能更新不能代替批准项目用例范围。
+
+采用夹爪v1.4.1格式基线时，正文微软雅黑10号、垂直居中、自动换行、黑色细线全边框。编号、功能名称、测试接口、优先级居中；目的、前置、步骤、预期、执行记录和备注等按配方左对齐；表头10号加粗居中，封面单独保留布局。完整规则见[格式规则](skills/testcase-iteration/references/cell-format.md)、[三道确认关口](skills/testcase-iteration/references/confirmation-flow.md)。原表混用Carlito11号属于已发现异常，不直接沿用。
+
+新增只读格式检查：`python skills/testcase-iteration/scripts/review_format.py --workbook "用例副本.xlsx" --sheet "串口指令测试结果" --report "格式检查.json"`。每个批准Sheet重复一个`--sheet`；结构内容仍用原review_workbook.py检查。格式静态通过不能代替视觉和语义评审。
 
 ### 用例编写与迭代：`testcase-iteration`
 
@@ -77,7 +85,7 @@
 ### Windows 安装步骤
 
 1. 打开 [最新正式版下载页](https://github.com/mengjunwu-elephant/robot-test-knowledge/releases/latest)。
-2. 在 Assets 中下载 `robot-test-knowledge-0.4.1.zip`，或以后新版本同名格式的 ZIP。**不要把 GitHub 的 Source code ZIP 当作安装包。**
+2. 在 Assets 中下载 `robot-test-knowledge-0.5.0.zip`，或以后新版本同名格式的 ZIP。**不要把 GitHub 的 Source code ZIP 当作安装包。**
 3. 完整解压，在解压后的 `robot-test-knowledge` 文件夹里找到 `Install.cmd`。不要在压缩包内运行，也不要只取出一个文件。
 4. 双击 `Install.cmd`，查看窗口结果；窗口会保留信息供检查。
 5. 完全退出并重新打开桌面客户端。

@@ -1,4 +1,5 @@
 import base64, os, subprocess, tempfile, json, hashlib, zipfile, sys
+from datetime import date
 from pathlib import Path
 repo=Path(__file__).resolve().parents[1]; r=repo.parent
 version=json.loads((repo/'plugin.json').read_text(encoding='utf-8'))['version']
@@ -69,7 +70,7 @@ with tempfile.TemporaryDirectory(prefix='robot-launcher-test-') as tmp:
     assert 'Installation stopped:' in failed.stdout
     assert 'Press any key' in failed.stdout
     print('Failure path retained error message and close prompt.')
-report={'date':'2026-10-09','version':version,'package_sha256':hashlib.sha256(archive.read_bytes()).hexdigest(),'installer_tests':7,'cmd_success_path':True,'cmd_failure_path':True,'scope':'temporary user root only; desktop plugin discovery not tested'}
+report={'date':date.today().isoformat(),'version':version,'package_sha256':hashlib.sha256(archive.read_bytes()).hexdigest(),'installer_tests':7,'cmd_success_path':True,'cmd_failure_path':True,'scope':'temporary user root only; desktop plugin discovery not tested'}
 (repo/'packaging/bundle-validation.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
 print(json.dumps(report))
 
