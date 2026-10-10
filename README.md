@@ -2,7 +2,7 @@
 
 这是测试团队共同维护的测试规范、项目经验和 Codex Skills 仓库。测试人员提供项目资料，在对话中调用技能，辅助完成用例编写、用例审查和单接口 pytest 代码生成。
 
-**当前正式版本：0.5.0。** 本页更新日期：2026-10-10。版本信息以 [plugin.json](plugin.json) 和 [正式发布页](https://github.com/mengjunwu-elephant/robot-test-knowledge/releases/latest) 为准。
+**当前正式版本：0.6.0。** 本页更新日期：2026-10-10。版本信息以 [plugin.json](plugin.json) 和 [正式发布页](https://github.com/mengjunwu-elephant/robot-test-knowledge/releases/latest) 为准。
 
 第一次使用，先读第 3、4 节；编写用例看第 5、6 节；维护或发布看第 9、11 节。只使用技能的测试人员不需要先学会仓库全部脚本。
 
@@ -85,7 +85,7 @@
 ### Windows 安装步骤
 
 1. 打开 [最新正式版下载页](https://github.com/mengjunwu-elephant/robot-test-knowledge/releases/latest)。
-2. 在 Assets 中下载 `robot-test-knowledge-0.5.0.zip`，或以后新版本同名格式的 ZIP。**不要把 GitHub 的 Source code ZIP 当作安装包。**
+2. 在 Assets 中下载 `robot-test-knowledge-0.6.0.zip`，或以后新版本同名格式的 ZIP。**不要把 GitHub 的 Source code ZIP 当作安装包。**
 3. 完整解压，在解压后的 `robot-test-knowledge` 文件夹里找到 `Install.cmd`。不要在压缩包内运行，也不要只取出一个文件。
 4. 双击 `Install.cmd`，查看窗口结果；窗口会保留信息供检查。
 5. 完全退出并重新打开桌面客户端。
@@ -356,8 +356,11 @@ Windows 安装入口变更后运行 `python -X utf8 scripts/test_launcher_window
 - [官方插件打包和本地安装说明](https://developers.openai.com/plugins/build/plugins)
 - [官方Skills概念说明](https://developers.openai.com/plugins/concepts/skills)
 
-## 当前使用边界（未发布修订）
-仅要求用例编写或评审时，按Sheet表格显示测试点，先看需修改和缺依据的重点，再看完整清单。可以阅读必要SDK源码核实接口，但不自动开展pytest审查、自检或运行。自动化生成、静态检查、collection、执行需按用户明确指令分别确定范围。这项修订已在仓库源文件中同步，正式v0.5.0下载包尚未包含；不修改个人安装缓存。
+## 当前使用边界（v0.6.0）
+仅要求用例编写或评审时，按Sheet表格显示测试点，先看需修改和缺依据的重点，再看完整清单。可以阅读必要SDK源码核实接口，但不自动开展pytest审查、自检或运行。自动化生成、静态检查、collection、执行需按用户明确指令分别确定范围。这项修订纳入v0.6.0正式下载包；发布不自动修改个人安装缓存。
 
 
-用例可操作性修订（仓库源，未发布）：参见[可直接操作的用例写法](skills/testcase-iteration/references/practical-writing.md)。前置只写状态，实际步骤与预期逐编号对应，同接口公共字段合并，响应时间名称保持真实名称；不机械追加单独验证行。
+用例可操作性修订（v0.6.0）：参见[可直接操作的用例写法](skills/testcase-iteration/references/practical-writing.md)。前置只写状态，实际步骤与预期逐编号对应，同接口公共字段合并，响应时间名称保持真实名称；不机械追加单独验证行。
+
+
+v0.6.0发布内容：已验收266条用例的六项写法和示例、接口中心评审、用例与自动化分开授权。业务工作簿不进入安装包；用户的写法验收不代表设备测试通过。
