@@ -1,0 +1,8 @@
+{
+  "name": "robot-test-knowledge",
+  "version": "0.4.1",
+  "description": "大象机器人测试技能包：编写、审查通用软件、固件和 ROS 用例，依据确认用例生成单接口 pytest。",
+  "author": { "name": "mengjunwu-elephant" },
+  "repository": "https://github.com/mengjunwu-elephant/robot-test-knowledge",
+  "skills": "./skills/"
+}

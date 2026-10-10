@@ -6,6 +6,24 @@
 
 第一次使用，先读第 3、4 节；编写用例看第 5、6 节；维护或发布看第 9、11 节。只使用技能的测试人员不需要先学会仓库全部脚本。
 
+### Cursor：从 GitHub 直接安装
+
+仓库已提供 Cursor 导入清单，复用同一份两项技能。支持该功能的 Cursor 中：
+
+1. 打开 **Customize（自定义）**，选择 **From GitHub Repository（从 GitHub 仓库导入）**。
+2. 粘贴 `https://github.com/mengjunwu-elephant/robot-test-knowledge`。
+3. 导入后找到 `robot-test-knowledge`（大象机器人测试技能包），点击 **Install**。
+4. 开启新对话，输入 `/`，选择 `testcase-iteration` 或 `pytest-generation`。
+5. 例如：选择用例技能后说“审查本项目已有 Excel，先读取项目规则和接口资料，列出缺口，不连接实体机器人”。
+
+如果看不到 GitHub 导入入口，先核对 Cursor 版本是否支持插件；也可以将两个完整技能文件夹放入本机 `~/.cursor/skills/`。不要同时安装同名的手动副本和插件，以免版本混淆。
+
+**更新与版本**：Cursor 通过导入来源刷新、更新插件；本仓库的 `Install.cmd`、`Update.cmd` 仅服务 Codex/Work。技能内提到 `Update.cmd` 时，在 Cursor 应改用其插件更新入口。GitHub 导入通常使用来源所跟踪的分支，不能把它说成自动只跟随 GitHub Release；团队如启用 Auto Refresh，需核对跟踪分支和 GitHub App 权限。当前未验证用户 Cursor 的实际安装、自动刷新或正式版锁定。
+
+维护者修改技能版本时，需同步根 `plugin.json` 与 `.cursor-plugin/plugin.json`；离线校验会检查二者一致。既有 v0.4.1 ZIP 保持原样，Cursor 从仓库导入新清单。
+
+格式与入口依据：[Cursor 插件参考](https://cursor.com/docs/reference/plugins)、[Cursor 技能说明](https://cursor.com/docs/skills)。此入口不代表已上架 Cursor 官方市场；团队市场需要相应团队套餐和权限。
+
 ## 1. 知识库解决什么问题
 
 不同项目中，经常重复处理类似的问题：资料是否完整、用例字段怎么填、测试目的是否清楚、边界值有没有依据、旧版本用例怎样迁移、生成的 pytest 是否符合原项目框架。

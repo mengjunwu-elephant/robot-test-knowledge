@@ -1,5 +1,7 @@
 # 知识库规则
 
+Cursor GitHub 导入由 .cursor-plugin/marketplace.json 与 .cursor-plugin/plugin.json 提供，技能路径只引用现有 skills；禁止复制出第二套 Cursor 技能源。修改版本时同步根与 Cursor 插件版本，运行离线检查。Cursor 更新走插件来源入口；Install.cmd/Update.cmd 仅用于 Codex/Work。分支刷新不等于只跟随正式 Release，不声称未经客户端验收的安装或自动更新已通过。
+
 从可观察结果、输入边界、证据和恢复责任出发设计测试。
 每次任务先检索当前项目 AGENTS.md、.cursorrules、.agents/skills、.cursor/skills、.codex 中现有规则技能，读取相关内容再行动。
 当前用户授权决定任务范围；团队测试规范冲突时公共规则优先，项目规则补充差异；用户指令与平台约束优先。公共流程不能覆盖可信 SDK 事实和受保护的测试结构。冲突标注并依据来源版本澄清，不能跨项目复制 SDK 契约。

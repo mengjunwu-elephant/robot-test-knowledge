@@ -3,7 +3,7 @@ on:
   pull_request:
   push:
     branches: [main]
-    paths: ['plugin.json', 'packaging/**', 'skills/**', '.agents/skills/**', 'scripts/**', '.github/workflows/package.yml']
+    paths: ['plugin.json', '.cursor-plugin/**', 'packaging/**', 'skills/**', '.agents/skills/**', 'scripts/**', '.github/workflows/package.yml']
   workflow_dispatch:
 permissions:
   contents: read

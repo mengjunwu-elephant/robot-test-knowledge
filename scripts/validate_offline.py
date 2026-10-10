@@ -3,6 +3,18 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 def validate(root=ROOT,sources=False):
  errors=[];checks=0
+ try:
+  marketplace=json.loads((root/'.cursor-plugin/marketplace.json').read_text(encoding='utf-8'))
+  cursor=json.loads((root/'.cursor-plugin/plugin.json').read_text(encoding='utf-8'))
+  portable=json.loads((root/'plugin.json').read_text(encoding='utf-8'))
+  checks+=5
+  if marketplace['plugins'][0]['source']!='.':errors.append('Cursor marketplace must resolve repository root')
+  if marketplace['plugins'][0]['name']!=cursor['name'] or cursor['name']!=portable['name']:errors.append('Cursor plugin name mismatch')
+  if cursor['version']!=portable['version']:errors.append('Cursor plugin version mismatch')
+  if cursor['skills']!='./skills/':errors.append('Cursor must reuse canonical skills directory')
+  if len(marketplace['plugins'])!=1:errors.append('unexpected Cursor marketplace entries')
+ except (OSError,ValueError,KeyError,IndexError,TypeError) as e:
+  errors.append('invalid Cursor manifest: '+str(e))
  required=['standards','fundamentals','skills','templates','scripts','projects','README.md','CHANGELOG.md','AGENTS.md','docs/方案总文档.md','docs/项目交接文档.md']
  for p in required:
   checks+=1

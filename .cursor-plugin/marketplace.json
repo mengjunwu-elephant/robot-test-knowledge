@@ -1,0 +1,13 @@
+{
+  "name": "robot-test-knowledge-marketplace",
+  "owner": { "name": "mengjunwu-elephant" },
+  "metadata": { "description": "大象机器人测试技能：团队共同维护的用例编写与 pytest 生成工作流" },
+  "plugins": [
+    {
+      "name": "robot-test-knowledge",
+      "source": ".",
+      "description": "大象机器人测试技能包：用例编写与迭代、单接口 pytest 生成",
+      "repository": "https://github.com/mengjunwu-elephant/robot-test-knowledge"
+    }
+  ]
+}
