@@ -1,0 +1,411 @@
+{
+  "source_file": "elegripper_modbus.py",
+  "source_sha256": "cd262034c5ea70ecb4f2c5a2d595a00b511543fb50dd8bb959214cccb1d1df5e",
+  "repository_commit": "5ffbeefbad384fcec68c9763508aa0942f0170b3",
+  "scope": "当前指定本地库实现的静态证据，不是v1.4.1固件验收合同，也不是pro_gripper固定子模块",
+  "methods": {
+    "__init__": {
+      "line": 30,
+      "args": [
+        "self",
+        "port",
+        "baudrate",
+        "id"
+      ],
+      "checks": []
+    },
+    "check_value": {
+      "line": 45,
+      "args": [
+        "self",
+        "value",
+        "lower",
+        "upper",
+        "index"
+      ],
+      "checks": []
+    },
+    "__byte_deal": {
+      "line": 68,
+      "args": [
+        "self",
+        "value1",
+        "value2"
+      ],
+      "checks": []
+    },
+    "__crc16_modbus": {
+      "line": 84,
+      "args": [
+        "self",
+        "data"
+      ],
+      "checks": []
+    },
+    "__send_cmd": {
+      "line": 104,
+      "args": [
+        "self",
+        "cmd"
+      ],
+      "checks": []
+    },
+    "set_gripper_value": {
+      "line": 163,
+      "args": [
+        "self",
+        "value",
+        "speed"
+      ],
+      "checks": [
+        "self.check_value(value, 0, 100)",
+        "self.check_value(speed, 1, 100)"
+      ]
+    },
+    "set_gripper_speed": {
+      "line": 183,
+      "args": [
+        "self",
+        "value"
+      ],
+      "checks": [
+        "self.check_value(value, 0, 100)"
+      ]
+    },
+    "set_gripper_enable": {
+      "line": 200,
+      "args": [
+        "self",
+        "value"
+      ],
+      "checks": [
+        "self.check_value(value, 0, 1)"
+      ]
+    },
+    "set_gripper_calibration": {
+      "line": 217,
+      "args": [
+        "self"
+      ],
+      "checks": []
+    },
+    "get_gripper_value": {
+      "line": 230,
+      "args": [
+        "self"
+      ],
+      "checks": []
+    },
+    "get_gripper_status": {
+      "line": 243,
+      "args": [
+        "self"
+      ],
+      "checks": []
+    },
+    "get_firmware_version": {
+      "line": 260,
+      "args": [
+        "self"
+      ],
+      "checks": []
+    },
+    "get_modified_version": {
+      "line": 273,
+      "args": [
+        "self"
+      ],
+      "checks": []
+    },
+    "set_gripper_Id": {
+      "line": 286,
+      "args": [
+        "self",
+        "value"
+      ],
+      "checks": [
+        "self.check_value(value, 1, 254)"
+      ]
+    },
+    "get_gripper_Id": {
+      "line": 303,
+      "args": [
+        "self"
+      ],
+      "checks": []
+    },
+    "set_gripper_baud": {
+      "line": 316,
+      "args": [
+        "self",
+        "value"
+      ],
+      "checks": [
+        "self.check_value(value, 0, 5)"
+      ]
+    },
+    "get_gripper_baud": {
+      "line": 340,
+      "args": [
+        "self"
+      ],
+      "checks": []
+    },
+    "set_gripper_P": {
+      "line": 360,
+      "args": [
+        "self",
+        "value"
+      ],
+      "checks": [
+        "self.check_value(value, 0, 254)"
+      ]
+    },
+    "get_gripper_P": {
+      "line": 377,
+      "args": [
+        "self"
+      ],
+      "checks": []
+    },
+    "set_gripper_D": {
+      "line": 390,
+      "args": [
+        "self",
+        "value"
+      ],
+      "checks": [
+        "self.check_value(value, 0, 254)"
+      ]
+    },
+    "get_gripper_D": {
+      "line": 407,
+      "args": [
+        "self"
+      ],
+      "checks": []
+    },
+    "set_gripper_I": {
+      "line": 420,
+      "args": [
+        "self",
+        "value"
+      ],
+      "checks": [
+        "self.check_value(value, 0, 254)"
+      ]
+    },
+    "get_gripper_I": {
+      "line": 437,
+      "args": [
+        "self"
+      ],
+      "checks": []
+    },
+    "set_gripper_cw": {
+      "line": 450,
+      "args": [
+        "self",
+        "value"
+      ],
+      "checks": [
+        "self.check_value(value, 0, 16)"
+      ]
+    },
+    "get_gripper_cw": {
+      "line": 467,
+      "args": [
+        "self"
+      ],
+      "checks": []
+    },
+    "set_gripper_cww": {
+      "line": 480,
+      "args": [
+        "self",
+        "value"
+      ],
+      "checks": [
+        "self.check_value(value, 0, 16)"
+      ]
+    },
+    "get_gripper_cww": {
+      "line": 497,
+      "args": [
+        "self"
+      ],
+      "checks": []
+    },
+    "set_gripper_mini_pressure": {
+      "line": 510,
+      "args": [
+        "self",
+        "value"
+      ],
+      "checks": [
+        "self.check_value(value, 0, 254)"
+      ]
+    },
+    "get_gripper_mini_pressure": {
+      "line": 527,
+      "args": [
+        "self"
+      ],
+      "checks": []
+    },
+    "set_gripper_torque": {
+      "line": 540,
+      "args": [
+        "self",
+        "value"
+      ],
+      "checks": [
+        "self.check_value(value, 0, 100)"
+      ]
+    },
+    "get_gripper_torque": {
+      "line": 557,
+      "args": [
+        "self"
+      ],
+      "checks": []
+    },
+    "set_gripper_output": {
+      "line": 570,
+      "args": [
+        "self",
+        "value"
+      ],
+      "checks": [
+        "self.check_value(value, 0, 3)"
+      ]
+    },
+    "set_gripper_io_open_value": {
+      "line": 597,
+      "args": [
+        "self",
+        "value"
+      ],
+      "checks": [
+        "self.check_value(value, 0, 100)"
+      ]
+    },
+    "set_gripper_io_close_value": {
+      "line": 614,
+      "args": [
+        "self",
+        "value"
+      ],
+      "checks": [
+        "self.check_value(value, 0, 100)"
+      ]
+    },
+    "get_gripper_speed": {
+      "line": 631,
+      "args": [
+        "self"
+      ],
+      "checks": []
+    },
+    "get_gripper_io_open_value": {
+      "line": 644,
+      "args": [
+        "self"
+      ],
+      "checks": []
+    },
+    "get_gripper_io_close_value": {
+      "line": 657,
+      "args": [
+        "self"
+      ],
+      "checks": []
+    },
+    "set_abs_gripper_value": {
+      "line": 670,
+      "args": [
+        "self",
+        "value",
+        "speed"
+      ],
+      "checks": [
+        "self.check_value(value, 0, 100)",
+        "self.check_value(speed, 1, 100)"
+      ]
+    },
+    "set_gripper_pause": {
+      "line": 691,
+      "args": [
+        "self"
+      ],
+      "checks": []
+    },
+    "set_gripper_resume": {
+      "line": 704,
+      "args": [
+        "self"
+      ],
+      "checks": []
+    },
+    "set_gripper_stop": {
+      "line": 717,
+      "args": [
+        "self"
+      ],
+      "checks": []
+    },
+    "get_gripper_queue_count": {
+      "line": 730,
+      "args": [
+        "self"
+      ],
+      "checks": []
+    },
+    "set_gripper_vir_pos": {
+      "line": 743,
+      "args": [
+        "self",
+        "value"
+      ],
+      "checks": [
+        "self.check_value(value, 0, 100)"
+      ]
+    },
+    "get_gripper_vir_pos": {
+      "line": 760,
+      "args": [
+        "self"
+      ],
+      "checks": []
+    },
+    "set_gripper_protection_current": {
+      "line": 773,
+      "args": [
+        "self",
+        "value"
+      ],
+      "checks": [
+        "self.check_value(value, 100, 300)"
+      ]
+    },
+    "get_gripper_protection_current": {
+      "line": 790,
+      "args": [
+        "self"
+      ],
+      "checks": []
+    },
+    "set_gripper_state": {
+      "line": 803,
+      "args": [
+        "self",
+        "value",
+        "speed"
+      ],
+      "checks": [
+        "self.check_value(value, 0, 1)",
+        "self.check_value(speed, 1, 100)"
+      ]
+    }
+  }
+}

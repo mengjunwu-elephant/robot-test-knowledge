@@ -1,0 +1,3584 @@
+{
+  "stage": "test points awaiting review",
+  "source_sha256": "47c8032f2881a90fe4c52c6e0960460756c1aee973488350c2cc7792c5eadaed",
+  "counts": {
+    "串口指令测试结果": 78,
+    "屏幕按键功能测试": 15,
+    "modbus指令功能测试": 78,
+    "modbus响应时间测试": 42,
+    "串口指令响应时间": 42,
+    "力矩测试": 11
+  },
+  "points": [
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 3,
+      "source_id": "SER-001",
+      "purpose": "验证通过 Python 库读取固件主版本号，并与设备标识核对。",
+      "api": "get_firmware_version",
+      "priority": "P1",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认"
+      ]
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 4,
+      "source_id": "SER-002",
+      "purpose": "验证通过 Python 库读取固件次版本号，并与设备标识核对。",
+      "api": "get_modified_version",
+      "priority": "P1",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认"
+      ]
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 5,
+      "source_id": "SER-003",
+      "purpose": "验证设置合法设备 ID 后可读回新 ID。",
+      "api": "set_gripper_Id",
+      "priority": "P1",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认"
+      ]
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 6,
+      "source_id": "SER-004",
+      "purpose": "验证更改设备 ID 后旧 ID 不响应、新 ID 可控制；超限 ID 的库校验单独记录。",
+      "api": "set_gripper_Id",
+      "priority": "P1",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认",
+        "拆分库参数异常与原始协议非法帧；不能把ValueError等同固件FF"
+      ]
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 7,
+      "source_id": "SER-005",
+      "purpose": "验证设备 ID 设置值及断电后保持值均可正确读回。",
+      "api": "get_gripper_Id",
+      "priority": "P1",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "候选沿用，仍需核对独立预期依据",
+      "gaps": []
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 8,
+      "source_id": "SER-006",
+      "purpose": "验证合法波特率索引的设置调用与通信切换。",
+      "api": "set_gripper_baud",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "预期空白，须补可观察判据与独立依据"
+      ]
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 9,
+      "source_id": "SER-007",
+      "purpose": "验证越界波特率索引被 Python 库拦截。",
+      "api": "set_gripper_baud",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认",
+        "拆分库参数异常与原始协议非法帧；不能把ValueError等同固件FF"
+      ]
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 10,
+      "source_id": "SER-008",
+      "purpose": "验证各合法波特率索引均可设置并在新速率下通信。",
+      "api": "set_gripper_baud",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认"
+      ]
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 11,
+      "source_id": "SER-009",
+      "purpose": "验证上位机波特率与设备匹配时可通信、不匹配时无法通信。",
+      "api": "set_gripper_baud",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认"
+      ]
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 12,
+      "source_id": "SER-010",
+      "purpose": "验证读取的波特率索引与当前设置值一致。",
+      "api": "get_gripper_baud",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认"
+      ]
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 13,
+      "source_id": "SER-011",
+      "purpose": "验证波特率设置值在断电重连后保持。",
+      "api": "get_gripper_baud",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认"
+      ]
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 14,
+      "source_id": "SER-012",
+      "purpose": "验证通过 Python 库设置使能与去使能状态的调用路径。",
+      "api": "set_gripper_enable",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "预期空白，须补可观察判据与独立依据"
+      ]
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 15,
+      "source_id": "SER-013",
+      "purpose": "验证去使能后运动控制的实际行为及返回值。",
+      "api": "set_gripper_enable",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认"
+      ]
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 16,
+      "source_id": "SER-014",
+      "purpose": "验证上使能后运动控制的实际行为及返回值。",
+      "api": "set_gripper_enable",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认"
+      ]
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 17,
+      "source_id": "SER-015",
+      "purpose": "验证非法使能值 2、3 被 Python 库拦截；设备 FF 响应另行确认。",
+      "api": "set_gripper_enable",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "拆分库参数异常与原始协议非法帧；不能把ValueError等同固件FF"
+      ]
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 18,
+      "source_id": "SER-016",
+      "purpose": "验证合法目标位置调用后夹爪到达指定位置。",
+      "api": "set_gripper_value",
+      "priority": "P1",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "候选沿用，仍需核对独立预期依据",
+      "gaps": []
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 19,
+      "source_id": "SER-017",
+      "purpose": "验证 IO 控制与 Python 运动调用先后切换时的优先关系。",
+      "api": "set_gripper_value",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认"
+      ]
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 20,
+      "source_id": "SER-018",
+      "purpose": "验证位置参数边界及越界值的库校验和运动结果。",
+      "api": "set_gripper_value",
+      "priority": "P3",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认",
+        "拆分库参数异常与原始协议非法帧；不能把ValueError等同固件FF"
+      ]
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 21,
+      "source_id": "SER-019",
+      "purpose": "验证速度参数边界及不同速度下的运动差异。",
+      "api": "set_gripper_value",
+      "priority": "P3",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "拆分库参数异常与原始协议非法帧；不能把ValueError等同固件FF"
+      ]
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 22,
+      "source_id": "SER-020",
+      "purpose": "验证连续位置调用后运动、屏幕位置和回读值一致。",
+      "api": "set_gripper_value",
+      "priority": "P3",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认"
+      ]
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 23,
+      "source_id": "SER-021",
+      "purpose": "验证普通位置运动中插入绝对位置调用时的运动顺序。",
+      "api": "set_gripper_value",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "候选沿用，仍需核对独立预期依据",
+      "gaps": []
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 24,
+      "source_id": "SER-022",
+      "purpose": "验证目标位置设置后 Python 回读值与目标接近。",
+      "api": "get_gripper_value",
+      "priority": "P1",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认"
+      ]
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 25,
+      "source_id": "SER-023",
+      "purpose": "验证零位校准成功、受阻失败及调用返回值。",
+      "api": "set_gripper_calibration",
+      "priority": "P1",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认"
+      ]
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 26,
+      "source_id": "SER-024",
+      "purpose": "验证连续读取运动及夹持状态时的状态码和稳定性。",
+      "api": "get_gripper_status",
+      "priority": "P1",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "候选沿用，仍需核对独立预期依据",
+      "gaps": []
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 27,
+      "source_id": "SER-025",
+      "purpose": "验证夹持物体后状态回读为夹持态。",
+      "api": "get_gripper_status",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "候选沿用，仍需核对独立预期依据",
+      "gaps": []
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 28,
+      "source_id": "SER-026",
+      "purpose": "验证夹持物体掉落后状态回读为掉落态。",
+      "api": "get_gripper_status",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "候选沿用，仍需核对独立预期依据",
+      "gaps": []
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 29,
+      "source_id": "SER-027",
+      "purpose": "验证张开运动过程中状态回读为运动态。",
+      "api": "get_gripper_status",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "候选沿用，仍需核对独立预期依据",
+      "gaps": []
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 30,
+      "source_id": "SER-028",
+      "purpose": "验证张开运动结束后状态回读为停止未夹持态。",
+      "api": "get_gripper_status",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "候选沿用，仍需核对独立预期依据",
+      "gaps": []
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 31,
+      "source_id": "SER-029",
+      "purpose": "验证 P 参数合法值设置、读回及越界拦截。",
+      "api": "set_gripper_P",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认",
+        "拆分库参数异常与原始协议非法帧；不能把ValueError等同固件FF"
+      ]
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 32,
+      "source_id": "SER-030",
+      "purpose": "验证 P 参数断电后可读回并保持设定值。",
+      "api": "get_gripper_P",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认"
+      ]
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 33,
+      "source_id": "SER-031",
+      "purpose": "验证 D 参数合法值设置、读回及越界拦截。",
+      "api": "set_gripper_D",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认",
+        "拆分库参数异常与原始协议非法帧；不能把ValueError等同固件FF"
+      ]
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 34,
+      "source_id": "SER-032",
+      "purpose": "验证 D 参数断电后可读回并保持设定值。",
+      "api": "get_gripper_D",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认"
+      ]
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 35,
+      "source_id": "SER-033",
+      "purpose": "验证 I 参数合法值设置、读回及越界拦截。",
+      "api": "set_gripper_I",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认",
+        "拆分库参数异常与原始协议非法帧；不能把ValueError等同固件FF"
+      ]
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 36,
+      "source_id": "SER-034",
+      "purpose": "验证 I 参数断电后可读回并保持设定值。",
+      "api": "get_gripper_I",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认"
+      ]
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 37,
+      "source_id": "SER-035",
+      "purpose": "验证顺时针运行误差合法值设置、读回及越界拦截。",
+      "api": "set_gripper_cw",
+      "priority": "P1",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认",
+        "拆分库参数异常与原始协议非法帧；不能把ValueError等同固件FF"
+      ]
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 38,
+      "source_id": "SER-036",
+      "purpose": "验证顺时针运行误差断电后保持设定值。",
+      "api": "get_gripper_cw",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认"
+      ]
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 39,
+      "source_id": "SER-037",
+      "purpose": "验证逆时针运行误差合法值设置、读回及越界拦截。",
+      "api": "set_gripper_cww",
+      "priority": "P1",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认",
+        "拆分库参数异常与原始协议非法帧；不能把ValueError等同固件FF"
+      ]
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 40,
+      "source_id": "SER-038",
+      "purpose": "验证逆时针运行误差断电后保持设定值。",
+      "api": "get_gripper_cww",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认"
+      ]
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 41,
+      "source_id": "SER-039",
+      "purpose": "验证最小启动力合法值设置、读回及越界拦截。",
+      "api": "set_gripper_mini_pressure",
+      "priority": "P1",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认",
+        "拆分库参数异常与原始协议非法帧；不能把ValueError等同固件FF"
+      ]
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 42,
+      "source_id": "SER-040",
+      "purpose": "验证最小启动力断电后保持设定值。",
+      "api": "get_gripper_mini_pressure",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认"
+      ]
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 43,
+      "source_id": "SER-041",
+      "purpose": "验证扭矩合法值设置、读回及越界拦截。",
+      "api": "set_gripper_torque",
+      "priority": "P1",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认",
+        "拆分库参数异常与原始协议非法帧；不能把ValueError等同固件FF"
+      ]
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 44,
+      "source_id": "SER-042",
+      "purpose": "验证扭矩断电后保持设定值。",
+      "api": "get_gripper_torque",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认"
+      ]
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 45,
+      "source_id": "SER-043",
+      "purpose": "验证 IO 输出四种合法状态及非法状态的库校验。",
+      "api": "set_gripper_output",
+      "priority": "P1",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认",
+        "拆分库参数异常与原始协议非法帧；不能把ValueError等同固件FF"
+      ]
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 46,
+      "source_id": "SER-044",
+      "purpose": "验证 IO 输出状态在断电后复位。",
+      "api": "set_gripper_output",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "候选沿用，仍需核对独立预期依据",
+      "gaps": []
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 47,
+      "source_id": "SER-045",
+      "purpose": "验证 IO 张开位置的设置、实际运动和越界拦截。",
+      "api": "set_gripper_io_open_value",
+      "priority": "P1",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认",
+        "拆分库参数异常与原始协议非法帧；不能把ValueError等同固件FF"
+      ]
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 48,
+      "source_id": "SER-046",
+      "purpose": "验证 IO 闭合位置的设置、实际运动和越界拦截。",
+      "api": "set_gripper_io_close_value",
+      "priority": "P1",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认",
+        "拆分库参数异常与原始协议非法帧；不能把ValueError等同固件FF"
+      ]
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 49,
+      "source_id": "SER-047",
+      "purpose": "验证夹爪速度合法值的设置及越界拦截。",
+      "api": "set_gripper_speed",
+      "priority": "P1",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认",
+        "拆分库参数异常与原始协议非法帧；不能把ValueError等同固件FF"
+      ]
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 50,
+      "source_id": "SER-048",
+      "purpose": "验证连续修改速度后回读值与最终设置值一致。",
+      "api": "get_gripper_speed",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认"
+      ]
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 51,
+      "source_id": "SER-049",
+      "purpose": "验证速度设置值与屏幕显示之间的映射。",
+      "api": "get_gripper_speed",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认"
+      ]
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 52,
+      "source_id": "SER-050",
+      "purpose": "验证相同扭矩、不同速度下均可完成开合运动。",
+      "api": "get_gripper_speed",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认"
+      ]
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 53,
+      "source_id": "SER-051",
+      "purpose": "验证默认速度断电后保持设定值。",
+      "api": "get_gripper_speed",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "候选沿用，仍需核对独立预期依据",
+      "gaps": []
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 54,
+      "source_id": "SER-052",
+      "purpose": "验证 IO 张开位置设置值及断电保持值。",
+      "api": "get_gripper_io_open_value",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认"
+      ]
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 55,
+      "source_id": "SER-053",
+      "purpose": "验证 IO 闭合位置设置值及断电保持值。",
+      "api": "get_gripper_io_close_value",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认"
+      ]
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 56,
+      "source_id": "SER-054",
+      "purpose": "验证绝对位置调用及实际完成状态。",
+      "api": "set_abs_gripper_value",
+      "priority": "P1",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "预期空白，须补可观察判据与独立依据"
+      ]
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 57,
+      "source_id": "SER-055",
+      "purpose": "验证连续绝对位置调用按队列依次执行。",
+      "api": "set_abs_gripper_value",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "候选沿用，仍需核对独立预期依据",
+      "gaps": []
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 58,
+      "source_id": "SER-056",
+      "purpose": "验证绝对运动中插入普通位置调用的执行顺序。",
+      "api": "set_abs_gripper_value",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "候选沿用，仍需核对独立预期依据",
+      "gaps": []
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 59,
+      "source_id": "SER-057",
+      "purpose": "验证绝对运动中设置及读取其他参数的可用性和优先顺序。",
+      "api": "set_abs_gripper_value",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认"
+      ]
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 60,
+      "source_id": "SER-058",
+      "purpose": "验证高频提交绝对位置调用后队列逐项执行并清空。",
+      "api": "set_abs_gripper_value",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "候选沿用，仍需核对独立预期依据",
+      "gaps": []
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 61,
+      "source_id": "SER-059",
+      "purpose": "验证绝对运动遇到物体阻挡时的返回值和运动行为。",
+      "api": "set_abs_gripper_value",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "候选沿用，仍需核对独立预期依据",
+      "gaps": []
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 62,
+      "source_id": "SER-060",
+      "purpose": "验证绝对运动期间执行零位校准的返回值和优先顺序。",
+      "api": "set_abs_gripper_value",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认"
+      ]
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 63,
+      "source_id": "SER-061",
+      "purpose": "验证绝对运动队列暂停后剩余任务保留。",
+      "api": "set_gripper_pause",
+      "priority": "P1",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "候选沿用，仍需核对独立预期依据",
+      "gaps": []
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 64,
+      "source_id": "SER-062",
+      "purpose": "验证普通位置运动不受暂停队列调用影响。",
+      "api": "set_gripper_pause",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "候选沿用，仍需核对独立预期依据",
+      "gaps": []
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 65,
+      "source_id": "SER-063",
+      "purpose": "验证暂停后恢复调用可继续执行剩余绝对运动队列。",
+      "api": "set_gripper_resume",
+      "priority": "P1",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "候选沿用，仍需核对独立预期依据",
+      "gaps": []
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 66,
+      "source_id": "SER-064",
+      "purpose": "验证停止调用使运动终止并清空队列。",
+      "api": "set_gripper_stop",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "候选沿用，仍需核对独立预期依据",
+      "gaps": []
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 67,
+      "source_id": "SER-065",
+      "purpose": "验证绝对运动队列数量回读及普通运动时的队列值。",
+      "api": "get_gripper_queue_count",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "候选沿用，仍需核对独立预期依据",
+      "gaps": []
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 68,
+      "source_id": "SER-066",
+      "purpose": "验证虚位参数合法设置、读回及越界拦截。",
+      "api": "set_gripper_vir_pos",
+      "priority": "P1",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认",
+        "拆分库参数异常与原始协议非法帧；不能把ValueError等同固件FF"
+      ]
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 69,
+      "source_id": "SER-067",
+      "purpose": "验证虚位参数设置后立即读回正确。",
+      "api": "get_gripper_vir_pos",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认"
+      ]
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 70,
+      "source_id": "SER-068",
+      "purpose": "验证虚位参数断电后保持设定值。",
+      "api": "get_gripper_vir_pos",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "候选沿用，仍需核对独立预期依据",
+      "gaps": []
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 71,
+      "source_id": "SER-069",
+      "purpose": "验证保护电流合法设置、读回及越界拦截。",
+      "api": "set_gripper_protection_current",
+      "priority": "P1",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认",
+        "拆分库参数异常与原始协议非法帧；不能把ValueError等同固件FF"
+      ]
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 72,
+      "source_id": "SER-070",
+      "purpose": "验证保护电流设置后立即读回正确。",
+      "api": "get_gripper_protection_current",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认"
+      ]
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 73,
+      "source_id": "SER-071",
+      "purpose": "验证保护电流断电后保持设定值。",
+      "api": "get_gripper_protection_current",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "候选沿用，仍需核对独立预期依据",
+      "gaps": []
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 74,
+      "source_id": "SER-072",
+      "purpose": "确认旧版“运动并返回角度”行为是否有 Python 库入口。",
+      "api": "库无对应方法（MoveGripperToAngle）",
+      "priority": "P1",
+      "basis": "S1（既有设计）; 接口/UI/物理预期需独立资料",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认",
+        "拆分库参数异常与原始协议非法帧；不能把ValueError等同固件FF",
+        "现有内容含待确认，不能作执行基线",
+        "指定库缺少公开方法，保留接口缺口，不编造调用"
+      ]
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 75,
+      "source_id": "SER-073",
+      "purpose": "确认旧版“运动并返回角度”与绝对运动插入场景是否有 Python 库入口。",
+      "api": "库无对应方法（MoveGripperToAngle）",
+      "priority": "P2",
+      "basis": "S1（既有设计）; 接口/UI/物理预期需独立资料",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "现有内容含待确认，不能作执行基线",
+        "指定库缺少公开方法，保留接口缺口，不编造调用"
+      ]
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 76,
+      "source_id": "SER-074",
+      "purpose": "确认 Python 库是否支持关闭 Modbus 协议。",
+      "api": "库无对应方法（SetModbus）",
+      "priority": "P1",
+      "basis": "S1（既有设计）; 接口/UI/物理预期需独立资料",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认",
+        "现有内容含待确认，不能作执行基线",
+        "指定库缺少公开方法，保留接口缺口，不编造调用"
+      ]
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 77,
+      "source_id": "SER-075",
+      "purpose": "确认 Python 库是否支持开启 Modbus 协议。",
+      "api": "库无对应方法（SetModbus）",
+      "priority": "P1",
+      "basis": "S1（既有设计）; 接口/UI/物理预期需独立资料",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认",
+        "现有内容含待确认，不能作执行基线",
+        "指定库缺少公开方法，保留接口缺口，不编造调用"
+      ]
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 78,
+      "source_id": "SER-076",
+      "purpose": "确认 Python 库是否支持非法 Modbus 开关参数校验。",
+      "api": "库无对应方法（SetModbus）",
+      "priority": "P2",
+      "basis": "S1（既有设计）; 接口/UI/物理预期需独立资料",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "拆分库参数异常与原始协议非法帧；不能把ValueError等同固件FF",
+        "现有内容含待确认，不能作执行基线",
+        "指定库缺少公开方法，保留接口缺口，不编造调用"
+      ]
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 79,
+      "source_id": "SER-077",
+      "purpose": "确认关闭 Modbus 后串口库可通信、Modbus 库不可通信。",
+      "api": "库无对应方法（SetModbus）",
+      "priority": "P2",
+      "basis": "S1（既有设计）; 接口/UI/物理预期需独立资料",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认",
+        "现有内容含待确认，不能作执行基线",
+        "指定库缺少公开方法，保留接口缺口，不编造调用"
+      ]
+    },
+    {
+      "sheet": "串口指令测试结果",
+      "source_row": 80,
+      "source_id": "SER-078",
+      "purpose": "确认开启 Modbus 后 Modbus 库可通信、串口库不可通信。",
+      "api": "库无对应方法（SetModbus）",
+      "priority": "P2",
+      "basis": "S1（既有设计）; 接口/UI/物理预期需独立资料",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认",
+        "现有内容含待确认，不能作执行基线",
+        "指定库缺少公开方法，保留接口缺口，不编造调用"
+      ]
+    },
+    {
+      "sheet": "屏幕按键功能测试",
+      "source_row": 3,
+      "source_id": "UI-001",
+      "purpose": "验证开机首页各 UI 元素与已批准设计一致。",
+      "api": "",
+      "priority": "P1",
+      "basis": "S1（既有设计）; 接口/UI/物理预期需独立资料",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认",
+        "UI设计/电平定义/默认状态需批准资料；Python库不能证明屏幕布局或舵机信息"
+      ]
+    },
+    {
+      "sheet": "屏幕按键功能测试",
+      "source_row": 4,
+      "source_id": "UI-002",
+      "purpose": "验证夹爪手动位移时 position 与 current 的显示更新。",
+      "api": "",
+      "priority": "P2",
+      "basis": "S1（既有设计）; 接口/UI/物理预期需独立资料",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "UI设计/电平定义/默认状态需批准资料；Python库不能证明屏幕布局或舵机信息"
+      ]
+    },
+    {
+      "sheet": "屏幕按键功能测试",
+      "source_row": 5,
+      "source_id": "UI-003",
+      "purpose": "验证通过 Python 库设置三档速度后屏幕 speed 显示对应值。",
+      "api": "",
+      "priority": "P2",
+      "basis": "S1（既有设计）; 接口/UI/物理预期需独立资料",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "UI设计/电平定义/默认状态需批准资料；Python库不能证明屏幕布局或舵机信息"
+      ]
+    },
+    {
+      "sheet": "屏幕按键功能测试",
+      "source_row": 6,
+      "source_id": "UI-004",
+      "purpose": "验证 IO 控制关闭时输入电平显示与夹爪不受控行为。",
+      "api": "",
+      "priority": "P2",
+      "basis": "S1（既有设计）; 接口/UI/物理预期需独立资料",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "UI设计/电平定义/默认状态需批准资料；Python库不能证明屏幕布局或舵机信息"
+      ]
+    },
+    {
+      "sheet": "屏幕按键功能测试",
+      "source_row": 7,
+      "source_id": "UI-005",
+      "purpose": "验证 IO 控制开启时输入电平显示与夹爪开合行为。",
+      "api": "",
+      "priority": "P2",
+      "basis": "S1（既有设计）; 接口/UI/物理预期需独立资料",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "UI设计/电平定义/默认状态需批准资料；Python库不能证明屏幕布局或舵机信息"
+      ]
+    },
+    {
+      "sheet": "屏幕按键功能测试",
+      "source_row": 8,
+      "source_id": "UI-006",
+      "purpose": "验证配置界面能打开并显示其应有项目；具体设计基线待补。",
+      "api": "",
+      "priority": "P2",
+      "basis": "S1（既有设计）; 接口/UI/物理预期需独立资料",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "预期空白，须补可观察判据与独立依据",
+        "UI设计/电平定义/默认状态需批准资料；Python库不能证明屏幕布局或舵机信息"
+      ]
+    },
+    {
+      "sheet": "屏幕按键功能测试",
+      "source_row": 9,
+      "source_id": "UI-007",
+      "purpose": "验证屏幕选择的波特率与 Python 库连接速率一致。",
+      "api": "",
+      "priority": "P2",
+      "basis": "S1（既有设计）; 接口/UI/物理预期需独立资料",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认",
+        "UI设计/电平定义/默认状态需批准资料；Python库不能证明屏幕布局或舵机信息"
+      ]
+    },
+    {
+      "sheet": "屏幕按键功能测试",
+      "source_row": 10,
+      "source_id": "UI-008",
+      "purpose": "验证屏幕 I/O Ctrl 开关对 IO 控制的启停作用。",
+      "api": "",
+      "priority": "P2",
+      "basis": "S1（既有设计）; 接口/UI/物理预期需独立资料",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "UI设计/电平定义/默认状态需批准资料；Python库不能证明屏幕布局或舵机信息"
+      ]
+    },
+    {
+      "sheet": "屏幕按键功能测试",
+      "source_row": 11,
+      "source_id": "UI-009",
+      "purpose": "验证 open、close、release、hold 四个屏幕按钮的动作。",
+      "api": "",
+      "priority": "P2",
+      "basis": "S1（既有设计）; 接口/UI/物理预期需独立资料",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "UI设计/电平定义/默认状态需批准资料；Python库不能证明屏幕布局或舵机信息"
+      ]
+    },
+    {
+      "sheet": "屏幕按键功能测试",
+      "source_row": 12,
+      "source_id": "UI-010",
+      "purpose": "验证屏幕自动校零操作及完成提示。",
+      "api": "",
+      "priority": "P2",
+      "basis": "S1（既有设计）; 接口/UI/物理预期需独立资料",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认",
+        "UI设计/电平定义/默认状态需批准资料；Python库不能证明屏幕布局或舵机信息"
+      ]
+    },
+    {
+      "sheet": "屏幕按键功能测试",
+      "source_row": 13,
+      "source_id": "UI-011",
+      "purpose": "验证屏幕 Modbus 开关改变 Modbus Python 库连接能力。",
+      "api": "",
+      "priority": "P2",
+      "basis": "S1（既有设计）; 接口/UI/物理预期需独立资料",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "UI设计/电平定义/默认状态需批准资料；Python库不能证明屏幕布局或舵机信息"
+      ]
+    },
+    {
+      "sheet": "屏幕按键功能测试",
+      "source_row": 14,
+      "source_id": "UI-012",
+      "purpose": "验证开启 Modbus 后仅 Modbus Python 库可读版本并控制运动。",
+      "api": "",
+      "priority": "P2",
+      "basis": "S1（既有设计）; 接口/UI/物理预期需独立资料",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "UI设计/电平定义/默认状态需批准资料；Python库不能证明屏幕布局或舵机信息"
+      ]
+    },
+    {
+      "sheet": "屏幕按键功能测试",
+      "source_row": 15,
+      "source_id": "UI-013",
+      "purpose": "验证关闭 Modbus 后仅串口 Python 库可读版本并控制运动。",
+      "api": "",
+      "priority": "P2",
+      "basis": "S1（既有设计）; 接口/UI/物理预期需独立资料",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "UI设计/电平定义/默认状态需批准资料；Python库不能证明屏幕布局或舵机信息"
+      ]
+    },
+    {
+      "sheet": "屏幕按键功能测试",
+      "source_row": 16,
+      "source_id": "UI-014",
+      "purpose": "验证屏幕信息页的 ID 与固件版本同 Python 库读回一致。",
+      "api": "",
+      "priority": "P2",
+      "basis": "S1（既有设计）; 接口/UI/物理预期需独立资料",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认",
+        "UI设计/电平定义/默认状态需批准资料；Python库不能证明屏幕布局或舵机信息"
+      ]
+    },
+    {
+      "sheet": "屏幕按键功能测试",
+      "source_row": 17,
+      "source_id": "UI-015",
+      "purpose": "验证屏幕显示的舵机标识和版本信息。",
+      "api": "",
+      "priority": "P2",
+      "basis": "S1（既有设计）; 接口/UI/物理预期需独立资料",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认",
+        "UI设计/电平定义/默认状态需批准资料；Python库不能证明屏幕布局或舵机信息"
+      ]
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 3,
+      "source_id": "MOD-001",
+      "purpose": "验证通过 Python 库读取固件主版本号，并与设备标识核对。",
+      "api": "get_firmware_version",
+      "priority": "P1",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认"
+      ]
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 4,
+      "source_id": "MOD-002",
+      "purpose": "验证通过 Python 库读取固件次版本号，并与设备标识核对。",
+      "api": "get_modified_version",
+      "priority": "P1",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认"
+      ]
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 5,
+      "source_id": "MOD-003",
+      "purpose": "验证设置合法设备 ID 后可读回新 ID。",
+      "api": "set_gripper_Id",
+      "priority": "P1",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认"
+      ]
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 6,
+      "source_id": "MOD-004",
+      "purpose": "验证更改设备 ID 后旧 ID 不响应、新 ID 可控制；超限 ID 的库校验单独记录。",
+      "api": "set_gripper_Id",
+      "priority": "P1",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认",
+        "拆分库参数异常与原始协议非法帧；不能把ValueError等同固件FF"
+      ]
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 7,
+      "source_id": "MOD-005",
+      "purpose": "验证设备 ID 设置值及断电后保持值均可正确读回。",
+      "api": "get_gripper_Id",
+      "priority": "P1",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "候选沿用，仍需核对独立预期依据",
+      "gaps": []
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 8,
+      "source_id": "MOD-006",
+      "purpose": "验证合法波特率索引的设置调用与通信切换。",
+      "api": "set_gripper_baud",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "预期空白，须补可观察判据与独立依据"
+      ]
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 9,
+      "source_id": "MOD-007",
+      "purpose": "验证越界波特率索引被 Python 库拦截。",
+      "api": "set_gripper_baud",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认",
+        "拆分库参数异常与原始协议非法帧；不能把ValueError等同固件FF"
+      ]
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 10,
+      "source_id": "MOD-008",
+      "purpose": "验证各合法波特率索引均可设置并在新速率下通信。",
+      "api": "set_gripper_baud",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认"
+      ]
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 11,
+      "source_id": "MOD-009",
+      "purpose": "验证上位机波特率与设备匹配时可通信、不匹配时无法通信。",
+      "api": "set_gripper_baud",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认"
+      ]
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 12,
+      "source_id": "MOD-010",
+      "purpose": "验证读取的波特率索引与当前设置值一致。",
+      "api": "get_gripper_baud",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认"
+      ]
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 13,
+      "source_id": "MOD-011",
+      "purpose": "验证波特率设置值在断电重连后保持。",
+      "api": "get_gripper_baud",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认"
+      ]
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 14,
+      "source_id": "MOD-012",
+      "purpose": "验证通过 Python 库设置使能与去使能状态的调用路径。",
+      "api": "set_gripper_enable",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "预期空白，须补可观察判据与独立依据"
+      ]
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 15,
+      "source_id": "MOD-013",
+      "purpose": "验证去使能后运动控制的实际行为及返回值。",
+      "api": "set_gripper_enable",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认"
+      ]
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 16,
+      "source_id": "MOD-014",
+      "purpose": "验证上使能后运动控制的实际行为及返回值。",
+      "api": "set_gripper_enable",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认"
+      ]
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 17,
+      "source_id": "MOD-015",
+      "purpose": "验证非法使能值 2、3 被 Python 库拦截；设备 FF 响应另行确认。",
+      "api": "set_gripper_enable",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "拆分库参数异常与原始协议非法帧；不能把ValueError等同固件FF"
+      ]
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 18,
+      "source_id": "MOD-016",
+      "purpose": "验证合法目标位置调用后夹爪到达指定位置。",
+      "api": "set_gripper_value",
+      "priority": "P1",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "候选沿用，仍需核对独立预期依据",
+      "gaps": []
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 19,
+      "source_id": "MOD-017",
+      "purpose": "验证 IO 控制与 Python 运动调用先后切换时的优先关系。",
+      "api": "set_gripper_value",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认"
+      ]
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 20,
+      "source_id": "MOD-018",
+      "purpose": "验证位置参数边界及越界值的库校验和运动结果。",
+      "api": "set_gripper_value",
+      "priority": "P3",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认",
+        "拆分库参数异常与原始协议非法帧；不能把ValueError等同固件FF"
+      ]
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 21,
+      "source_id": "MOD-019",
+      "purpose": "验证速度参数边界及不同速度下的运动差异。",
+      "api": "set_gripper_value",
+      "priority": "P3",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "拆分库参数异常与原始协议非法帧；不能把ValueError等同固件FF"
+      ]
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 22,
+      "source_id": "MOD-020",
+      "purpose": "验证连续位置调用后运动、屏幕位置和回读值一致。",
+      "api": "set_gripper_value",
+      "priority": "P3",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认"
+      ]
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 23,
+      "source_id": "MOD-021",
+      "purpose": "验证普通位置运动中插入绝对位置调用时的运动顺序。",
+      "api": "set_gripper_value",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "候选沿用，仍需核对独立预期依据",
+      "gaps": []
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 24,
+      "source_id": "MOD-022",
+      "purpose": "验证目标位置设置后 Python 回读值与目标接近。",
+      "api": "get_gripper_value",
+      "priority": "P1",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认"
+      ]
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 25,
+      "source_id": "MOD-023",
+      "purpose": "验证零位校准成功、受阻失败及调用返回值。",
+      "api": "set_gripper_calibration",
+      "priority": "P1",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认"
+      ]
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 26,
+      "source_id": "MOD-024",
+      "purpose": "验证连续读取运动及夹持状态时的状态码和稳定性。",
+      "api": "get_gripper_status",
+      "priority": "P1",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "候选沿用，仍需核对独立预期依据",
+      "gaps": []
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 27,
+      "source_id": "MOD-025",
+      "purpose": "验证夹持物体后状态回读为夹持态。",
+      "api": "get_gripper_status",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "候选沿用，仍需核对独立预期依据",
+      "gaps": []
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 28,
+      "source_id": "MOD-026",
+      "purpose": "验证夹持物体掉落后状态回读为掉落态。",
+      "api": "get_gripper_status",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "候选沿用，仍需核对独立预期依据",
+      "gaps": []
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 29,
+      "source_id": "MOD-027",
+      "purpose": "验证张开运动过程中状态回读为运动态。",
+      "api": "get_gripper_status",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "候选沿用，仍需核对独立预期依据",
+      "gaps": []
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 30,
+      "source_id": "MOD-028",
+      "purpose": "验证张开运动结束后状态回读为停止未夹持态。",
+      "api": "get_gripper_status",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "候选沿用，仍需核对独立预期依据",
+      "gaps": []
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 31,
+      "source_id": "MOD-029",
+      "purpose": "验证 P 参数合法值设置、读回及越界拦截。",
+      "api": "set_gripper_P",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认",
+        "拆分库参数异常与原始协议非法帧；不能把ValueError等同固件FF"
+      ]
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 32,
+      "source_id": "MOD-030",
+      "purpose": "验证 P 参数断电后可读回并保持设定值。",
+      "api": "get_gripper_P",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认"
+      ]
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 33,
+      "source_id": "MOD-031",
+      "purpose": "验证 D 参数合法值设置、读回及越界拦截。",
+      "api": "set_gripper_D",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认",
+        "拆分库参数异常与原始协议非法帧；不能把ValueError等同固件FF"
+      ]
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 34,
+      "source_id": "MOD-032",
+      "purpose": "验证 D 参数断电后可读回并保持设定值。",
+      "api": "get_gripper_D",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认"
+      ]
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 35,
+      "source_id": "MOD-033",
+      "purpose": "验证 I 参数合法值设置、读回及越界拦截。",
+      "api": "set_gripper_I",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认",
+        "拆分库参数异常与原始协议非法帧；不能把ValueError等同固件FF"
+      ]
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 36,
+      "source_id": "MOD-034",
+      "purpose": "验证 I 参数断电后可读回并保持设定值。",
+      "api": "get_gripper_I",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认"
+      ]
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 37,
+      "source_id": "MOD-035",
+      "purpose": "验证顺时针运行误差合法值设置、读回及越界拦截。",
+      "api": "set_gripper_cw",
+      "priority": "P1",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认",
+        "拆分库参数异常与原始协议非法帧；不能把ValueError等同固件FF"
+      ]
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 38,
+      "source_id": "MOD-036",
+      "purpose": "验证顺时针运行误差断电后保持设定值。",
+      "api": "get_gripper_cw",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认"
+      ]
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 39,
+      "source_id": "MOD-037",
+      "purpose": "验证逆时针运行误差合法值设置、读回及越界拦截。",
+      "api": "set_gripper_cww",
+      "priority": "P1",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认",
+        "拆分库参数异常与原始协议非法帧；不能把ValueError等同固件FF"
+      ]
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 40,
+      "source_id": "MOD-038",
+      "purpose": "验证逆时针运行误差断电后保持设定值。",
+      "api": "get_gripper_cww",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认"
+      ]
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 41,
+      "source_id": "MOD-039",
+      "purpose": "验证最小启动力合法值设置、读回及越界拦截。",
+      "api": "set_gripper_mini_pressure",
+      "priority": "P1",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认",
+        "拆分库参数异常与原始协议非法帧；不能把ValueError等同固件FF"
+      ]
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 42,
+      "source_id": "MOD-040",
+      "purpose": "验证最小启动力断电后保持设定值。",
+      "api": "get_gripper_mini_pressure",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认"
+      ]
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 43,
+      "source_id": "MOD-041",
+      "purpose": "验证扭矩合法值设置、读回及越界拦截。",
+      "api": "set_gripper_torque",
+      "priority": "P1",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认",
+        "拆分库参数异常与原始协议非法帧；不能把ValueError等同固件FF"
+      ]
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 44,
+      "source_id": "MOD-042",
+      "purpose": "验证扭矩断电后保持设定值。",
+      "api": "get_gripper_torque",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认"
+      ]
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 45,
+      "source_id": "MOD-043",
+      "purpose": "验证 IO 输出四种合法状态及非法状态的库校验。",
+      "api": "set_gripper_output",
+      "priority": "P1",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认",
+        "拆分库参数异常与原始协议非法帧；不能把ValueError等同固件FF"
+      ]
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 46,
+      "source_id": "MOD-044",
+      "purpose": "验证 IO 输出状态在断电后复位。",
+      "api": "set_gripper_output",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "候选沿用，仍需核对独立预期依据",
+      "gaps": []
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 47,
+      "source_id": "MOD-045",
+      "purpose": "验证 IO 张开位置的设置、实际运动和越界拦截。",
+      "api": "set_gripper_io_open_value",
+      "priority": "P1",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认",
+        "拆分库参数异常与原始协议非法帧；不能把ValueError等同固件FF"
+      ]
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 48,
+      "source_id": "MOD-046",
+      "purpose": "验证 IO 闭合位置的设置、实际运动和越界拦截。",
+      "api": "set_gripper_io_close_value",
+      "priority": "P1",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认",
+        "拆分库参数异常与原始协议非法帧；不能把ValueError等同固件FF"
+      ]
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 49,
+      "source_id": "MOD-047",
+      "purpose": "验证夹爪速度合法值的设置及越界拦截。",
+      "api": "set_gripper_speed",
+      "priority": "P1",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认",
+        "拆分库参数异常与原始协议非法帧；不能把ValueError等同固件FF"
+      ]
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 50,
+      "source_id": "MOD-048",
+      "purpose": "验证连续修改速度后回读值与最终设置值一致。",
+      "api": "get_gripper_speed",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认"
+      ]
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 51,
+      "source_id": "MOD-049",
+      "purpose": "验证速度设置值与屏幕显示之间的映射。",
+      "api": "get_gripper_speed",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认"
+      ]
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 52,
+      "source_id": "MOD-050",
+      "purpose": "验证相同扭矩、不同速度下均可完成开合运动。",
+      "api": "get_gripper_speed",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "预期空白，须补可观察判据与独立依据"
+      ]
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 53,
+      "source_id": "MOD-051",
+      "purpose": "验证默认速度断电后保持设定值。",
+      "api": "get_gripper_speed",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "候选沿用，仍需核对独立预期依据",
+      "gaps": []
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 54,
+      "source_id": "MOD-052",
+      "purpose": "验证 IO 张开位置设置值及断电保持值。",
+      "api": "get_gripper_io_open_value",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认"
+      ]
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 55,
+      "source_id": "MOD-053",
+      "purpose": "验证 IO 闭合位置设置值及断电保持值。",
+      "api": "get_gripper_io_close_value",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认"
+      ]
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 56,
+      "source_id": "MOD-054",
+      "purpose": "验证绝对位置调用及实际完成状态。",
+      "api": "set_abs_gripper_value",
+      "priority": "P1",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "预期空白，须补可观察判据与独立依据"
+      ]
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 57,
+      "source_id": "MOD-055",
+      "purpose": "验证连续绝对位置调用按队列依次执行。",
+      "api": "set_abs_gripper_value",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "候选沿用，仍需核对独立预期依据",
+      "gaps": []
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 58,
+      "source_id": "MOD-056",
+      "purpose": "验证绝对运动中插入普通位置调用的执行顺序。",
+      "api": "set_abs_gripper_value",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "候选沿用，仍需核对独立预期依据",
+      "gaps": []
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 59,
+      "source_id": "MOD-057",
+      "purpose": "验证绝对运动中设置及读取其他参数的可用性和优先顺序。",
+      "api": "set_abs_gripper_value",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认"
+      ]
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 60,
+      "source_id": "MOD-058",
+      "purpose": "验证高频提交绝对位置调用后队列逐项执行并清空。",
+      "api": "set_abs_gripper_value",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "候选沿用，仍需核对独立预期依据",
+      "gaps": []
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 61,
+      "source_id": "MOD-059",
+      "purpose": "验证绝对运动遇到物体阻挡时的返回值和运动行为。",
+      "api": "set_abs_gripper_value",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "候选沿用，仍需核对独立预期依据",
+      "gaps": []
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 62,
+      "source_id": "MOD-060",
+      "purpose": "验证绝对运动期间执行零位校准的返回值和优先顺序。",
+      "api": "set_abs_gripper_value",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认"
+      ]
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 63,
+      "source_id": "MOD-061",
+      "purpose": "验证绝对运动队列暂停后剩余任务保留。",
+      "api": "set_gripper_pause",
+      "priority": "P1",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "候选沿用，仍需核对独立预期依据",
+      "gaps": []
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 64,
+      "source_id": "MOD-062",
+      "purpose": "验证普通位置运动不受暂停队列调用影响。",
+      "api": "set_gripper_pause",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "候选沿用，仍需核对独立预期依据",
+      "gaps": []
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 65,
+      "source_id": "MOD-063",
+      "purpose": "验证暂停后恢复调用可继续执行剩余绝对运动队列。",
+      "api": "set_gripper_resume",
+      "priority": "P1",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "候选沿用，仍需核对独立预期依据",
+      "gaps": []
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 66,
+      "source_id": "MOD-064",
+      "purpose": "验证停止调用使运动终止并清空队列。",
+      "api": "set_gripper_stop",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "候选沿用，仍需核对独立预期依据",
+      "gaps": []
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 67,
+      "source_id": "MOD-065",
+      "purpose": "验证绝对运动队列数量回读及普通运动时的队列值。",
+      "api": "get_gripper_queue_count",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "候选沿用，仍需核对独立预期依据",
+      "gaps": []
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 68,
+      "source_id": "MOD-066",
+      "purpose": "验证虚位参数合法设置、读回及越界拦截。",
+      "api": "set_gripper_vir_pos",
+      "priority": "P1",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认",
+        "拆分库参数异常与原始协议非法帧；不能把ValueError等同固件FF"
+      ]
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 69,
+      "source_id": "MOD-067",
+      "purpose": "验证虚位参数设置后立即读回正确。",
+      "api": "get_gripper_vir_pos",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认"
+      ]
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 70,
+      "source_id": "MOD-068",
+      "purpose": "验证虚位参数断电后保持设定值。",
+      "api": "get_gripper_vir_pos",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "候选沿用，仍需核对独立预期依据",
+      "gaps": []
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 71,
+      "source_id": "MOD-069",
+      "purpose": "验证保护电流合法设置、读回及越界拦截。",
+      "api": "set_gripper_protection_current",
+      "priority": "P1",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认",
+        "拆分库参数异常与原始协议非法帧；不能把ValueError等同固件FF"
+      ]
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 72,
+      "source_id": "MOD-070",
+      "purpose": "验证保护电流设置后立即读回正确。",
+      "api": "get_gripper_protection_current",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认"
+      ]
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 73,
+      "source_id": "MOD-071",
+      "purpose": "验证保护电流断电后保持设定值。",
+      "api": "get_gripper_protection_current",
+      "priority": "P2",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "候选沿用，仍需核对独立预期依据",
+      "gaps": []
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 74,
+      "source_id": "MOD-072",
+      "purpose": "确认旧版“运动并返回角度”行为是否有 Python 库入口。",
+      "api": "库无对应方法（MoveGripperToAngle）",
+      "priority": "P1",
+      "basis": "S1（既有设计）; 接口/UI/物理预期需独立资料",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认",
+        "拆分库参数异常与原始协议非法帧；不能把ValueError等同固件FF",
+        "现有内容含待确认，不能作执行基线",
+        "指定库缺少公开方法，保留接口缺口，不编造调用"
+      ]
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 75,
+      "source_id": "MOD-073",
+      "purpose": "确认旧版“运动并返回角度”与绝对运动插入场景是否有 Python 库入口。",
+      "api": "库无对应方法（MoveGripperToAngle）",
+      "priority": "P2",
+      "basis": "S1（既有设计）; 接口/UI/物理预期需独立资料",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "现有内容含待确认，不能作执行基线",
+        "指定库缺少公开方法，保留接口缺口，不编造调用"
+      ]
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 76,
+      "source_id": "MOD-074",
+      "purpose": "确认 Python 库是否支持关闭 Modbus 协议。",
+      "api": "库无对应方法（SetModbus）",
+      "priority": "P1",
+      "basis": "S1（既有设计）; 接口/UI/物理预期需独立资料",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认",
+        "现有内容含待确认，不能作执行基线",
+        "指定库缺少公开方法，保留接口缺口，不编造调用"
+      ]
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 77,
+      "source_id": "MOD-075",
+      "purpose": "确认 Python 库是否支持开启 Modbus 协议。",
+      "api": "库无对应方法（SetModbus）",
+      "priority": "P1",
+      "basis": "S1（既有设计）; 接口/UI/物理预期需独立资料",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认",
+        "现有内容含待确认，不能作执行基线",
+        "指定库缺少公开方法，保留接口缺口，不编造调用"
+      ]
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 78,
+      "source_id": "MOD-076",
+      "purpose": "确认 Python 库是否支持非法 Modbus 开关参数校验。",
+      "api": "库无对应方法（SetModbus）",
+      "priority": "P2",
+      "basis": "S1（既有设计）; 接口/UI/物理预期需独立资料",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "拆分库参数异常与原始协议非法帧；不能把ValueError等同固件FF",
+        "现有内容含待确认，不能作执行基线",
+        "指定库缺少公开方法，保留接口缺口，不编造调用"
+      ]
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 79,
+      "source_id": "MOD-077",
+      "purpose": "确认关闭 Modbus 后串口库可通信、Modbus 库不可通信。",
+      "api": "库无对应方法（SetModbus）",
+      "priority": "P2",
+      "basis": "S1（既有设计）; 接口/UI/物理预期需独立资料",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认",
+        "现有内容含待确认，不能作执行基线",
+        "指定库缺少公开方法，保留接口缺口，不编造调用"
+      ]
+    },
+    {
+      "sheet": "modbus指令功能测试",
+      "source_row": 80,
+      "source_id": "MOD-078",
+      "purpose": "确认开启 Modbus 后 Modbus 库可通信、串口库不可通信。",
+      "api": "库无对应方法（SetModbus）",
+      "priority": "P2",
+      "basis": "S1（既有设计）; 接口/UI/物理预期需独立资料",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "将笼统成功/正确描述改为具体值、状态或可观察结果；依据未补前保留待确认",
+        "现有内容含待确认，不能作执行基线",
+        "指定库缺少公开方法，保留接口缺口，不编造调用"
+      ]
+    },
+    {
+      "sheet": "modbus响应时间测试",
+      "source_row": 2,
+      "source_id": "原第2行",
+      "purpose": "测量读取固件主版本号的 Python 调用响应时间",
+      "api": "get_firmware_version",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "modbus响应时间测试",
+      "source_row": 3,
+      "source_id": "原第3行",
+      "purpose": "测量读取固件次版本号的 Python 调用响应时间",
+      "api": "get_modified_version",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "modbus响应时间测试",
+      "source_row": 4,
+      "source_id": "原第4行",
+      "purpose": "测量设置设备ID号的 Python 调用响应时间",
+      "api": "set_gripper_Id",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "modbus响应时间测试",
+      "source_row": 5,
+      "source_id": "原第5行",
+      "purpose": "测量读取设备ID号的 Python 调用响应时间",
+      "api": "get_gripper_Id",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "modbus响应时间测试",
+      "source_row": 6,
+      "source_id": "原第6行",
+      "purpose": "测量设置485波特率的 Python 调用响应时间",
+      "api": "set_gripper_baud",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "modbus响应时间测试",
+      "source_row": 7,
+      "source_id": "原第7行",
+      "purpose": "测量读取485波特率的 Python 调用响应时间",
+      "api": "get_gripper_baud",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "modbus响应时间测试",
+      "source_row": 8,
+      "source_id": "原第8行",
+      "purpose": "测量设置夹爪使能状态的 Python 调用响应时间",
+      "api": "set_gripper_enable",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "modbus响应时间测试",
+      "source_row": 9,
+      "source_id": "原第9行",
+      "purpose": "测量设置夹爪角度的 Python 调用响应时间",
+      "api": "set_gripper_value",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "modbus响应时间测试",
+      "source_row": 10,
+      "source_id": "原第10行",
+      "purpose": "测量读取角度的 Python 调用响应时间",
+      "api": "get_gripper_value",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "modbus响应时间测试",
+      "source_row": 11,
+      "source_id": "原第11行",
+      "purpose": "测量设置夹爪零位的 Python 调用响应时间",
+      "api": "set_gripper_calibration",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "modbus响应时间测试",
+      "source_row": 12,
+      "source_id": "原第12行",
+      "purpose": "测量读取夹爪状态的 Python 调用响应时间",
+      "api": "get_gripper_status",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "modbus响应时间测试",
+      "source_row": 13,
+      "source_id": "原第13行",
+      "purpose": "测量设置夹爪P值的 Python 调用响应时间",
+      "api": "set_gripper_P",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "modbus响应时间测试",
+      "source_row": 14,
+      "source_id": "原第14行",
+      "purpose": "测量读取夹爪P值的 Python 调用响应时间",
+      "api": "get_gripper_P",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "modbus响应时间测试",
+      "source_row": 15,
+      "source_id": "原第15行",
+      "purpose": "测量设置夹爪D值的 Python 调用响应时间",
+      "api": "set_gripper_D",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "modbus响应时间测试",
+      "source_row": 16,
+      "source_id": "原第16行",
+      "purpose": "测量读取夹爪D值的 Python 调用响应时间",
+      "api": "get_gripper_D",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "modbus响应时间测试",
+      "source_row": 17,
+      "source_id": "原第17行",
+      "purpose": "测量设置夹爪I值的 Python 调用响应时间",
+      "api": "set_gripper_I",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "modbus响应时间测试",
+      "source_row": 18,
+      "source_id": "原第18行",
+      "purpose": "测量读取夹爪I值的 Python 调用响应时间",
+      "api": "get_gripper_I",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "modbus响应时间测试",
+      "source_row": 19,
+      "source_id": "原第19行",
+      "purpose": "测量设置夹爪顺时针可运行误差的 Python 调用响应时间",
+      "api": "set_gripper_cw",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "modbus响应时间测试",
+      "source_row": 20,
+      "source_id": "原第20行",
+      "purpose": "测量读取夹爪顺时针可运行误差的 Python 调用响应时间",
+      "api": "get_gripper_cw",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "modbus响应时间测试",
+      "source_row": 21,
+      "source_id": "原第21行",
+      "purpose": "测量设置夹爪逆时针可运行误差的 Python 调用响应时间",
+      "api": "set_gripper_cww",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "modbus响应时间测试",
+      "source_row": 22,
+      "source_id": "原第22行",
+      "purpose": "测量读取夹爪逆时针可运行误差的 Python 调用响应时间",
+      "api": "get_gripper_cww",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "modbus响应时间测试",
+      "source_row": 23,
+      "source_id": "原第23行",
+      "purpose": "测量设置夹爪最小启动力的 Python 调用响应时间",
+      "api": "set_gripper_mini_pressure",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "modbus响应时间测试",
+      "source_row": 24,
+      "source_id": "原第24行",
+      "purpose": "测量读取夹爪最小启动力的 Python 调用响应时间",
+      "api": "get_gripper_mini_pressure",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "modbus响应时间测试",
+      "source_row": 25,
+      "source_id": "原第25行",
+      "purpose": "测量设置夹爪扭矩的 Python 调用响应时间",
+      "api": "set_gripper_torque",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "modbus响应时间测试",
+      "source_row": 26,
+      "source_id": "原第26行",
+      "purpose": "测量读取夹爪扭矩的 Python 调用响应时间",
+      "api": "get_gripper_torque",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "modbus响应时间测试",
+      "source_row": 27,
+      "source_id": "原第27行",
+      "purpose": "测量IO输出设置的 Python 调用响应时间",
+      "api": "set_gripper_output",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "modbus响应时间测试",
+      "source_row": 28,
+      "source_id": "原第28行",
+      "purpose": "测量设置IO张开角度的 Python 调用响应时间",
+      "api": "set_gripper_io_open_value",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "modbus响应时间测试",
+      "source_row": 29,
+      "source_id": "原第29行",
+      "purpose": "测量设置IO闭合角度的 Python 调用响应时间",
+      "api": "set_gripper_io_close_value",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "modbus响应时间测试",
+      "source_row": 30,
+      "source_id": "原第30行",
+      "purpose": "测量设置夹爪速度的 Python 调用响应时间",
+      "api": "set_gripper_speed",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "modbus响应时间测试",
+      "source_row": 31,
+      "source_id": "原第31行",
+      "purpose": "测量读取夹爪默认速度的 Python 调用响应时间",
+      "api": "get_gripper_speed",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "modbus响应时间测试",
+      "source_row": 32,
+      "source_id": "原第32行",
+      "purpose": "测量读取IO张开角度的 Python 调用响应时间",
+      "api": "get_gripper_io_open_value",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "modbus响应时间测试",
+      "source_row": 33,
+      "source_id": "原第33行",
+      "purpose": "测量读取IO闭合角度的 Python 调用响应时间",
+      "api": "get_gripper_io_close_value",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "modbus响应时间测试",
+      "source_row": 34,
+      "source_id": "原第34行",
+      "purpose": "测量设置绝对角度的 Python 调用响应时间",
+      "api": "set_abs_gripper_value",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "modbus响应时间测试",
+      "source_row": 35,
+      "source_id": "原第35行",
+      "purpose": "测量暂停运动的 Python 调用响应时间",
+      "api": "set_gripper_pause",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "modbus响应时间测试",
+      "source_row": 36,
+      "source_id": "原第36行",
+      "purpose": "测量恢复运动的 Python 调用响应时间",
+      "api": "set_gripper_resume",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "modbus响应时间测试",
+      "source_row": 37,
+      "source_id": "原第37行",
+      "purpose": "测量停止运动的 Python 调用响应时间",
+      "api": "set_gripper_stop",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "modbus响应时间测试",
+      "source_row": 38,
+      "source_id": "原第38行",
+      "purpose": "测量获取当前队列的数据量的 Python 调用响应时间",
+      "api": "get_gripper_queue_count",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "modbus响应时间测试",
+      "source_row": 39,
+      "source_id": "原第39行",
+      "purpose": "测量设置舵机虚位数值的 Python 调用响应时间",
+      "api": "set_gripper_vir_pos",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "modbus响应时间测试",
+      "source_row": 40,
+      "source_id": "原第40行",
+      "purpose": "测量读取舵机虚位数值的 Python 调用响应时间",
+      "api": "get_gripper_vir_pos",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "modbus响应时间测试",
+      "source_row": 41,
+      "source_id": "原第41行",
+      "purpose": "测量设置夹持电流的 Python 调用响应时间",
+      "api": "set_gripper_protection_current",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "modbus响应时间测试",
+      "source_row": 42,
+      "source_id": "原第42行",
+      "purpose": "测量读取夹持电流的 Python 调用响应时间",
+      "api": "get_gripper_protection_current",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "modbus响应时间测试",
+      "source_row": 43,
+      "source_id": "原第43行",
+      "purpose": "待确认：运动并返回角度的 Python 响应时间入口",
+      "api": "库无对应方法（MoveGripperToAngle）",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; 接口/UI/物理预期需独立资料",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量",
+        "指定库缺少公开方法，保留接口缺口，不编造调用"
+      ]
+    },
+    {
+      "sheet": "串口指令响应时间",
+      "source_row": 2,
+      "source_id": "原第2行",
+      "purpose": "测量读取固件主版本号的 Python 调用响应时间",
+      "api": "get_firmware_version",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "串口指令响应时间",
+      "source_row": 3,
+      "source_id": "原第3行",
+      "purpose": "测量读取固件次版本号的 Python 调用响应时间",
+      "api": "get_modified_version",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "串口指令响应时间",
+      "source_row": 4,
+      "source_id": "原第4行",
+      "purpose": "测量设置设备ID号的 Python 调用响应时间",
+      "api": "set_gripper_Id",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "串口指令响应时间",
+      "source_row": 5,
+      "source_id": "原第5行",
+      "purpose": "测量读取设备ID号的 Python 调用响应时间",
+      "api": "get_gripper_Id",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "串口指令响应时间",
+      "source_row": 6,
+      "source_id": "原第6行",
+      "purpose": "测量设置485波特率的 Python 调用响应时间",
+      "api": "set_gripper_baud",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "串口指令响应时间",
+      "source_row": 7,
+      "source_id": "原第7行",
+      "purpose": "测量读取485波特率的 Python 调用响应时间",
+      "api": "get_gripper_baud",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "串口指令响应时间",
+      "source_row": 8,
+      "source_id": "原第8行",
+      "purpose": "测量设置夹爪使能状态的 Python 调用响应时间",
+      "api": "set_gripper_enable",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "串口指令响应时间",
+      "source_row": 9,
+      "source_id": "原第9行",
+      "purpose": "测量设置夹爪角度的 Python 调用响应时间",
+      "api": "set_gripper_value",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "串口指令响应时间",
+      "source_row": 10,
+      "source_id": "原第10行",
+      "purpose": "测量读取角度的 Python 调用响应时间",
+      "api": "get_gripper_value",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "串口指令响应时间",
+      "source_row": 11,
+      "source_id": "原第11行",
+      "purpose": "测量设置夹爪零位的 Python 调用响应时间",
+      "api": "set_gripper_calibration",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "串口指令响应时间",
+      "source_row": 12,
+      "source_id": "原第12行",
+      "purpose": "测量读取夹爪状态的 Python 调用响应时间",
+      "api": "get_gripper_status",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "串口指令响应时间",
+      "source_row": 13,
+      "source_id": "原第13行",
+      "purpose": "测量设置夹爪P值的 Python 调用响应时间",
+      "api": "set_gripper_P",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "串口指令响应时间",
+      "source_row": 14,
+      "source_id": "原第14行",
+      "purpose": "测量读取夹爪P值的 Python 调用响应时间",
+      "api": "get_gripper_P",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "串口指令响应时间",
+      "source_row": 15,
+      "source_id": "原第15行",
+      "purpose": "测量设置夹爪D值的 Python 调用响应时间",
+      "api": "set_gripper_D",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "串口指令响应时间",
+      "source_row": 16,
+      "source_id": "原第16行",
+      "purpose": "测量读取夹爪D值的 Python 调用响应时间",
+      "api": "get_gripper_D",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "串口指令响应时间",
+      "source_row": 17,
+      "source_id": "原第17行",
+      "purpose": "测量设置夹爪I值的 Python 调用响应时间",
+      "api": "set_gripper_I",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "串口指令响应时间",
+      "source_row": 18,
+      "source_id": "原第18行",
+      "purpose": "测量读取夹爪I值的 Python 调用响应时间",
+      "api": "get_gripper_I",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "串口指令响应时间",
+      "source_row": 19,
+      "source_id": "原第19行",
+      "purpose": "测量设置夹爪顺时针可运行误差的 Python 调用响应时间",
+      "api": "set_gripper_cw",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "串口指令响应时间",
+      "source_row": 20,
+      "source_id": "原第20行",
+      "purpose": "测量读取夹爪顺时针可运行误差的 Python 调用响应时间",
+      "api": "get_gripper_cw",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "串口指令响应时间",
+      "source_row": 21,
+      "source_id": "原第21行",
+      "purpose": "测量设置夹爪逆时针可运行误差的 Python 调用响应时间",
+      "api": "set_gripper_cww",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "串口指令响应时间",
+      "source_row": 22,
+      "source_id": "原第22行",
+      "purpose": "测量读取夹爪逆时针可运行误差的 Python 调用响应时间",
+      "api": "get_gripper_cww",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "串口指令响应时间",
+      "source_row": 23,
+      "source_id": "原第23行",
+      "purpose": "测量设置夹爪最小启动力的 Python 调用响应时间",
+      "api": "set_gripper_mini_pressure",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "串口指令响应时间",
+      "source_row": 24,
+      "source_id": "原第24行",
+      "purpose": "测量读取夹爪最小启动力的 Python 调用响应时间",
+      "api": "get_gripper_mini_pressure",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "串口指令响应时间",
+      "source_row": 25,
+      "source_id": "原第25行",
+      "purpose": "测量设置夹爪扭矩的 Python 调用响应时间",
+      "api": "set_gripper_torque",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "串口指令响应时间",
+      "source_row": 26,
+      "source_id": "原第26行",
+      "purpose": "测量读取夹爪扭矩的 Python 调用响应时间",
+      "api": "get_gripper_torque",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "串口指令响应时间",
+      "source_row": 27,
+      "source_id": "原第27行",
+      "purpose": "测量IO输出设置的 Python 调用响应时间",
+      "api": "set_gripper_output",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "串口指令响应时间",
+      "source_row": 28,
+      "source_id": "原第28行",
+      "purpose": "测量设置IO张开角度的 Python 调用响应时间",
+      "api": "set_gripper_io_open_value",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "串口指令响应时间",
+      "source_row": 29,
+      "source_id": "原第29行",
+      "purpose": "测量设置IO闭合角度的 Python 调用响应时间",
+      "api": "set_gripper_io_close_value",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "串口指令响应时间",
+      "source_row": 30,
+      "source_id": "原第30行",
+      "purpose": "测量设置夹爪速度的 Python 调用响应时间",
+      "api": "set_gripper_speed",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "串口指令响应时间",
+      "source_row": 31,
+      "source_id": "原第31行",
+      "purpose": "测量读取夹爪默认速度的 Python 调用响应时间",
+      "api": "get_gripper_speed",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "串口指令响应时间",
+      "source_row": 32,
+      "source_id": "原第32行",
+      "purpose": "测量读取IO张开角度的 Python 调用响应时间",
+      "api": "get_gripper_io_open_value",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "串口指令响应时间",
+      "source_row": 33,
+      "source_id": "原第33行",
+      "purpose": "测量读取IO闭合角度的 Python 调用响应时间",
+      "api": "get_gripper_io_close_value",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "串口指令响应时间",
+      "source_row": 34,
+      "source_id": "原第34行",
+      "purpose": "测量设置绝对角度的 Python 调用响应时间",
+      "api": "set_abs_gripper_value",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "串口指令响应时间",
+      "source_row": 35,
+      "source_id": "原第35行",
+      "purpose": "测量暂停运动的 Python 调用响应时间",
+      "api": "set_gripper_pause",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "串口指令响应时间",
+      "source_row": 36,
+      "source_id": "原第36行",
+      "purpose": "测量恢复运动的 Python 调用响应时间",
+      "api": "set_gripper_resume",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "串口指令响应时间",
+      "source_row": 37,
+      "source_id": "原第37行",
+      "purpose": "测量停止运动的 Python 调用响应时间",
+      "api": "set_gripper_stop",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "串口指令响应时间",
+      "source_row": 38,
+      "source_id": "原第38行",
+      "purpose": "测量获取当前队列的数据量的 Python 调用响应时间",
+      "api": "get_gripper_queue_count",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "串口指令响应时间",
+      "source_row": 39,
+      "source_id": "原第39行",
+      "purpose": "测量设置舵机虚位数值的 Python 调用响应时间",
+      "api": "set_gripper_vir_pos",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "串口指令响应时间",
+      "source_row": 40,
+      "source_id": "原第40行",
+      "purpose": "测量读取舵机虚位数值的 Python 调用响应时间",
+      "api": "get_gripper_vir_pos",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "串口指令响应时间",
+      "source_row": 41,
+      "source_id": "原第41行",
+      "purpose": "测量设置夹持电流的 Python 调用响应时间",
+      "api": "set_gripper_protection_current",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "串口指令响应时间",
+      "source_row": 42,
+      "source_id": "原第42行",
+      "purpose": "测量读取夹持电流的 Python 调用响应时间",
+      "api": "get_gripper_protection_current",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; S2存在同名库方法，设备预期仍需协议",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量"
+      ]
+    },
+    {
+      "sheet": "串口指令响应时间",
+      "source_row": 43,
+      "source_id": "原第43行",
+      "purpose": "待确认：运动并返回角度的 Python 响应时间入口",
+      "api": "库无对应方法（MoveGripperToAngle）",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; 接口/UI/物理预期需独立资料",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "样本数、计时起止、预热、超时/错误归类及合格阈值待确认；1000次仅是现有表头口径，不自动当批准要求",
+        "为每个接口区分SDK端到端调用耗时与设备响应耗时；设置接口的额外读回/等待不得混入测量",
+        "指定库缺少公开方法，保留接口缺口，不编造调用"
+      ]
+    },
+    {
+      "sheet": "力矩测试",
+      "source_row": 3,
+      "source_id": "TQ-001",
+      "purpose": "验证 Python 库设置扭矩 1 时夹持力曲线与稳定性；合格阈值待确认。",
+      "api": "",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; 接口/UI/物理预期需独立资料",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "预期空白，须补可观察判据与独立依据",
+        "优先级待评审（力矩候选P1，不能当成已确认）",
+        "现有内容含待确认，不能作执行基线",
+        "控制档位不直接等于物理扭矩；须确认力/扭矩指标、单位、力臂及换算",
+        "传感器校准、采样率、稳定窗口、容差和各档合格范围待确认，5s采样只是现有设计"
+      ]
+    },
+    {
+      "sheet": "力矩测试",
+      "source_row": 4,
+      "source_id": "TQ-002",
+      "purpose": "验证 Python 库设置扭矩 10 时夹持力曲线与稳定性；合格阈值待确认。",
+      "api": "",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; 接口/UI/物理预期需独立资料",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "预期空白，须补可观察判据与独立依据",
+        "优先级待评审（力矩候选P1，不能当成已确认）",
+        "现有内容含待确认，不能作执行基线",
+        "控制档位不直接等于物理扭矩；须确认力/扭矩指标、单位、力臂及换算",
+        "传感器校准、采样率、稳定窗口、容差和各档合格范围待确认，5s采样只是现有设计"
+      ]
+    },
+    {
+      "sheet": "力矩测试",
+      "source_row": 5,
+      "source_id": "TQ-003",
+      "purpose": "验证 Python 库设置扭矩 20 时夹持力曲线与稳定性；合格阈值待确认。",
+      "api": "",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; 接口/UI/物理预期需独立资料",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "预期空白，须补可观察判据与独立依据",
+        "优先级待评审（力矩候选P1，不能当成已确认）",
+        "现有内容含待确认，不能作执行基线",
+        "控制档位不直接等于物理扭矩；须确认力/扭矩指标、单位、力臂及换算",
+        "传感器校准、采样率、稳定窗口、容差和各档合格范围待确认，5s采样只是现有设计"
+      ]
+    },
+    {
+      "sheet": "力矩测试",
+      "source_row": 6,
+      "source_id": "TQ-004",
+      "purpose": "验证 Python 库设置扭矩 30 时夹持力曲线与稳定性；合格阈值待确认。",
+      "api": "",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; 接口/UI/物理预期需独立资料",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "预期空白，须补可观察判据与独立依据",
+        "优先级待评审（力矩候选P1，不能当成已确认）",
+        "现有内容含待确认，不能作执行基线",
+        "控制档位不直接等于物理扭矩；须确认力/扭矩指标、单位、力臂及换算",
+        "传感器校准、采样率、稳定窗口、容差和各档合格范围待确认，5s采样只是现有设计"
+      ]
+    },
+    {
+      "sheet": "力矩测试",
+      "source_row": 7,
+      "source_id": "TQ-005",
+      "purpose": "验证 Python 库设置扭矩 40 时夹持力曲线与稳定性；合格阈值待确认。",
+      "api": "",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; 接口/UI/物理预期需独立资料",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "预期空白，须补可观察判据与独立依据",
+        "优先级待评审（力矩候选P1，不能当成已确认）",
+        "现有内容含待确认，不能作执行基线",
+        "控制档位不直接等于物理扭矩；须确认力/扭矩指标、单位、力臂及换算",
+        "传感器校准、采样率、稳定窗口、容差和各档合格范围待确认，5s采样只是现有设计"
+      ]
+    },
+    {
+      "sheet": "力矩测试",
+      "source_row": 8,
+      "source_id": "TQ-006",
+      "purpose": "验证 Python 库设置扭矩 50 时夹持力曲线与稳定性；合格阈值待确认。",
+      "api": "",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; 接口/UI/物理预期需独立资料",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "预期空白，须补可观察判据与独立依据",
+        "优先级待评审（力矩候选P1，不能当成已确认）",
+        "现有内容含待确认，不能作执行基线",
+        "控制档位不直接等于物理扭矩；须确认力/扭矩指标、单位、力臂及换算",
+        "传感器校准、采样率、稳定窗口、容差和各档合格范围待确认，5s采样只是现有设计"
+      ]
+    },
+    {
+      "sheet": "力矩测试",
+      "source_row": 9,
+      "source_id": "TQ-007",
+      "purpose": "验证 Python 库设置扭矩 60 时夹持力曲线与稳定性；合格阈值待确认。",
+      "api": "",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; 接口/UI/物理预期需独立资料",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "预期空白，须补可观察判据与独立依据",
+        "优先级待评审（力矩候选P1，不能当成已确认）",
+        "现有内容含待确认，不能作执行基线",
+        "控制档位不直接等于物理扭矩；须确认力/扭矩指标、单位、力臂及换算",
+        "传感器校准、采样率、稳定窗口、容差和各档合格范围待确认，5s采样只是现有设计"
+      ]
+    },
+    {
+      "sheet": "力矩测试",
+      "source_row": 10,
+      "source_id": "TQ-008",
+      "purpose": "验证 Python 库设置扭矩 70 时夹持力曲线与稳定性；合格阈值待确认。",
+      "api": "",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; 接口/UI/物理预期需独立资料",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "预期空白，须补可观察判据与独立依据",
+        "优先级待评审（力矩候选P1，不能当成已确认）",
+        "现有内容含待确认，不能作执行基线",
+        "控制档位不直接等于物理扭矩；须确认力/扭矩指标、单位、力臂及换算",
+        "传感器校准、采样率、稳定窗口、容差和各档合格范围待确认，5s采样只是现有设计"
+      ]
+    },
+    {
+      "sheet": "力矩测试",
+      "source_row": 11,
+      "source_id": "TQ-009",
+      "purpose": "验证 Python 库设置扭矩 80 时夹持力曲线与稳定性；合格阈值待确认。",
+      "api": "",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; 接口/UI/物理预期需独立资料",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "预期空白，须补可观察判据与独立依据",
+        "优先级待评审（力矩候选P1，不能当成已确认）",
+        "现有内容含待确认，不能作执行基线",
+        "控制档位不直接等于物理扭矩；须确认力/扭矩指标、单位、力臂及换算",
+        "传感器校准、采样率、稳定窗口、容差和各档合格范围待确认，5s采样只是现有设计"
+      ]
+    },
+    {
+      "sheet": "力矩测试",
+      "source_row": 12,
+      "source_id": "TQ-010",
+      "purpose": "验证 Python 库设置扭矩 90 时夹持力曲线与稳定性；合格阈值待确认。",
+      "api": "",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; 接口/UI/物理预期需独立资料",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "预期空白，须补可观察判据与独立依据",
+        "优先级待评审（力矩候选P1，不能当成已确认）",
+        "现有内容含待确认，不能作执行基线",
+        "控制档位不直接等于物理扭矩；须确认力/扭矩指标、单位、力臂及换算",
+        "传感器校准、采样率、稳定窗口、容差和各档合格范围待确认，5s采样只是现有设计"
+      ]
+    },
+    {
+      "sheet": "力矩测试",
+      "source_row": 13,
+      "source_id": "TQ-011",
+      "purpose": "验证 Python 库设置扭矩 100 时夹持力曲线与稳定性；合格阈值待确认。",
+      "api": "",
+      "priority": "待评审",
+      "basis": "S1（既有设计）; 接口/UI/物理预期需独立资料",
+      "decision": "拟修改/补依据",
+      "gaps": [
+        "预期空白，须补可观察判据与独立依据",
+        "优先级待评审（力矩候选P1，不能当成已确认）",
+        "现有内容含待确认，不能作执行基线",
+        "控制档位不直接等于物理扭矩；须确认力/扭矩指标、单位、力臂及换算",
+        "传感器校准、采样率、稳定窗口、容差和各档合格范围待确认，5s采样只是现有设计"
+      ]
+    }
+  ]
+}
