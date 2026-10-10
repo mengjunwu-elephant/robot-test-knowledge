@@ -5,7 +5,7 @@ description: 依据已确认用例和项目源码生成或修改单接口 pytest
 
 # 单接口pytest编写与维护
 
-先读[团队公共规则](references/team-rules.md)，再读[自动化测试契约](references/automation-contract.md)。正式技能版本0.6.0；仓库未发布修订不等于已安装新版。
+先读[团队公共规则](references/team-rules.md)，再读[自动化测试契约](references/automation-contract.md)。技能版本0.7.0；实际加载版本须核对安装清单，旧对话不会因仓库更新自动升级。
 
 ## 1. 确认任务和项目
 
