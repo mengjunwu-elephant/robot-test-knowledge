@@ -1,7 +1,7 @@
 {
   "date": "2026-10-10",
   "version": "0.7.0",
-  "package_sha256": "8ae8a29dc766490aa66e49c0b414e8df200c09c95d2ed9ccc052f925fb57d5a4",
+  "package_sha256": "dc25081647523f1b2bcc8bb43361823eadd2860181fa8e377b3587dd00ebe9f7",
   "installer_tests": 7,
   "cmd_success_path": true,
   "cmd_failure_path": true,
