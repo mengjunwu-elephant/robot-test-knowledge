@@ -36,6 +36,10 @@ def validate(root=ROOT,sources=False):
      except SyntaxError as e:errors.append(str(e))
   for link in re.findall(r'\]\(([^)]+)\)',text):
    if '://' not in link and not (folder/link).exists():errors.append('broken skill reference '+link)
+ # The installed skill copies must follow the canonical public rule sources.
+ for source,target in [('standards/team-rules.md','skills/testcase-iteration/references/team-rules.md'),('standards/team-rules.md','skills/pytest-generation/references/team-rules.md'),('standards/testing-contract.md','skills/pytest-generation/references/automation-contract.md')]:
+  checks+=1
+  if not (root/target).exists() or (root/source).read_bytes()!=(root/target).read_bytes():errors.append('canonical rule mismatch '+target)
  if sources:
   data=json.loads((root/'projects/source-manifest.json').read_text(encoding='utf-8'))
   for item in data['files']:
