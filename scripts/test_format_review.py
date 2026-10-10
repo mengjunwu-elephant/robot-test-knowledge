@@ -71,4 +71,43 @@ class FormatTests(unittest.TestCase):
     def test_changed_header(self):
         def change(st,sh):sh.find('.//m:c/m:is/m:t',checker.NS).text='不同字段'
         self.assertIn('FORMAT_FIELD',self.codes(self.fixture(change)))
+    def team_case(self,unknown=False,bad_font=False):
+        def change(st,sh):
+            for row in sh.findall('m:sheetData/m:row',checker.NS):
+                for c in list(row):
+                    if checker.xy(c.get('r'))[1]>3:row.remove(c)
+                    else:
+                        rn,col=checker.xy(c.get('r'))
+                        if rn==1:
+                            c.find('m:is/m:t',checker.NS).text={1:'编号',2:'测试目的',3:'未知自定义字段' if unknown else '优先级'}[col]
+                        else:c.set('s','2' if col==2 else '1')
+            if bad_font:st.find('m:fonts',checker.NS)[1].find('m:sz',checker.NS).set('val','11')
+        path=self.fixture(change)
+        with zipfile.ZipFile(path) as z:entries={n:z.read(n) for n in z.namelist()}
+        wb=E.fromstring(entries['xl/workbook.xml']);wb.find('m:sheets/m:sheet',checker.NS).set('name','任意软件功能')
+        entries['xl/workbook.xml']=E.tostring(wb)
+        with zipfile.ZipFile(path,'w') as z:
+            for n,b in entries.items():z.writestr(n,b)
+        return path
+    def test_team_non_gripper_and_reordered_fields(self):
+        p=self.team_case();before=p.read_bytes();r=checker.review(p,baseline='team')
+        self.assertTrue(r['static_format_passed'],r['issues']);self.assertFalse(r['unresolved'],r['issues']);self.assertGreater(r['checked_cells'],0);self.assertEqual(before,p.read_bytes())
+    def test_team_unknown_field_does_not_claim_complete(self):
+        r=checker.review(self.team_case(unknown=True),baseline='team')
+        self.assertTrue(r['unresolved']);self.assertIn('UNMAPPED_FIELD',{i['code'] for i in r['issues']});self.assertGreater(r['checked_cells'],0)
+    def test_team_detects_font_error_without_gripper_name(self):
+        r=checker.review(self.team_case(bad_font=True),baseline='team')
+        self.assertFalse(r['static_format_passed']);self.assertIn('FONT_SZ',{i['code'] for i in r['issues']})
+    def test_team_explicit_layout(self):
+        p=self.team_case();r=checker.review(p,baseline='team',layouts={'任意软件功能':{'header_rows':1,'fields':{'A':'编号','B':'测试目的','C':'优先级'}}})
+        self.assertTrue(r['static_format_passed']);self.assertFalse(r['unresolved'])
+
+    def test_cli_defaults_to_team_for_other_project(self):
+        import subprocess
+        p=self.team_case();report=p.parent/'report.json'
+        run=subprocess.run([sys.executable,'-X','utf8',str(SKILL/'scripts/review_format.py'),'--workbook',str(p),'--sheet','任意软件功能','--report',str(report)],capture_output=True,text=True,encoding='utf-8')
+        self.assertEqual(run.returncode,0,run.stderr)
+        result=json.loads(report.read_text(encoding='utf-8'))
+        self.assertEqual(result['baseline'],'team');self.assertEqual(result['field_mapping']['任意软件功能']['B'],'测试目的')
+
 if __name__=='__main__':unittest.main()

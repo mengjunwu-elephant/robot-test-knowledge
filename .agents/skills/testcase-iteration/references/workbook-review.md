@@ -1,5 +1,5 @@
 # 字段与离线检查
-采用已批准的夹爪v1.4.1格式基线时，另运行scripts/review_format.py；它补充直接字体、字号、对齐、换行、填充和合并外框静态检查，详见[cell-format.md](cell-format.md)。原review_workbook.py仍负责结构与填写内容；两者都不替代视觉、语义评审。
+完整审查时另运行scripts/review_format.py --baseline team，按团队通用标准及批准项目差异检查；它补充直接字体、字号、对齐、换行、填充和合并外框静态检查，详见[cell-format.md](cell-format.md)。原review_workbook.py仍负责结构与填写内容；两者都不替代视觉、语义评审。
 
 新表优先复制 assets/templates 适用模板；附带原件与来源哈希。填写说明与示例页包含演示结果，不能当正式执行结果，不纳入统计。读取 references/standard-extract.md 可定位正式用例条款。
 已有表使用其确认字段，不因新版模板而强改。发生差异先用 conflicts.md 提示用户选择，再用独立字段映射进行检查。
