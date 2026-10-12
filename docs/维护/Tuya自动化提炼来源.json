@@ -1,0 +1,91 @@
+{
+  "date": "2026-10-12",
+  "heads": {
+    "Tuya_pytest": "5b9f66647bc486eb173043114044bdfe99de9ac3",
+    "Tuya_Ros2": "c8054c3dc37f8c519607405f7d05831e08a524c5"
+  },
+  "files": [
+    {
+      "project": "Tuya_pytest",
+      "path": "AGENTS.md",
+      "sha256": "1cb49a62e77ff4090ba139d966a5eb0488b5519bed8dcec2b9bcb7f59011df5f"
+    },
+    {
+      "project": "Tuya_pytest",
+      "path": ".cursor/skills/tuya-pytest-case-authoring/SKILL.md",
+      "sha256": "668427aa70b5bf256a49fb6b77cec0f6891421375f99c8d78b844b3ba353f5dd"
+    },
+    {
+      "project": "Tuya_pytest",
+      "path": ".cursor/skills/tuya-pytest-registry-session/SKILL.md",
+      "sha256": "92a855ace9666a43dd57521f8e3e5e88a51419aa32286a641d0f2326b2adb1e2"
+    },
+    {
+      "project": "Tuya_pytest",
+      "path": "common1/test_data_handler.py",
+      "sha256": "af11eaef63396524340bba5494bf5e0ce52598a376bb297ca12bf8387067da6d"
+    },
+    {
+      "project": "Tuya_pytest",
+      "path": "testcases/upper_body/test_get_upper_main_version.py",
+      "sha256": "253ca495ac72016aa70157d46907405a7380d4db34b533bd4119c90e447aeb8c"
+    },
+    {
+      "project": "Tuya_pytest",
+      "path": "testcases/upper_body/test_set_upper_fresh_mode.py",
+      "sha256": "075d6f30b2ba8dc2d92337e425316d67494662621131deb4bb6bfc668bff9d66"
+    },
+    {
+      "project": "Tuya_pytest",
+      "path": "testcases/chassis/test_set_agv_debug_state.py",
+      "sha256": "28210b668149dd624edac51d1281c8eeeb31ea8bb87adba1a297a47ab2e9a9af"
+    },
+    {
+      "project": "Tuya_Ros2",
+      "path": "AGENTS.md",
+      "sha256": "058780ea05eb721e7ef45fb72dd135bfa375c7ea538dc45f6d0a17d86826c3d0"
+    },
+    {
+      "project": "Tuya_Ros2",
+      "path": ".cursor/skills/tuya-ros2-case-authoring/SKILL.md",
+      "sha256": "2b10614328e1609b20b588af460faf6ced661d2277b2aab755ee403d477bf66e"
+    },
+    {
+      "project": "Tuya_Ros2",
+      "path": ".cursor/skills/tuya-ros2-remote-session/SKILL.md",
+      "sha256": "20a394ed13099dd1c40dfa4c64c143e7524efc43627d955ea03a4f8598b458f7"
+    },
+    {
+      "project": "Tuya_Ros2",
+      "path": "src/tuya_ros2_testkit/common/test_data_handler.py",
+      "sha256": "4adf64f3c9821d0809d164d09f8644824dfbb542bad0bf829143536202f4b753"
+    },
+    {
+      "project": "Tuya_Ros2",
+      "path": "testcases/upper_body/test_get_upper_main_version.py",
+      "sha256": "5b1e3902b607ed5361097796f7aa7c11685fbec7d36da69f2bf6ec1f45d181c2"
+    },
+    {
+      "project": "Tuya_Ros2",
+      "path": "testcases/chassis/test_get_agv_debug_state.py",
+      "sha256": "8c924de7dfae182a75b458052ca04f9b3d11f941f537bd200707e1c6420b178e"
+    },
+    {
+      "project": "Tuya_Ros2",
+      "path": "testcases/chassis/test_set_agv_debug_state.py",
+      "sha256": "0df5fb9cf361c43c89de893d68bbb52e633454e454b833441aa282271a750fae"
+    },
+    {
+      "project": "Tuya_Ros2",
+      "path": "testcases/upper_body/test_set_upper_fresh_mode.py",
+      "sha256": "b849be34a43658b7e90977e7ebeb13a4be08948a16c2cf1414c1a6cb15d32275"
+    },
+    {
+      "project": "Tuya_Ros2",
+      "path": "testcases/chassis/test_agv_report_20hz.py",
+      "sha256": "acd3391d0131423367958307dbb289b49ff3319fe65b67f2df43ec508e751069"
+    }
+  ],
+  "ast_parsed_files": 10,
+  "scope": "selected source files only; no imports, collection, execution or hardware"
+}

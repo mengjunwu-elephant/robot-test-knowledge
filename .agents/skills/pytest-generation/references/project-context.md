@@ -6,3 +6,10 @@ testcases/{robot,upper_body,chassis,head}，test_data 四模块工作簿。根 s
 
 ## Tuya_Ros2
 五模块 environment/upper_body/chassis/head/perception，原始 test_data/source 只读。运行表含 ID、automation_id、title、api、ros_kind、endpoint、ros_type、parameters、expect_data、test_type。fixture robot_ros2 为 session，ROS/SSH 生命周期不可套用 SDK device。代表性代码以 automation_id 参数化，保留该差异；JSON 用 json.loads。资料和规则要求全局唯一 automation_id、一接口一 Sheet/文件。禁止 collection 建立远程或 ROS 连接。当前 API 与 endpoint 必须重新核对，不能从 SDK 项目搬用。
+
+
+## 2026-10-12 抽样源码核对
+
+Tuya_pytest查询/设置/异常及加载器提供数据分类、中文证据和快照恢复方法；仍有旧英文Allure标题、恢复后未回读等局部差异，不能直接视作规范完成状态。浮点版本类型、device.result_data、模式联动等为项目契约。
+
+Tuya_Ros2抽样查询含字段存在后pass、设置含REQUIRED_*门控骨架，不能当完整业务模板；Topic缺频率阈值时不能声明频率验证通过。具体来源哈希保留知识库维护证据，使用前核对当前文件。方法按data-and-evidence、sdk-patterns或ros-patterns参考逐项提炼。
