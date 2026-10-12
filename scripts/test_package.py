@@ -21,6 +21,17 @@ class PackageTests(unittest.TestCase):
         expected={"robot-test-knowledge/skills/testcase-iteration/assets/templates/"+name for name in ("通用软件测试用例模板_v1.0.xlsx","固件测试用例模板_v1.0.xlsx","ROS测试用例模板_v1.0.xlsx")}
         self.assertEqual({n for n in self.names if n.endswith(".xlsx")},expected)
         self.assertEqual(json.loads((self.package/"plugin.json").read_text(encoding="utf-8"))["version"],json.loads((ROOT/"plugin.json").read_text(encoding="utf-8"))["version"])
+    def test_packaged_markdown_references_are_self_contained(self):
+        import re, urllib.parse
+        for p in self.package.rglob('*.md'):
+            for link in re.findall(r'\]\(([^)]+)\)',p.read_text(encoding='utf-8')):
+                if '://' in link or link.startswith('#'):continue
+                value=urllib.parse.unquote(link.split('#')[0].strip('<>'))
+                if not value:continue
+                target=(p.parent/value).resolve()
+                self.assertTrue(target.is_relative_to(self.package.resolve()),str(p)+': '+link)
+                self.assertTrue(target.exists(),str(p)+': '+link)
+
     def test_install_preview_then_apply_and_repeat(self):
         installer.install(self.package,self.home)
         self.assertFalse(self.home.exists())

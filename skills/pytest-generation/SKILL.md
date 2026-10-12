@@ -7,6 +7,8 @@ description: 依据已确认用例和项目源码生成或修改单接口 pytest
 
 先读[团队公共规则](references/team-rules.md)，再读[自动化测试契约](references/automation-contract.md)。技能版本0.7.0；实际加载版本须核对安装清单，旧对话不会因仓库更新自动升级。
 
+按当前任务查看[经验入口](references/pitfalls/index.md)，只读匹配短记录，不加载全部历史或扩大授权。
+
 ## 1. 确认任务和项目
 
 读取当前AGENTS、规则、用例技能、目录conftest、Excel loader、邻近单接口测试和源码证据，按[项目差异](references/project-context.md)重新定位。
