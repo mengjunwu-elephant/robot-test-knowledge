@@ -23,8 +23,19 @@ def validate(root=ROOT,sources=False):
   checks+=1
   try:ast.parse(p.read_text(encoding='utf-8'))
   except SyntaxError as e:errors.append(str(e))
- for name in ['testcase-iteration','pytest-generation']:
-  folder=root/'skills'/name;manifest=folder/'SKILL.md';text=manifest.read_text(encoding='utf-8')
+ expected_names={'testcase-iteration','pytest-generation'}
+ for base in [root/'skills',root/'.agents/skills']:
+  checks+=1
+  if not base.exists() or {p.name for p in base.iterdir() if p.is_dir() and p.name!='__pycache__'}!=expected_names:errors.append('unexpected skill set '+str(base.relative_to(root)))
+ def files(base):return {p.relative_to(base).as_posix() for p in base.rglob('*') if p.is_file() and '__pycache__' not in p.parts and p.suffix!='.pyc'}
+ checks+=1
+ source_files=files(root/'skills');mirror_files=files(root/'.agents/skills')
+ for name in sorted(mirror_files-source_files):errors.append('extra mirror file '+name)
+ for name in sorted(source_files-mirror_files):errors.append('missing mirror file '+name)
+ for name in sorted(expected_names):
+  folder=root/'skills'/name;manifest=folder/'SKILL.md'
+  if not manifest.is_file():errors.append('missing skill '+name);continue
+  text=manifest.read_text(encoding='utf-8')
   checks+=1
   if not re.match(r'---\nname: '+name+r'\ndescription: .+\n---\n',text):errors.append('invalid frontmatter '+name)
   for p in folder.rglob('*'):

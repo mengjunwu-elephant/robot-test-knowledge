@@ -1,0 +1,41 @@
+{
+  "source": "本次维护任务明确构造的模拟协议，不是任何机器人SDK事实",
+  "get_mode": {
+    "returns": "当前模式字符串"
+  },
+  "set_mode": {
+    "allowed": [
+      "idle",
+      "eco"
+    ],
+    "returns": {
+      "accepted": true
+    },
+    "invalid": "ValueError，状态不改变"
+  },
+  "fixture": "memory_device，function scope，不创建外部连接",
+  "missing_contract": "set_timeout 的单位和范围缺失，保留待确认，不生成此接口测试",
+  "ros_simulation": {
+    "source": "纯内存Service模型，不导入ROS",
+    "request_schema": {
+      "get_mode": [],
+      "set_mode": [
+        "mode"
+      ]
+    },
+    "timeout_s": 0.5,
+    "query_response": {
+      "success": true,
+      "data": "当前模式"
+    },
+    "set_response": {
+      "success": true,
+      "data": "ok"
+    },
+    "invalid_response": {
+      "success": false,
+      "error": "MODE_INVALID"
+    },
+    "topic": "未提供采样窗和阈值，不生成频率合格断言"
+  }
+}

@@ -126,4 +126,37 @@ class FormatTests(unittest.TestCase):
     def test_unknown_layout_sheet_rejected(self):
         with self.assertRaises(ValueError):checker.review(self.team_case(),layouts={'错名Sheet':{'header_rows':1,'fields':{'A':'编号'}}})
 
+    def test_omitted_last_or_middle_column_is_not_complete(self):
+        for fields in ({'A':'编号','B':'测试目的'},{'A':'编号','C':'优先级'}):
+            r=checker.review(self.team_case(),layouts={'任意软件功能':{'header_rows':1,'fields':fields}})
+            self.assertTrue(r['unresolved']);self.assertFalse(r['scope_complete'])
+    def test_explicit_column_exclusion_is_partial(self):
+        layout={'任意软件功能':{'header_rows':1,'fields':{'A':'编号','B':'测试目的'},'excluded_columns':{'C':'用户本轮仅审查编号与目的'}}}
+        r=checker.review(self.team_case(),layouts=layout)
+        self.assertTrue(r['static_format_passed']);self.assertFalse(r['unresolved']);self.assertFalse(r['scope_complete'])
+        self.assertIn('C',r['coverage']['任意软件功能']['excluded_columns'])
+        layout['任意软件功能']['excluded_columns']['C']=''
+        with self.assertRaises(ValueError):checker.review(self.team_case(),layouts=layout)
+    def test_profile_omitted_column_is_not_complete(self):
+        p=self.team_case();baseline=json.loads((SKILL/'references/team-format.json').read_text(encoding='utf-8'))
+        profile=checker.team_profile(checker.read_workbook(p),baseline,{})
+        del profile['sheets']['任意软件功能']['fields']['C']
+        target=p.parent/'profile.json';target.write_text(json.dumps(profile),encoding='utf-8')
+        r=checker.review(p,profile_path=target)
+        self.assertTrue(r['unresolved']);self.assertEqual(r['coverage']['任意软件功能']['unmapped_columns'],['C'])
+    def test_blank_header_with_body_outside_layout_is_reported(self):
+        p=self.team_case()
+        with zipfile.ZipFile(p) as z:entries={n:z.read(n) for n in z.namelist()}
+        sh=E.fromstring(entries['xl/worksheets/sheet1.xml'])
+        row=sh.find("m:sheetData/m:row[@r='3']",checker.NS)
+        c=node('c',r='D3',s=2,t='inlineStr');i=node('is');t=node('t');t.text='额外正文';i.append(t);c.append(i);row.append(c)
+        entries['xl/worksheets/sheet1.xml']=E.tostring(sh)
+        with zipfile.ZipFile(p,'w') as z:
+            for n,b in entries.items():z.writestr(n,b)
+        r=checker.review(p);self.assertTrue(r['unresolved']);self.assertIn('D',r['coverage']['任意软件功能']['unmapped_columns'])
+
+    def test_known_equivalent_role_alias_is_supported(self):
+        layout={'任意软件功能':{'header_rows':1,'fields':{'A':{'label':'编号','role':'用例编号'},'B':'测试目的','C':'优先级'}}}
+        self.assertTrue(checker.review(self.team_case(),layouts=layout)['static_format_passed'])
+
 if __name__=='__main__':unittest.main()

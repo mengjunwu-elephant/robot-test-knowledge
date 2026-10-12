@@ -1,9 +1,8 @@
-import base64, os, subprocess, tempfile, json, hashlib, zipfile, sys
-from datetime import date
+"""Explicit Windows launcher build/test; importing this module has no side effects."""
+import argparse, base64, os, subprocess, tempfile, json, hashlib, zipfile, sys
 from pathlib import Path
-repo=Path(__file__).resolve().parents[1]; r=repo.parent
-version=json.loads((repo/'plugin.json').read_text(encoding='utf-8'))['version']
-ps=r'''$ErrorActionPreference = 'Stop'
+
+POWERSHELL=r'''$ErrorActionPreference = 'Stop'
 $log = $env:ROBOT_SKILL_BUNDLE + '.log'
 try {
     'Starting offline skill package installation.' | Set-Content -LiteralPath $log -Encoding UTF8
@@ -38,40 +37,44 @@ try {
     exit 1
 }
 '''
-ps=ps.replace('__VERSION__',version)
-encoded=base64.b64encode(ps.encode('utf-16le')).decode('ascii')
-archive=repo/f'dist/robot-test-knowledge-{version}.zip'
-payload=base64.b64encode(archive.read_bytes()).decode('ascii')
-text=r'''@echo off
-setlocal
-set "ROBOT_SKILL_BUNDLE=%~f0"
-"%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -InputFormat Text -OutputFormat Text -EncodedCommand '''+encoded+'''
-set "ROBOT_SKILL_EXIT=%ERRORLEVEL%"
-echo.
-echo Log file: "%~f0.log"
-echo Press any key to close this window.
-pause >nul
-exit /b %ROBOT_SKILL_EXIT%
-:ROBOT_PACKAGE_DATA
-'''+payload+'\n'
-launcher=r/f'robot-test-knowledge-{version}-Install.cmd'
-launcher.write_text(text,encoding='ascii',newline='\r\n')
-# Test the actual CMD entry point without touching the real user's plugin directory.
-with tempfile.TemporaryDirectory(prefix='robot-launcher-test-') as tmp:
-    testroot=Path(tmp)
-    env=dict(os.environ,ROBOT_SKILL_TEST_ROOT=str(testroot/'user'),ROBOT_SKILL_PYTHON=sys.executable)
-    run=subprocess.run([os.environ.get('COMSPEC','C:/Windows/System32/cmd.exe'),'/d','/c',str(launcher)],input='\n',text=True,capture_output=True,env=env,timeout=45)
-    print(run.stdout);assert run.returncode==0,(run.returncode,run.stderr)
-    catalog=testroot/'user/.agents/plugins/marketplace.json';assert catalog.exists()
-    assert len(json.loads(catalog.read_text(encoding='utf-8'))['plugins'])==1
-    env['ROBOT_SKILL_PYTHON']=str(testroot/'missing-python.exe')
-    failed=subprocess.run([os.environ.get('COMSPEC','C:/Windows/System32/cmd.exe'),'/d','/c',str(launcher)],input='\n',text=True,capture_output=True,env=env,timeout=45)
-    assert failed.returncode!=0
-    assert 'Installation stopped:' in failed.stdout
-    assert 'Press any key' in failed.stdout
-    print('Failure path retained error message and close prompt.')
-report={'date':date.today().isoformat(),'version':version,'package_sha256':hashlib.sha256(archive.read_bytes()).hexdigest(),'installer_tests':7,'cmd_success_path':True,'cmd_failure_path':True,'scope':'temporary user root only; desktop plugin discovery not tested'}
-(repo/'packaging/bundle-validation.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
-print(json.dumps(report))
 
+def build_launcher(archive, launcher):
+    archive=Path(archive);launcher=Path(launcher)
+    with zipfile.ZipFile(archive) as z:
+        version=json.loads(z.read('robot-test-knowledge/plugin.json'))['version']
+    encoded=base64.b64encode(POWERSHELL.replace('__VERSION__',version).encode('utf-16le')).decode('ascii')
+    payload=base64.b64encode(archive.read_bytes()).decode('ascii')
+    text='@echo off\nsetlocal\nset "ROBOT_SKILL_BUNDLE=%~f0"\n"%SystemRoot%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -NoProfile -InputFormat Text -OutputFormat Text -EncodedCommand '+encoded+'\nset "ROBOT_SKILL_EXIT=%ERRORLEVEL%"\necho.\necho Log file: "%~f0.log"\necho Press any key to close this window.\npause >nul\nexit /b %ROBOT_SKILL_EXIT%\n:ROBOT_PACKAGE_DATA\n'+payload+'\n'
+    content=text.replace('\n','\r\n').encode('ascii')
+    launcher.parent.mkdir(parents=True,exist_ok=True)
+    if launcher.exists():
+        if launcher.read_bytes()!=content:raise FileExistsError('refusing to replace launcher: '+str(launcher))
+    else:
+        with launcher.open('xb') as f:f.write(content)
+    return launcher
 
+def verify_launcher(archive):
+    if os.name!='nt':raise RuntimeError('Windows is required for actual CMD validation')
+    archive=Path(archive)
+    with tempfile.TemporaryDirectory(prefix='robot-launcher-test-') as tmp:
+        testroot=Path(tmp);launcher=build_launcher(archive,testroot/'Install.cmd')
+        env=dict(os.environ,ROBOT_SKILL_TEST_ROOT=str(testroot/'user'),ROBOT_SKILL_PYTHON=sys.executable)
+        run=subprocess.run([os.environ.get('COMSPEC','C:/Windows/System32/cmd.exe'),'/d','/c',str(launcher)],input='\n',text=True,capture_output=True,env=env,timeout=45)
+        if run.returncode!=0:raise AssertionError((run.returncode,run.stdout,run.stderr))
+        catalog=testroot/'user/.agents/plugins/marketplace.json'
+        if len(json.loads(catalog.read_text(encoding='utf-8'))['plugins'])!=1:raise AssertionError('registration failed')
+        env['ROBOT_SKILL_PYTHON']=str(testroot/'missing-python.exe')
+        failed=subprocess.run([os.environ.get('COMSPEC','C:/Windows/System32/cmd.exe'),'/d','/c',str(launcher)],input='\n',text=True,capture_output=True,env=env,timeout=45)
+        if failed.returncode==0 or 'Installation stopped:' not in failed.stdout or 'Press any key' not in failed.stdout:raise AssertionError('failure path lost diagnostic or close prompt')
+    return {'package_sha256':hashlib.sha256(archive.read_bytes()).hexdigest(),'cmd_success_path':True,'cmd_failure_path':True,'scope':'temporary user root; desktop discovery not tested'}
+
+def main():
+    p=argparse.ArgumentParser();p.add_argument('--archive',required=True,type=Path);p.add_argument('--launcher',type=Path);p.add_argument('--report',type=Path);a=p.parse_args()
+    if a.report and (a.report.resolve()==a.archive.resolve() or a.launcher and a.report.resolve()==a.launcher.resolve()):p.error('report must be separate from inputs')
+    result=verify_launcher(a.archive)
+    if a.launcher:build_launcher(a.archive,a.launcher)
+    text=json.dumps(result,ensure_ascii=False,indent=2)
+    if a.report:a.report.write_text(text+'\n',encoding='utf-8')
+    print(text)
+
+if __name__=='__main__':main()

@@ -1,13 +1,30 @@
 # 字段与离线检查
-完整审查时另运行scripts/review_format.py --baseline team，按团队通用标准及批准项目差异检查；它补充直接字体、字号、对齐、换行、填充和合并外框静态检查，详见[cell-format.md](cell-format.md)。原review_workbook.py仍负责结构与填写内容；两者都不替代视觉、语义评审。
 
-新表优先复制 assets/templates 适用模板；附带原件与来源哈希。填写说明与示例页包含演示结果，不能当正式执行结果，不纳入统计。读取 references/standard-extract.md 可定位正式用例条款。
-已有表使用其确认字段，不因新版模板而强改。发生差异先用 conflicts.md 提示用户选择，再用独立字段映射进行检查。
+两个脚本都只读。完整审查另按[四项交付](review-completion.md)检查内容与视觉；结构或格式通过均不代表业务正确或已执行。
 
-## 运行检查（Python3.10+，标准库，无联网依赖）
-在本技能目录执行：
-`python scripts/review_workbook.py --workbook "用例副本.xlsx" --category firmware --report "检查结果.json"`
-类别 general、firmware、ros。默认是设计阶段，正式执行栏必须为空；维护已有实际执行结果时用 --mode executed。模板本身没有设计用例，可加 --allow-empty 检查结构。
-模块 Sheet 改名时提供 --mapping "映射.json"，文件格式为 {"工作簿Sheet名":"模板Sheet名"}，例如 {"串口指令测试结果":"功能模块（接口测试）"}。未知 Sheet 提示未映射，不能忽略后宣称全表通过。首页和说明页单独排除用例计数。
-工具检查表头字段和位置、两层合并、必填、优先级、同表独立编号、状态、结果与证据，报告Sheet和单元格。纵向合并的描述由锚点继承，独立结果跨项合并报错。
-脚本只读文件，不保存或清洗原件，不计算/重算公式，不判断公式正确性、接口语义、来源真实程度、全部格式或视觉表现。检查通过仅表示本轮结构/内容规则通过；环境首页、颜色/边框、语义、样式与正式验收仍需人工核对。参数/预期有待确认或未知Sheet时不能宣称完整就绪。
+## 选择结构检查入口
+
+新表复制assets/templates适用模板。已有表保留确认的字段与顺序，不为了通过内置模板检查而改业务表。
+
+- 原表与内置模板字段/位置一致，仅Sheet改名：review_workbook.py的--mapping映射Sheet名。
+- 原表有批准的别名、调列或结果分组：使用--layout声明原标签与字段语义，具体见[项目字段布局](field-layout.md)。
+- 不知道字段含义：先列缺口，完成已知部分，不能自行猜映射。
+
+在当前技能目录运行：
+
+```text
+python scripts/review_workbook.py --workbook "用例副本.xlsx" --category firmware --report "结构报告.json"
+python scripts/review_format.py --workbook "用例副本.xlsx" --baseline team --report "格式报告.json"
+```
+
+类别general、firmware、ros。默认设计阶段要求正式执行栏为空；审查已有执行记录使用--mode executed，不清空历史。--allow-empty仅检查空模板结构，不能用于宣称已有完整用例。两个工具均可用--sheet限定批准Sheet。
+
+结构工具的--mapping形如{"原Sheet":"模板Sheet"}，只解决Sheet名。--layout才能解决字段布局；二者用途不同。首页、说明页不计正式用例，报告实际选中和排除范围。
+
+## 检查范围与结果
+
+结构检查表头/合并、必填、优先级、编号、执行状态、实际结果及证据关系。合并描述由锚点继承，独立步骤、预期或执行记录不得跨独立项合并。
+
+格式检查按团队基线或批准项目配方核对字体、字号、对齐、换行、填充和边框；复杂表头用明确layout。漏映射的实际列不能静默通过。用户明确排除列时记录excluded_columns及理由，scope_complete=false，不称全表通过。
+
+报告中的passed表示已做检查是否合格，unresolved表示待确认，scope_complete仅表示所选静态范围是否完整。即使这三项均满足，也不证明内容、视觉、公式或设备验证通过。公式只读缓存，不重算；原文件哈希应保持一致。

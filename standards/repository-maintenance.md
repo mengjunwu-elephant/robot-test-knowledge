@@ -4,7 +4,7 @@
 
 ## 维护源与目录
 
-- skills是两项技能唯一维护源，.agents/skills为内容相同的发现镜像。不得直接改个人plugins/cache。
+- skills是两项技能唯一维护源，.agents/skills为内容相同的发现镜像。不得直接改个人plugins/cache。离线检查须双向比较两技能与镜像的文件集合，删除文件时也清理对应镜像。
 - 公共底线维护standards/team-rules.md，同步两技能references/team-rules.md；自动化契约维护standards/testing-contract.md，同步pytest-generation/references/automation-contract.md。
 - Cursor清单引用现有skills，不另建技能源。项目独立知识在原项目维护，projects只保留来源与差异索引。
 - 文档分使用、维护、验收示例；总方案及交接保持唯一、表达当前状态。舍弃设计及历史过程通过Git查阅。
@@ -18,7 +18,7 @@
 ## 打包与发布
 
 - 以plugin.json、skills和明确白名单打包，禁止项目快照、原工作簿、密钥及现场配置进入安装包。
-- 版本同步根/Cursor清单、技能及维护的版本提示，更新CHANGELOG。不得用同版本覆盖正式资产或移动旧标签。
+- 版本同步根/Cursor清单、技能及维护的版本提示，更新CHANGELOG。不得用同版本覆盖正式资产或移动旧标签。日常构建默认candidate，输出dist/candidate并附提交、未提交状态、内容指纹；正式构建显式选择release。未发布源码的基础版本号不能单独用于定位实际内容。
 - 发布由维护者手动触发；Windows/Linux隔离检查通过才发布正式Release。安装器保留原来源条目和备份，拒绝同名外部来源及被修改的同版本。
 - Windows入口改动实际验证成功/失败路径，临时user-root隔离；命令避免replacement string的$语义，错误窗口保留说明及日志路径。
 
@@ -36,3 +36,5 @@
 ## 经验维护
 
 按[踩坑入口](../docs/踩坑记录/README.md)维护已核实问题。完整证据留维护文档，任务短参考在对应skills/references/pitfalls，随技能打包并同步镜像；两者用稳定经验编号关联。截图自述、工具复现和真实项目验收分别标记，待验证假设不变成通用强制规则。过时经验标被替代，不让历史记录覆盖当前契约。
+
+安装器在临时目录写入并校验后切换版本目录，登记失败可重试；已有未知残留或用户修改仍停止并保留，不能自动删掉。旧版更新器首次升级可能仍调用旧安装器，要使用本次修订的安装逻辑应运行新包内install.py。Windows入口测试显式传--archive，默认只在临时目录验证，不改正式入口和旧发布收据。

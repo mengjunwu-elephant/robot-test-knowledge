@@ -3,7 +3,7 @@ on:
   pull_request:
   push:
     branches: [main]
-    paths: ['plugin.json', '.cursor-plugin/**', 'packaging/**', 'skills/**', '.agents/skills/**', 'scripts/**', '.github/workflows/package.yml']
+    paths: ['standards/**', 'AGENTS.md', 'plugin.json', '.cursor-plugin/**', 'packaging/**', 'skills/**', '.agents/skills/**', 'scripts/**', '.github/workflows/package.yml']
   workflow_dispatch:
 permissions:
   contents: read
@@ -20,15 +20,18 @@ jobs:
           python-version: '3.10'
       - run: python -X utf8 scripts/validate_offline.py
       - run: python -X utf8 scripts/test_sync.py
-      - run: python -X utf8 scripts/test_package.py
-      - run: python -X utf8 scripts/test_update.py
-      - run: python -X utf8 scripts/test_case_review.py
-      - run: python -X utf8 scripts/test_format_review.py
-      - run: python -X utf8 scripts/build_package.py
+      - run: python -X utf8 -m unittest discover -s scripts -p 'test_*.py'
+      - run: python -X utf8 scripts/build_package.py --channel ${{ github.event_name == 'workflow_dispatch' && 'release' || 'candidate' }}
+      - name: Validate actual Windows launcher
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $archive = Get-ChildItem -LiteralPath "dist/${{ github.event_name == 'workflow_dispatch' && 'release' || 'candidate' }}" -Filter *.zip | Select-Object -First 1
+          python -X utf8 scripts/test_launcher_windows.py --archive $archive.FullName
       - uses: actions/upload-artifact@v4
         with:
           name: robot-test-package-${{ matrix.os }}
-          path: dist/*
+          path: dist/${{ github.event_name == 'workflow_dispatch' && 'release' || 'candidate' }}/*
   release:
     if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main' && github.actor == 'mengjunwu-elephant'
     needs: verify

@@ -33,6 +33,8 @@ def update(user_root, apply=False, fetcher=fetch):
         validate_extract(data,folder)
         package=Path(folder)/'robot-test-knowledge'
         if json.loads((package/'plugin.json').read_text(encoding='utf-8'))['version']!=version: raise ValueError('release version mismatch')
+        identity=package/'build-info.json'
+        if identity.exists() and json.loads(identity.read_text(encoding='utf-8')).get('channel')!='release':raise ValueError('candidate package is not an official release')
         from install import install
         return install(package,user_root,True)
 if __name__=='__main__':

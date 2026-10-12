@@ -69,4 +69,42 @@ class PackageTests(unittest.TestCase):
     def test_real_cli(self):
         subprocess.run([sys.executable,"-X","utf8",str(self.package/"install.py"),"--user-root",str(self.home),"--apply"],check=True)
         self.assertTrue((self.home/".agents/plugins/marketplace.json").exists())
+    def test_interrupted_copy_can_retry_without_partial_version(self):
+        from unittest.mock import patch
+        original=Path.open;writes=[]
+        def fail_second(p,*args,**kwargs):
+            if args and args[0]=='xb' and p.is_relative_to(self.home):
+                writes.append(p)
+                if len(writes)==2:raise OSError('simulated interrupted copy')
+            return original(p,*args,**kwargs)
+        with patch.object(Path,'open',fail_second):
+            with self.assertRaises(OSError):installer.install(self.package,self.home,True)
+        self.assertFalse((self.home/'.agents/plugins/marketplace.json').exists())
+        self.assertFalse(any(p.is_file() for p in self.home.rglob('*')))
+        self.assertTrue(installer.install(self.package,self.home,True)['applied'])
+    def test_catalog_failure_preserves_previous_source_and_can_retry(self):
+        from unittest.mock import patch
+        catalog=self.home/'.agents/plugins/marketplace.json';catalog.parent.mkdir(parents=True)
+        before=json.dumps({'name':'mine','plugins':[{'name':'other','source':{'source':'local','path':'./other'}}]})
+        catalog.write_text(before,encoding='utf-8')
+        with patch.object(installer.os,'replace',side_effect=OSError('simulated catalog failure')):
+            with self.assertRaises(OSError):installer.install(self.package,self.home,True)
+        self.assertEqual(catalog.read_text(encoding='utf-8'),before)
+        self.assertTrue(installer.install(self.package,self.home,True)['applied'])
+    def test_preexisting_partial_or_modified_directory_is_preserved(self):
+        preview=installer.install(self.package,self.home);dest=Path(preview['plugin_path']);dest.mkdir(parents=True)
+        marker=dest/'user-file.txt';marker.write_text('keep',encoding='utf-8')
+        with self.assertRaises(FileExistsError):installer.install(self.package,self.home,True)
+        self.assertEqual(marker.read_text(encoding='utf-8'),'keep')
+    def test_build_identity_is_installed_and_candidate_is_distinct(self):
+        result=installer.install(self.package,self.home,True)
+        identity=json.loads((Path(result['plugin_path'])/'build-info.json').read_text(encoding='utf-8'))
+        self.assertEqual(identity['channel'],'candidate');self.assertEqual(len(identity['payload_sha256']),64)
+        archive=build(self.root/'candidate');self.assertIn('-candidate-',archive.name)
+        released=build(self.root/'release',channel='release');self.assertNotIn('-candidate-',released.name)
+    def test_package_does_not_replace_existing_different_asset(self):
+        archive=build(self.root/'protected');archive.write_bytes(b'keep official asset')
+        with self.assertRaises(FileExistsError):build(self.root/'protected')
+        self.assertEqual(archive.read_bytes(),b'keep official asset')
+
 if __name__=="__main__":unittest.main()

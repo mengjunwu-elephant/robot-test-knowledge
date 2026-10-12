@@ -2,7 +2,7 @@
 import argparse, hashlib, json, posixpath, zipfile
 from pathlib import Path
 import xml.etree.ElementTree as ET
-from review_workbook import NS, R, xy, addr, box, read_workbook
+from review_workbook import NS, R, xy, addr, box, read_workbook, occupied_columns, excluded_columns, column_number, ROLE_ALIASES
 
 PROFILE=Path(__file__).resolve().parents[1]/'references/gripper-v1.4.1-format.json'
 
@@ -65,7 +65,7 @@ def team_profile(data, baseline, layouts):
                 elif isinstance(value,dict):label=value['label'];role=value['role']
                 else:raise ValueError('invalid layout field '+name)
                 if not isinstance(label,str) or not isinstance(role,str):raise ValueError('invalid layout field '+name)
-                if label in roles and role!=label:raise ValueError('known header cannot be remapped to another field '+name+' '+col)
+                if label in roles and ROLE_ALIASES.get(role,role)!=ROLE_ALIASES.get(label,label):raise ValueError('known header cannot be remapped to another field '+name+' '+col)
                 candidates=[col+str(row) for row in range(start,header+1) if cells.get(col+str(row),'')]
                 ref=candidates[-1] if candidates else col+str(header)
                 headers[ref]={'label':label}
@@ -79,13 +79,14 @@ def team_profile(data, baseline, layouts):
         maxcol=max(xy(col+'1')[1] for col in fields)
         for col in range(1,maxcol+1):
             key=addr(1,col)[:-1]
-            if key not in fields:fields[key]={'label':'未映射字段','expected':{'font':baseline['font'],'bold':False,'alignment':{'horizontal':'left','vertical':'center','wrapText':'1'},'border_style':'thin','border_rgb':baseline['body_border_rgb']},'unresolved':True}
-        result['sheets'][name]={'start_row':start,'header_rows':header,'headers':headers,'fields':fields,'header_border_rgb':baseline['header_border_rgb']}
+            if key not in fields and key not in (layout or {}).get('excluded_columns',{}):fields[key]={'label':'未映射字段','expected':{'font':baseline['font'],'bold':False,'alignment':{'horizontal':'left','vertical':'center','wrapText':'1'},'border_style':'thin','border_rgb':baseline['body_border_rgb']},'unresolved':True}
+        result['sheets'][name]={'start_row':start,'header_rows':header,'headers':headers,'fields':fields,'header_border_rgb':baseline['header_border_rgb'],'excluded_columns':excluded_columns(layout or {},labels)}
     return result
 
 def review(path,sheet_names=None,mapping=None,profile_path=None,baseline='team',layouts=None):
     path=Path(path);before=hashlib.sha256(path.read_bytes()).hexdigest()
     data=read_workbook(path);styles=load_styles(path)
+    if layouts is not None and (not isinstance(layouts,dict) or any(n not in data for n in layouts)):raise ValueError('layout contains unknown sheet')
     if profile_path:profile=json.loads(Path(profile_path).read_text(encoding='utf-8'))
     elif baseline=='team':profile=team_profile(data,json.loads((PROFILE.parent/'team-format.json').read_text(encoding='utf-8')),layouts or {})
     elif baseline=='gripper':profile=json.loads(PROFILE.read_text(encoding='utf-8'))
@@ -95,7 +96,7 @@ def review(path,sheet_names=None,mapping=None,profile_path=None,baseline='team',
     if not isinstance(mapping,dict) or not all(isinstance(k,str) and isinstance(v,str) for k,v in mapping.items()):raise ValueError('mapping must be a sheet-name object')
     names=sheet_names if sheet_names is not None else [n for n in data if n not in ('测试需求与环境','填写说明与示例')]
     if not names:raise ValueError('no case sheets selected')
-    issues=[];checked=0
+    issues=[];checked=0;coverage={}
     def issue(code,name,ref,message,severity='error'):
         issues.append({'code':code,'sheet':name,'cell':ref,'message':message,'severity':severity})
     for name in names:
@@ -103,6 +104,11 @@ def review(path,sheet_names=None,mapping=None,profile_path=None,baseline='team',
         expected=profile['sheets'].get(mapping.get(name,name))
         if expected is None:issue('UNMAPPED_FORMAT',name,'A1','没有批准的格式配方','warning');continue
         sheet=data[name];actual=styles[name];header=expected['header_rows'];fields=expected['fields']
+        excluded=excluded_columns(expected,fields)
+        occupied=occupied_columns(sheet,expected.get('start_row',1))
+        missing=occupied-set(fields)-set(excluded)
+        coverage[name]={'checked_columns':sorted(fields,key=column_number),'unmapped_columns':sorted(missing,key=column_number),'excluded_columns':excluded}
+        for col in sorted(missing,key=column_number):issue('UNMAPPED_COLUMN',name,col+str(header),'实际列未纳入格式配方，不能称完整检查','warning')
         for col,field in fields.items():
             if field.get('unresolved'):issue('UNMAPPED_FIELD',name,col+str(header),'字段含义未确认；只检查通用字体与边框，对齐仍待确认','warning')
         if actual['conditional'] or actual['rich_text']:issue('VISUAL_OVERRIDE',name,'A1','存在条件格式或富文本；实际显示未验证','warning')
@@ -116,7 +122,8 @@ def review(path,sheet_names=None,mapping=None,profile_path=None,baseline='team',
         last=max(rows);maxcol=max(xy(col+'1')[1] for col in fields)
         merges=[box(m) for m in sheet['merges']]
         for row in range(expected.get('start_row',1),last+1):
-            for col in range(1,maxcol+1):
+            for key in sorted(fields,key=column_number):
+                col=column_number(key)
                 ref=addr(row,col);merged=next((m for m in merges if m[0]<=row<=m[2] and m[1]<=col<=m[3]),None)
                 anchor=not merged or (row,col)==merged[:2]
                 st=actual['styles'].get(ref)
@@ -137,7 +144,7 @@ def review(path,sheet_names=None,mapping=None,profile_path=None,baseline='team',
                     edge=st['border'][side]
                     if edge['style']!=rule['border_style'] or edge['rgb']!=rule['border_rgb']:issue('BORDER',name,ref,side+'边应为指定颜色的细线')
     after=hashlib.sha256(path.read_bytes()).hexdigest()
-    return {'baseline':'project-profile' if profile_path else baseline,'selected_sheets':names,'field_mapping':{n:{c:f.get('label','') for c,f in profile['sheets'].get(mapping.get(n,n),{}).get('fields',{}).items()} for n in names},'static_format_passed':not any(i['severity']=='error' for i in issues),'unresolved':any(i['severity']=='warning' for i in issues),'checked_cells':checked,'source_sha256':before,'source_unchanged':before==after,'issues':issues,'scope':'direct font/alignment/fill and perimeter borders; no visual, semantic, formula or hardware validation'}
+    return {'baseline':'project-profile' if profile_path else baseline,'selected_sheets':names,'field_mapping':{n:{c:f.get('label','') for c,f in profile['sheets'].get(mapping.get(n,n),{}).get('fields',{}).items()} for n in names},'static_format_passed':not any(i['severity']=='error' for i in issues),'unresolved':any(i['severity']=='warning' for i in issues),'checked_cells':checked,'coverage':coverage,'scope_complete':not any(i['severity']=='warning' for i in issues) and not any(v['excluded_columns'] for v in coverage.values()),'source_sha256':before,'source_unchanged':before==after,'issues':issues,'scope':'direct font/alignment/fill and perimeter borders; no visual, semantic, formula or hardware validation'}
 
 if __name__=='__main__':
     p=argparse.ArgumentParser();p.add_argument('--workbook',type=Path,required=True);p.add_argument('--sheet',action='append');p.add_argument('--mapping',type=Path);p.add_argument('--report',type=Path);p.add_argument('--baseline',choices=['team','gripper'],default='team');p.add_argument('--profile',type=Path);p.add_argument('--layout',type=Path);a=p.parse_args()

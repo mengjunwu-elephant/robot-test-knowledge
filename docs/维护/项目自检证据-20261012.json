@@ -1,0 +1,40 @@
+{
+  "integrity": {
+    "passed": true,
+    "checks": 67,
+    "errors": [],
+    "scope": "static files only; no source project imports, collection, hardware or network"
+  },
+  "omitted_column": {
+    "full_passed": false,
+    "full_error_cells": [
+      "C3"
+    ],
+    "partial_passed": true,
+    "partial_unresolved": false,
+    "partial_fields": {
+      "任意软件功能": {
+        "A": "编号",
+        "B": "测试目的"
+      }
+    },
+    "partial_checked": 6
+  },
+  "interrupted_install": {
+    "first_error": "simulated interrupted write",
+    "files_left": 1,
+    "catalog_exists": false,
+    "retry": "FileExistsError: installed version changed; refusing overwrite"
+  },
+  "extra_mirror_skill": {
+    "passed": true,
+    "checks": 67,
+    "errors": [],
+    "scope": "static files only; no source project imports, collection, hardware or network"
+  },
+  "same_version_source_vs_release": {
+    "version": "0.7.0",
+    "added_files": 9,
+    "changed_files": 27
+  }
+}

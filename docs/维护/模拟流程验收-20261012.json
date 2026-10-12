@@ -1,0 +1,146 @@
+{
+  "date": "2026-10-12",
+  "source": "fictional in-memory contract only",
+  "structure": {
+    "static_checks_passed": true,
+    "unresolved": true,
+    "scope_complete": false,
+    "mode": "design",
+    "source_sha256": "b83bb1fa753f95604b14ab56c5d36426f607f7b3b880d27d09e9ac95c4b8b87d",
+    "source_unchanged": true,
+    "sheets": [
+      {
+        "sheet": "模拟配置用例",
+        "case_items": 4,
+        "field_mapping": {
+          "A": "预期结果",
+          "B": "测试接口",
+          "C": "用例编号",
+          "D": "测试步骤",
+          "E": "前置条件",
+          "F": "优先级"
+        },
+        "excluded_columns": {}
+      }
+    ],
+    "issues": [
+      {
+        "severity": "warning",
+        "code": "UNCONFIRMED",
+        "sheet": "模拟配置用例",
+        "cell": "A5",
+        "message": "内容未确认，不能作为执行基线"
+      },
+      {
+        "severity": "warning",
+        "code": "UNCONFIRMED",
+        "sheet": "模拟配置用例",
+        "cell": "D5",
+        "message": "内容未确认，不能作为执行基线"
+      }
+    ],
+    "scope": "read-only structure and selected cell rules; no formula recalculation, full style/visual, semantic or hardware validation"
+  },
+  "format": {
+    "baseline": "team",
+    "selected_sheets": [
+      "模拟配置用例"
+    ],
+    "field_mapping": {
+      "模拟配置用例": {
+        "A": "预期结果",
+        "B": "测试接口",
+        "C": "用例编号",
+        "D": "测试步骤",
+        "E": "前置条件",
+        "F": "优先级"
+      }
+    },
+    "static_format_passed": true,
+    "unresolved": false,
+    "checked_cells": 30,
+    "coverage": {
+      "模拟配置用例": {
+        "checked_columns": [
+          "A",
+          "B",
+          "C",
+          "D",
+          "E",
+          "F"
+        ],
+        "unmapped_columns": [],
+        "excluded_columns": {}
+      }
+    },
+    "scope_complete": true,
+    "source_sha256": "b83bb1fa753f95604b14ab56c5d36426f607f7b3b880d27d09e9ac95c4b8b87d",
+    "source_unchanged": true,
+    "issues": [],
+    "scope": "direct font/alignment/fill and perimeter borders; no visual, semantic, formula or hardware validation"
+  },
+  "visual": {
+    "method": "artifact-tool actual render + assistant visual inspection",
+    "range": "模拟配置用例!A1:F5",
+    "result": "文字完整可读；编号/接口/优先级居中，步骤预期逐号对应，同接口公共字段合并；未验证Excel打印或客户端显示"
+  },
+  "sdk_tests": [
+    {
+      "name": "模拟Service设置并恢复",
+      "status": "passed",
+      "attachments": 2
+    },
+    {
+      "name": "非法模式被拒绝且原值不变",
+      "status": "passed",
+      "attachments": 1
+    },
+    {
+      "name": "模拟Service业务拒绝且状态不变",
+      "status": "passed",
+      "attachments": 1
+    },
+    {
+      "name": "设置模式并恢复原值",
+      "status": "passed",
+      "attachments": 2
+    },
+    {
+      "name": "查询当前模式",
+      "status": "passed",
+      "attachments": 1
+    },
+    {
+      "name": "模拟Service查询模式",
+      "status": "passed",
+      "attachments": 1
+    }
+  ],
+  "fault_probes": {
+    "passed": true,
+    "checks": [
+      "query rejects wrong business value",
+      "failed setter assertion still restores and reads original",
+      "restore failure is observable",
+      "business failure retains restoration failure as cause",
+      "specific exception leaves original state unchanged",
+      "service success alone does not pass wrong business value",
+      "service failure restores state and excludes validation controls from requests"
+    ],
+    "scope": "fictional memory SDK and Service only"
+  },
+  "files": {
+    "cases.xlsx": "b83bb1fa753f95604b14ab56c5d36426f607f7b3b880d27d09e9ac95c4b8b87d",
+    "conftest.py": "4a3fc57b74ce8899bd296d047e800e20e60316d00a7d0dddd0dde4e50b55a964",
+    "contract.json": "fccf617d2c2b32a914dd3f918bb632056a08f89e6a01bde883037fee1d0f4507",
+    "layout.json": "3f60697bf821ec61816e1754a35e498eeba89e0bdaf5f9fca0045058039f43bf",
+    "preview.png": "7fbaa53dad91f169915e49856412f6a244ed4cca8e521f324004c0657677fa2b",
+    "pytest.ini": "8965aec51f7cb92c81e1f02b48a33098d11711dcbad04cee732968562aa59653",
+    "README.md": "2dbf136e305400cdfe7ad7ba12924f0b3f1a6bde0bc3ee9686be6c0d36889382",
+    "test_get_mode.py": "4ebb73fb16ea98e015a10a1c75830d7cf8a05039779c558ff04e866ba6e751d0",
+    "test_service_get_mode.py": "c3a9e2b1a856a262342f28e2bed2a4e927be3ca1054e64b1a032fe257829cd61",
+    "test_service_set_mode.py": "4cb5032fe2b85c3ac9f321b9069200c35df7669888299d48f542a98c843c9637",
+    "test_set_mode.py": "38b9ef6c442aa97543ce1798998871e818c8520aca94f556ab2ddef33bfc71f1",
+    "verify_faults.py": "177b8b040c0d89783a984da7b7624978b08872908779c94aef702be81f8f295b"
+  }
+}

@@ -7,7 +7,7 @@ from build_package import build
 class UpdateTests(unittest.TestCase):
     def test_verified_update_and_tamper(self):
         with tempfile.TemporaryDirectory() as t:
-            archive=build(Path(t)/'dist');data=archive.read_bytes();version=json.loads((ROOT/'plugin.json').read_text(encoding='utf-8'))['version']
+            archive=build(Path(t)/'dist',channel='release');data=archive.read_bytes();version=json.loads((ROOT/'plugin.json').read_text(encoding='utf-8'))['version']
             release={'tag_name':'v'+version,'assets':[{'name':archive.name,'browser_download_url':'zip'},{'name':'SHA256SUMS.txt','browser_download_url':'sha'}]}
             values={'zip':data,'sha':(hashlib.sha256(data).hexdigest()+'  '+archive.name).encode()}
             def fetch(url):return values.get(url,json.dumps(release).encode())
@@ -22,4 +22,14 @@ class UpdateTests(unittest.TestCase):
         with zipfile.ZipFile(b,'w') as z:z.writestr('robot-test-knowledge/../../escape','x')
         with tempfile.TemporaryDirectory() as t:
             with self.assertRaises(ValueError):validate_extract(b.getvalue(),t)
+    def test_candidate_cannot_be_used_as_official_update(self):
+        with tempfile.TemporaryDirectory() as t:
+            archive=build(Path(t)/'dist');data=archive.read_bytes();version=json.loads((ROOT/'plugin.json').read_text(encoding='utf-8'))['version']
+            official_name='robot-test-knowledge-'+version+'.zip'
+            release={'tag_name':'v'+version,'assets':[{'name':official_name,'browser_download_url':'zip'},{'name':'SHA256SUMS.txt','browser_download_url':'sha'}]}
+            values={'zip':data,'sha':(hashlib.sha256(data).hexdigest()+'  '+official_name).encode()}
+            def fetch(url):return values.get(url,json.dumps(release).encode())
+            with self.assertRaisesRegex(ValueError,'candidate'):update(Path(t)/'user',True,fetch)
+            self.assertFalse((Path(t)/'user').exists())
+
 if __name__=='__main__':unittest.main()

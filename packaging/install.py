@@ -33,11 +33,13 @@ def install(package, user_root, apply=False):
         p = package/rel
         if p.is_symlink() or not p.is_file() or digest(p) != sha:
             raise ValueError("package checksum mismatch: " + name)
-        if name in ("plugin.json", "update.py", "install.py", "Update.cmd") or name.startswith("skills/"):
+        if name in ("plugin.json", "update.py", "install.py", "Update.cmd", "build-info.json") or name.startswith("skills/"):
             payload[name] = p
     for skill in ("testcase-iteration", "pytest-generation"):
         if f"skills/{skill}/SKILL.md" not in payload:
             raise ValueError("missing skill " + skill)
+    identity=json.loads((package/"build-info.json").read_text(encoding="utf-8")) if "build-info.json" in payload else {"version":version,"channel":"legacy-unrecorded"}
+    if identity.get("version")!=version:raise ValueError("build identity version mismatch")
     dest = home/".codex/plugins/local"/NAME/version
     catalog = home/".agents/plugins/marketplace.json"
     guard(home, dest); guard(home, catalog)
@@ -69,12 +71,21 @@ def install(package, user_root, apply=False):
             raise FileExistsError("installed version changed; refusing overwrite")
     if apply:
         if not dest.exists():
-            dest.mkdir(parents=True)
-            for name, p in payload.items():
-                output = dest/name
-                output.parent.mkdir(parents=True, exist_ok=True)
-                with output.open("xb") as f:
-                    f.write(p.read_bytes())
+            dest.parent.mkdir(parents=True, exist_ok=True)
+            with tempfile.TemporaryDirectory(prefix=".install-", dir=dest.parent) as staging:
+                staged = Path(staging)/"payload"
+                staged.mkdir()
+                for name, p in payload.items():
+                    output = staged/name
+                    output.parent.mkdir(parents=True, exist_ok=True)
+                    with output.open("xb") as f:
+                        f.write(p.read_bytes())
+                    if digest(output) != digest(p):
+                        raise ValueError("staged checksum mismatch: " + name)
+                # Never replace an existing version, including a concurrent install.
+                if dest.exists():
+                    raise FileExistsError("version appeared during installation; retry")
+                staged.rename(dest)
         catalog.parent.mkdir(parents=True, exist_ok=True)
         if catalog.exists():
             backup = catalog.with_name("marketplace.before-robot-test-knowledge.json")
@@ -89,7 +100,7 @@ def install(package, user_root, apply=False):
         finally:
             if os.path.exists(temp):
                 os.unlink(temp)
-    return {"applied": apply, "plugin_path": str(dest), "marketplace": str(catalog),
+    return {"build_info":identity,"applied": apply, "plugin_path": str(dest), "marketplace": str(catalog),
             "next": "Restart app, choose personal plugin source, install the plugin, then open a new chat."}
 if __name__ == "__main__":
     p = argparse.ArgumentParser()

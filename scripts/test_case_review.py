@@ -57,4 +57,60 @@ class CaseReviewTests(unittest.TestCase):
         p=SKILL/'assets/templates/通用软件测试用例模板_v1.0.xlsx';before=p.read_bytes()
         result=subprocess.run([sys.executable,'-X','utf8',str(SKILL/'scripts/review_workbook.py'),'--workbook',str(p),'--category','general','--report',str(p)],capture_output=True)
         self.assertEqual(result.returncode,2);self.assertEqual(p.read_bytes(),before)
+    def mapped_case(self):
+        sheet={'cells':{'A1':'期望描述','B1':'执行判定','C1':'案例号','D1':'操作记录','E1':'观察值','F1':'凭证','A2':'1.返回已批准值','C2':'Q-01','D2':'1.调用已批准查询'},'merges':[],'formulas':[]}
+        layout={'header_rows':1,'fields':{'A':{'label':'期望描述','role':'预期结果'},'B':{'label':'执行判定','role':'执行状态'},'C':{'label':'案例号','role':'用例编号'},'D':{'label':'操作记录','role':'测试步骤'},'E':{'label':'观察值','role':'实际结果'},'F':{'label':'凭证','role':'测试证据'}},'required_roles':['用例编号','测试步骤','预期结果'],'header_merges':[],'execution_groups':[{'status':'B','actual':'E','evidence':'F'}]}
+        return sheet,layout
+    def mapped_review(self,s,l,mode='design'):
+        return reviewer.inspect_sheet('模拟软件',s,reviewer.approved_template(s,l),mode)
+    def test_approved_aliases_reorder_and_no_write(self):
+        s,l=self.mapped_case();before=deepcopy(s)
+        self.assertEqual(self.mapped_review(s,l)['issues'],[]);self.assertEqual(s,before)
+    def test_mapped_execution_group_uses_declared_columns(self):
+        s,l=self.mapped_case();s['cells'].update({'B2':'Fail','E2':'观察到错误'})
+        issues=self.mapped_review(s,l,'executed')['issues']
+        self.assertIn('F2',{i['cell'] for i in issues if i['code']=='EVIDENCE'})
+        s['cells']['F2']='模拟记录-01';self.assertEqual(self.mapped_review(s,l,'executed')['issues'],[])
+        s['cells']['B2']='Not Executed';self.assertIn('E2',{i['cell'] for i in self.mapped_review(s,l,'executed')['issues'] if i['code']=='UNEXECUTED_RESULT'})
+    def test_missing_mapping_and_required_role_are_visible(self):
+        s,l=self.mapped_case();del l['fields']['A']
+        codes={i['code'] for i in self.mapped_review(s,l)['issues']}
+        self.assertTrue({'UNMAPPED_COLUMN','MISSING_ROLE'}<=codes)
+    def test_wrong_alias_label_and_known_role_rebinding(self):
+        s,l=self.mapped_case();l['fields']['C']['label']='不存在'
+        self.assertIn('HEADER',{i['code'] for i in self.mapped_review(s,l)['issues']})
+        l['fields']['C']={'label':'优先级','role':'用例编号'}
+        with self.assertRaises(ValueError):reviewer.approved_template(s,l)
+    def test_missing_execution_group_does_not_guess_adjacent_column(self):
+        s,l=self.mapped_case();l['execution_groups']=[]
+        self.assertIn('UNMAPPED_EXECUTION',{i['code'] for i in self.mapped_review(s,l)['issues']})
+    def test_unknown_role_and_empty_contract_are_not_accepted(self):
+        s,l=self.mapped_case();l['fields']['F']['role']='未知字段';l['execution_groups']=[]
+        self.assertIn('UNMAPPED_ROLE',{i['code'] for i in self.mapped_review(s,l)['issues']})
+        l['required_roles']=[]
+        with self.assertRaises(ValueError):reviewer.approved_template(s,l)
+    def test_layout_cli_preserves_workbook_and_checks_selected_sheet(self):
+        import zipfile, xml.etree.ElementTree as ET
+        s,l=self.mapped_case()
+        with tempfile.TemporaryDirectory() as t:
+            root=Path(t);book=root/'cases.xlsx';ns=reviewer.NS['m']
+            sh=ET.Element('{'+ns+'}worksheet');data=ET.SubElement(sh,'{'+ns+'}sheetData')
+            for rownum in (1,2):
+                row=ET.SubElement(data,'{'+ns+'}row',r=str(rownum))
+                for ref,value in s['cells'].items():
+                    if reviewer.xy(ref)[0]==rownum:
+                        c=ET.SubElement(row,'{'+ns+'}c',r=ref,t='inlineStr');i=ET.SubElement(c,'{'+ns+'}is');ET.SubElement(i,'{'+ns+'}t').text=value
+            wb=ET.Element('{'+ns+'}workbook');sheets=ET.SubElement(wb,'{'+ns+'}sheets');sn=ET.SubElement(sheets,'{'+ns+'}sheet',name='模拟软件',sheetId='1');sn.set(reviewer.R,'r1')
+            rels=ET.Element('Relationships');ET.SubElement(rels,'Relationship',Id='r1',Target='worksheets/sheet1.xml')
+            with zipfile.ZipFile(book,'w') as z:
+                for n,v in [('xl/workbook.xml',wb),('xl/_rels/workbook.xml.rels',rels),('xl/worksheets/sheet1.xml',sh)]:z.writestr(n,ET.tostring(v))
+            layout=root/'layout.json';layout.write_text(json.dumps({'模拟软件':l}),encoding='utf-8');out=root/'out.json';before=book.read_bytes()
+            cmd=[sys.executable,'-X','utf8',str(SKILL/'scripts/review_workbook.py'),'--workbook',str(book),'--category','general','--layout',str(layout),'--sheet','模拟软件','--report',str(out)]
+            run=subprocess.run(cmd,capture_output=True);self.assertEqual(run.returncode,0,run.stderr)
+            result=json.loads(out.read_text(encoding='utf-8'));self.assertTrue(result['scope_complete']);self.assertEqual(result['sheets'][0]['case_items'],1);self.assertEqual(book.read_bytes(),before)
+
+    def test_unpaired_evidence_column_is_not_silently_ignored(self):
+        s,l=self.mapped_case();del l['execution_groups'][0]['evidence']
+        self.assertIn('UNMAPPED_EXECUTION',{i['code'] for i in self.mapped_review(s,l)['issues']})
+
 if __name__=='__main__':unittest.main()
