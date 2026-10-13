@@ -26,7 +26,8 @@ class PackageTests(unittest.TestCase):
         self.root=Path(self.temp.name)
         archive=build(self.root/"dist")
         with zipfile.ZipFile(archive) as z:
-            self.names=z.namelist();z.extractall(self.root/"unpacked")
+            self.names=z.namelist();self.assertTrue(all(item.create_system==3 for item in z.infolist()))
+            z.extractall(self.root/"unpacked")
         self.package=self.root/"unpacked/robot-test-knowledge"
         self.home=self.root/"user"
     def test_archive_and_reproducibility(self):

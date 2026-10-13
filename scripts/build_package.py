@@ -52,6 +52,7 @@ def build(output, channel="candidate"):
     with zipfile.ZipFile(buffer, "w", zipfile.ZIP_DEFLATED) as z:
         for name, content in sorted(entries.items()):
             info = zipfile.ZipInfo("robot-test-knowledge/"+name, date_time=(2026,10,9,0,0,0))
+            info.create_system = 3
             info.compress_type = zipfile.ZIP_DEFLATED
             info.external_attr = 0o100644 << 16
             z.writestr(info, content)
