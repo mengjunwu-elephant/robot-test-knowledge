@@ -1,6 +1,6 @@
 # 大象机器人软件测试知识库
 
-测试团队共同维护的公共规则、项目差异知识及两项共享技能。当前正式版本 **v0.8.0**。更新日期：2026-10-13。
+测试团队共同维护的公共规则、项目差异知识及两项共享技能。当前正式版本 **v0.8.1**。更新日期：2026-10-13。
 
 ## 从这里开始
 
@@ -21,7 +21,7 @@
 
 ## 安装与更新
 
-正式资产见[GitHub发布页](https://github.com/mengjunwu-elephant/robot-test-knowledge/releases/latest)。下载robot-test-knowledge-0.8.0.zip并完整解压，或下载同版本单文件Windows安装入口；GitHub Source code ZIP不是安装包。
+正式资产见[GitHub发布页](https://github.com/mengjunwu-elephant/robot-test-knowledge/releases/latest)。下载robot-test-knowledge-0.8.1.zip并完整解压，或下载同版本单文件Windows安装入口；GitHub Source code ZIP不是安装包。
 
 Codex/Work：运行Install.cmd完成个人来源登记，在客户端刷新个人来源并安装/启用插件，开启新对话。更新运行安装目录Update.cmd，再刷新插件并开启新对话。来源登记成功不等于当前对话已经加载新版；不要直接改plugins/cache。
 
@@ -114,3 +114,5 @@ v0.8.0自动化提炼：现有pytest-generation新增数据/证据、SDK和ROS�
 修复格式布局漏列提示、安装中断重试、镜像残留检测；结构工具增加经确认的字段布局和执行结果分组，保留项目字段与列顺序。模拟工作簿四项审查与纯内存自动化已完成一次演练，见[验收记录](docs/维护/模拟流程验收-20261012.md)，不代表真实项目或客户端效果已验收。
 
 日常构建输出dist/candidate，包内build-info.json记录渠道、提交和内容指纹；正式包由Windows/Linux校验通过后发布。仓库/Cursor来源需记录提交或文件哈希，不能仅用版本号判断具体内容。正式包发布后仍需在客户端刷新插件并开启新对话。
+
+v0.8.1修正v0.8.0校验文件中Windows安装入口的路径写法；请下载最新正式版并将ZIP、单文件安装入口和SHA256SUMS.txt放在同一目录核对。
