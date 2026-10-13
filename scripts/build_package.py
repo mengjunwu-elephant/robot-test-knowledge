@@ -3,6 +3,17 @@ import argparse, hashlib, io, json, re, subprocess, zipfile
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 NAMES = ("testcase-iteration", "pytest-generation")
+TEXT_SUFFIXES = {".json", ".md", ".py", ".yaml", ".yml"}
+
+def package_bytes(path):
+    """Keep release payload identical across Windows and Linux checkouts."""
+    data = path.read_bytes()
+    if path.suffix.lower() == ".cmd":
+        return data.replace(b"\r\n", b"\n").replace(b"\n", b"\r\n")
+    if path.suffix.lower() in TEXT_SUFFIXES:
+        return data.replace(b"\r\n", b"\n")
+    return data
+
 def build(output, channel="candidate"):
     if channel not in ("candidate", "release"):raise ValueError("invalid build channel")
     output = Path(output)
@@ -11,19 +22,19 @@ def build(output, channel="candidate"):
     version = manifest["version"]
     if not re.fullmatch(r"\d+\.\d+\.\d+", version):
         raise ValueError("invalid version")
-    entries = {"plugin.json": (ROOT/"plugin.json").read_bytes(),
-               "install.py": (ROOT/"packaging/install.py").read_bytes(),
-               "Install.cmd": (ROOT/"packaging/Install.cmd").read_bytes(),
-               "INSTALL.md": (ROOT/"packaging/INSTALL.md").read_bytes(),
-               "update.py": (ROOT/"packaging/update.py").read_bytes(),
-               "Update.cmd": (ROOT/"packaging/Update.cmd").read_bytes()}
+    entries = {"plugin.json": package_bytes(ROOT/"plugin.json"),
+               "install.py": package_bytes(ROOT/"packaging/install.py"),
+               "Install.cmd": package_bytes(ROOT/"packaging/Install.cmd"),
+               "INSTALL.md": package_bytes(ROOT/"packaging/INSTALL.md"),
+               "update.py": package_bytes(ROOT/"packaging/update.py"),
+               "Update.cmd": package_bytes(ROOT/"packaging/Update.cmd")}
     for name in NAMES:
         folder = ROOT/"skills"/name
         for p in folder.rglob("*"):
             if p.is_symlink():
                 raise ValueError("symlink in skill")
             if p.is_file() and "__pycache__" not in p.parts and p.suffix != ".pyc":
-                entries[p.relative_to(ROOT).as_posix()] = p.read_bytes()
+                entries[p.relative_to(ROOT).as_posix()] = package_bytes(p)
     source_hash = hashlib.sha256("".join(n+"\0"+hashlib.sha256(b).hexdigest()+"\n" for n,b in sorted(entries.items())).encode()).hexdigest()
     try:
         revision = subprocess.check_output(['git','-C',str(ROOT),'rev-parse','HEAD'],stderr=subprocess.DEVNULL).decode().strip()

@@ -1,10 +1,25 @@
 import importlib.util, json, subprocess, sys, tempfile, unittest, zipfile
 from pathlib import Path
-from build_package import build
+from build_package import build, package_bytes
 ROOT=Path(__file__).resolve().parents[1]
 spec=importlib.util.spec_from_file_location("plugin_installer",ROOT/"packaging/install.py")
 installer=importlib.util.module_from_spec(spec);spec.loader.exec_module(installer)
 class PackageTests(unittest.TestCase):
+    def test_text_payload_is_identical_for_lf_and_crlf_checkouts(self):
+        with tempfile.TemporaryDirectory(prefix="robot-line-endings-") as temp:
+            root=Path(temp);text=root/"sample.md";launcher=root/"Install.cmd";binary=root/"sample.xlsx"
+            text.write_bytes(b"alpha\nbeta\n")
+            plain=package_bytes(text)
+            text.write_bytes(b"alpha\r\nbeta\r\n")
+            self.assertEqual(package_bytes(text),plain)
+            launcher.write_bytes(b"@echo off\npause\n")
+            windows=package_bytes(launcher)
+            launcher.write_bytes(b"@echo off\r\npause\r\n")
+            self.assertEqual(package_bytes(launcher),windows)
+            self.assertIn(b"\r\n",windows)
+            binary.write_bytes(b"PK\x03\x04\r\n\x00")
+            self.assertEqual(package_bytes(binary),binary.read_bytes())
+
     def setUp(self):
         self.temp=tempfile.TemporaryDirectory(prefix="robot-package-")
         self.addCleanup(self.temp.cleanup)
