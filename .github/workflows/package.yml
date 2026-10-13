@@ -27,7 +27,8 @@ jobs:
         shell: pwsh
         run: |
           $archive = Get-ChildItem -LiteralPath "dist/${{ github.event_name == 'workflow_dispatch' && 'release' || 'candidate' }}" -Filter *.zip | Select-Object -First 1
-          python -X utf8 scripts/test_launcher_windows.py --archive $archive.FullName
+          $version = (Get-Content -LiteralPath plugin.json -Raw | ConvertFrom-Json).version
+          python -X utf8 scripts/test_launcher_windows.py --archive $archive.FullName --launcher "dist/${{ github.event_name == 'workflow_dispatch' && 'release' || 'candidate' }}/robot-test-knowledge-$version-Install.cmd"
       - uses: actions/upload-artifact@v4
         with:
           name: robot-test-package-${{ matrix.os }}
@@ -44,14 +45,22 @@ jobs:
         with:
           name: robot-test-package-ubuntu-latest
           path: dist
+      - uses: actions/download-artifact@v4
+        with:
+          name: robot-test-package-windows-latest
+          path: dist/windows
       - name: Publish verified download
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
         run: |
           VERSION=$(python -c "import json; print(json.load(open('plugin.json'))['version'])")
+          LAUNCHER="dist/windows/robot-test-knowledge-$VERSION-Install.cmd"
+          (cd dist && sha256sum -c SHA256SUMS.txt)
+          cmp "dist/robot-test-knowledge-$VERSION.zip" "dist/windows/robot-test-knowledge-$VERSION.zip"
+          sha256sum "$LAUNCHER" >> dist/SHA256SUMS.txt
           if gh release view "v$VERSION" >/dev/null 2>&1; then
             echo "Version already exists; keeping published assets unchanged."
           else
-            gh release create "v$VERSION" "dist/robot-test-knowledge-$VERSION.zip" dist/SHA256SUMS.txt --target "${{ github.sha }}" --title "大象机器人测试技能包 v$VERSION" --notes "完整解压后运行 Install.cmd。Update.cmd 跟随最新正式版；更新后刷新插件并开启新对话。团队公共测试规范优先，保留项目差异；不连接机器人。"
+            gh release create "v$VERSION" "dist/robot-test-knowledge-$VERSION.zip" "$LAUNCHER" dist/SHA256SUMS.txt --target "${{ github.sha }}" --title "大象机器人测试技能包 v$VERSION" --notes "完整解压后运行 Install.cmd，或下载同版本单文件安装入口。Update.cmd 跟随最新正式版；更新后刷新插件并开启新对话。团队公共测试规范优先，保留项目差异；不连接机器人。"
           fi
