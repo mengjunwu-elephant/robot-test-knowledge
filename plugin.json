@@ -1,8 +1,8 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "robot-test-knowledge",
-  "version": "0.8.1",
-  "description": "机器人测试：编写与迭代通用软件、固件、ROS用例，依据确认用例生成单接口pytest。",
+  "version": "0.8.2",
+  "description": "机器人测试：先确认测试点和环境行为，再编写、审查通用软件、固件、ROS用例并生成单接口pytest。",
   "repository": "https://github.com/mengjunwu-elephant/robot-test-knowledge",
   "extensions": {
     "com.openai": {
@@ -12,7 +12,7 @@
         "developerName": "mengjunwu-elephant",
         "category": "Productivity",
         "defaultPrompt": [
-          "检查当前项目的测试用例，指出缺少的测试点。",
+          "参考项目规则和原模板审查或编写测试用例；生成前先评审测试点，明确每种环境的操作对象、预期动作和禁止副作用，最后检查最终文件。",
           "依据已确认用例生成单接口 pytest 测试。"
         ]
       }
