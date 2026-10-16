@@ -30,6 +30,15 @@ class PackageTests(unittest.TestCase):
             z.extractall(self.root/"unpacked")
         self.package=self.root/"unpacked/robot-test-knowledge"
         self.home=self.root/"user"
+    def test_windows_long_destination_is_refused_before_any_writes(self):
+        from unittest.mock import patch
+        home=self.root/('u'*200)
+        for file_limit,directory_limit in ((259,None),(None,247)):
+            with patch.object(installer,'WINDOWS_FILE_LIMIT',file_limit),patch.object(installer,'WINDOWS_DIRECTORY_LIMIT',directory_limit):
+                with self.assertRaisesRegex(ValueError,'shorter --user-root'):
+                    installer.install(self.package,home,True)
+            self.assertFalse(home.exists())
+
     def test_archive_and_reproducibility(self):
         first=build(self.root/"one").read_bytes();second=build(self.root/"two").read_bytes()
         self.assertEqual(first,second)

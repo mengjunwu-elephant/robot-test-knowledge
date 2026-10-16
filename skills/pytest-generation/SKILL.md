@@ -5,7 +5,7 @@ description: 依据已确认用例和项目源码生成或修改单接口 pytest
 
 # 单接口pytest编写与维护
 
-先读[团队公共规则](references/team-rules.md)，再读[自动化测试契约](references/automation-contract.md)。本技能随0.8.2正式包分发，流程内容沿用0.8.1。记录安装清单版本及来源：包内build-info.json的渠道、提交和内容指纹；仓库来源记录Git提交与未提交状态。客户端无法给出提交时记录未知及当前SKILL文件哈希，不只凭版本号判定内容。旧对话不会因仓库更新自动升级。
+先读[团队公共规则](references/team-rules.md)，再读[自动化测试契约](references/automation-contract.md)。正式v0.8.2的基础流程沿用v0.8.1；当前仓库新增堵转与进行中参考及适用条件，尚未发布。记录安装清单版本及来源：包内build-info.json的渠道、提交和内容指纹；仓库来源记录Git提交与未提交状态。客户端无法给出提交时记录未知及当前SKILL文件哈希，不只凭版本号判定内容。旧对话不会因仓库更新自动升级。
 
 按当前任务查看[经验入口](references/pitfalls/index.md)，只读匹配短记录，不加载全部历史或扩大授权。
 
@@ -17,7 +17,7 @@ description: 依据已确认用例和项目源码生成或修改单接口 pytest
 
 ## 2. 按任务读取方法
 
-读取[数据分类与证据](references/data-and-evidence.md)。直接SDK调用读取[SDK场景](references/sdk-patterns.md)；ROS Service/Topic读取[ROS场景](references/ros-patterns.md)。按项目实际调用模型选择，不以项目名称替代事实判断，不全量套用两个模式。
+读取[数据分类与证据](references/data-and-evidence.md)。直接SDK调用读取[SDK场景](references/sdk-patterns.md)；ROS Service/Topic读取[ROS场景](references/ros-patterns.md)。用例出现堵转，或运动中、运行中、校准中、校准时、校准过程、校准过程中、校准进行、运行过程中、回零过程中、回零中、回零时及相同意思时，读取[堵转与进行中场景](references/in-progress-and-stall.md)，按其中弹窗和接口调用顺序生成。按项目实际调用模型选择，不以项目名称替代事实判断，不全量套用两个模式。
 
 这些参考提炼自Tuya规则及抽样源码，现有源码含未完成断言/恢复和旧展示标题，不能整文件照抄。原项目专属值仍按当前契约核对；仅查询、普通设置和异常的设计方法，不提供运动执行模板。
 

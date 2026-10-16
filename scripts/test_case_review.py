@@ -30,6 +30,28 @@ class CaseReviewTests(unittest.TestCase):
         s=self.case();s['cells']['G1']='实际结果';self.assertIn('HEADER',self.codes(s))
     def test_extra_column_is_reported(self):
         s=self.case();s['cells']['Q1']='测试方法';self.assertIn('HEADER_EXTRA',self.codes(s))
+    def test_default_template_reports_body_and_formula_outside_header(self):
+        for formula in (False,True):
+            s=self.case();s['cells']['Q3']='' if formula else 'additional business data'
+            if formula:s['formulas'].append('Q3')
+            self.assertIn('UNMAPPED_COLUMN',self.codes(s))
+
+    def test_identity_fields_have_separate_duplicate_namespaces(self):
+        s={'cells':{'A1':'用例编号','B1':'指令序号','C1':'测试步骤','D1':'预期结果',
+                    'A2':'1','B2':'1','C2':'invoke','D2':'expected'},'merges':[],'formulas':[]}
+        layout={'header_rows':1,'fields':{'A':'用例编号','B':'指令序号','C':'测试步骤','D':'预期结果'},
+                'required_roles':['用例编号','指令序号','测试步骤','预期结果'],'header_merges':[]}
+        template=reviewer.approved_template(s,layout)
+        def duplicates():
+            return [i for i in reviewer.inspect_sheet('IDs',s,template)['issues'] if i['code']=='DUPLICATE_ID']
+        self.assertEqual(duplicates(),[])
+        s['cells'].update({'A3':'2','B3':'2','C3':'invoke again','D3':'expected again'})
+        self.assertEqual(duplicates(),[])
+        s['cells']['B3']='1'
+        self.assertEqual([i['cell'] for i in duplicates()],['B3'])
+        s['merges'].append('B2:B3');s['cells']['B3']=''
+        self.assertEqual(duplicates(),[])
+
     def test_stale_pass_is_rejected_in_design(self):
         s=self.case();s['cells'].update({'H3':'旧版正常','I3':'Pass'});self.assertIn('DESIGN_RESULT',self.codes(s))
     def test_unexecuted_has_no_actual(self):
