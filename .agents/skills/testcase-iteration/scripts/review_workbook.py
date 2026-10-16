@@ -144,9 +144,9 @@ def inspect_sheet(name,sheet,template,mode='design'):
     id_cols=[c for c,label in labels.items() if label in {'用例编号','指令序号'}]
     execution={c for c,label in labels.items() if label in {'实际结果','执行状态','回归测试记录','异常／回归记录','测试证据'} or label.startswith('python')}
     design_cols={c for c,label in labels.items() if label in REQUIRED_ROLES}
+    fields={addr(1,c)[:-1] for c in labels}
+    for col in sorted(occupied_columns(sheet,start)-fields-set(excluded),key=column_number):issue('UNMAPPED_COLUMN',header_rows,column_number(col),'实际字段未映射，不能称完整检查','warning')
     if custom:
-        fields={addr(1,c)[:-1] for c in labels}
-        for col in sorted(occupied_columns(sheet,start)-fields-set(excluded),key=column_number):issue('UNMAPPED_COLUMN',header_rows,column_number(col),'实际字段未映射，不能称完整检查','warning')
         for role in required_labels-set(labels.values()):issue('MISSING_ROLE',header_rows,1,'批准必需字段未映射：'+role)
         for col,label in labels.items():
             if label not in template['known_roles']:issue('UNMAPPED_ROLE',header_rows,col,'字段语义未确认：'+label,'warning')
@@ -164,8 +164,9 @@ def inspect_sheet(name,sheet,template,mode='design'):
             elif any(token in value for token in ('待确认','待填写','REQUIRED_RELEASE_VALUE')):issue('UNCONFIRMED',row,col,'内容未确认，不能作为执行基线','warning')
         for col in id_cols:
             value,key=cell(sheet,row,col)
-            if value and value in seen and seen[value]!=key:issue('DUPLICATE_ID',row,col,'同表编号重复且不是同一合并组')
-            elif value:seen[value]=key
+            identity=(col,value)
+            if value and identity in seen and seen[identity]!=key:issue('DUPLICATE_ID',row,col,'同一编号字段重复且不是同一合并组')
+            elif value:seen[identity]=key
         for col,label in labels.items():
             value,_=cell(sheet,row,col)
             if label=='优先级' and value and value not in {'P0','P1','P2','P3'}:issue('PRIORITY',row,col,'优先级必须为P0—P3')

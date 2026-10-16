@@ -2,6 +2,21 @@
 import argparse, hashlib, json, os, re, shutil, tempfile
 from pathlib import Path
 NAME = "robot-test-knowledge"
+# Win32 paths without extended-length support must leave room for the NUL and
+# (for directories) a possible 8.3 filename. Check before any installation writes.
+WINDOWS_FILE_LIMIT = 259 if os.name == "nt" else None
+WINDOWS_DIRECTORY_LIMIT = 247 if os.name == "nt" else None
+
+def check_destination_paths(dest, catalog, payload):
+    staged = dest.parent/".install-XXXXXXXX"/"payload"
+    files = [dest/name for name in payload] + [staged/name for name in payload]
+    files += [catalog, catalog.with_name("marketplace.before-robot-test-knowledge.json"),
+              catalog.parent/"marketplace-XXXXXXXX.json"]
+    directories = [p.parent for p in files]
+    for paths, limit in ((files, WINDOWS_FILE_LIMIT), (directories, WINDOWS_DIRECTORY_LIMIT)):
+        if limit is not None and any(len(str(p)) > limit for p in paths):
+            raise ValueError("Windows installation path is too long; choose a shorter "
+                             "--user-root path. No installation files were written.")
 def digest(p):
     return hashlib.sha256(p.read_bytes()).hexdigest()
 def guard(root, target):
@@ -42,6 +57,7 @@ def install(package, user_root, apply=False):
     if identity.get("version")!=version:raise ValueError("build identity version mismatch")
     dest = home/".codex/plugins/local"/NAME/version
     catalog = home/".agents/plugins/marketplace.json"
+    check_destination_paths(dest, catalog, payload)
     guard(home, dest); guard(home, catalog)
     data = json.loads(catalog.read_text(encoding="utf-8")) if catalog.exists() else {
         "name": "personal-plugins",
