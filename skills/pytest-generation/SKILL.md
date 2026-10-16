@@ -17,7 +17,7 @@ description: 依据已确认用例和项目源码生成或修改单接口 pytest
 
 ## 2. 按任务读取方法
 
-读取[数据分类与证据](references/data-and-evidence.md)。直接SDK调用读取[SDK场景](references/sdk-patterns.md)；ROS Service/Topic读取[ROS场景](references/ros-patterns.md)。按项目实际调用模型选择，不以项目名称替代事实判断，不全量套用两个模式。
+读取[数据分类与证据](references/data-and-evidence.md)。直接SDK调用读取[SDK场景](references/sdk-patterns.md)；ROS Service/Topic读取[ROS场景](references/ros-patterns.md)。用例出现堵转，或运动中、运行中、校准中、校准时、校准过程、校准过程中、校准进行、运行过程中、回零过程中、回零中、回零时及相同意思时，读取[堵转与进行中场景](references/in-progress-and-stall.md)，按其中弹窗和接口调用顺序生成。按项目实际调用模型选择，不以项目名称替代事实判断，不全量套用两个模式。
 
 这些参考提炼自Tuya规则及抽样源码，现有源码含未完成断言/恢复和旧展示标题，不能整文件照抄。原项目专属值仍按当前契约核对；仅查询、普通设置和异常的设计方法，不提供运动执行模板。
 
