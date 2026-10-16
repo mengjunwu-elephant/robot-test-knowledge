@@ -32,7 +32,7 @@ class PackageTests(unittest.TestCase):
         self.home=self.root/"user"
     def test_windows_long_destination_is_refused_before_any_writes(self):
         from unittest.mock import patch
-        home=self.root/('u'*100)
+        home=self.root/('u'*200)
         for file_limit,directory_limit in ((259,None),(None,247)):
             with patch.object(installer,'WINDOWS_FILE_LIMIT',file_limit),patch.object(installer,'WINDOWS_DIRECTORY_LIMIT',directory_limit):
                 with self.assertRaisesRegex(ValueError,'shorter --user-root'):
