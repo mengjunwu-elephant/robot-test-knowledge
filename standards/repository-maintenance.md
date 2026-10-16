@@ -8,6 +8,7 @@
 - 公共底线维护standards/team-rules.md，同步两技能references/team-rules.md；自动化契约维护standards/testing-contract.md，同步pytest-generation/references/automation-contract.md。
 - Cursor清单引用现有skills，不另建技能源。项目独立知识在原项目维护，projects只保留来源与差异索引。
 - 文档分使用、维护、验收示例；总方案及交接保持唯一、表达当前状态。舍弃设计及历史过程通过Git查阅。
+- README只维护长期有效的项目介绍、安装使用、能力边界及文档入口；单轮PR改动、修复细节和验证收据放CHANGELOG、对应技能/维护文档及唯一交接，不随每轮任务追加到README。
 
 ## 团队审核
 
