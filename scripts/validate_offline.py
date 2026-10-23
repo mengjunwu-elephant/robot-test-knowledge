@@ -23,7 +23,7 @@ def validate(root=ROOT,sources=False):
   checks+=1
   try:ast.parse(p.read_text(encoding='utf-8'))
   except SyntaxError as e:errors.append(str(e))
- expected_names={'testcase-iteration','pytest-generation'}
+ expected_names={'testcase-iteration','pytest-generation','marsdog-vision'}
  for base in [root/'skills',root/'.agents/skills']:
   checks+=1
   if not base.exists() or {p.name for p in base.iterdir() if p.is_dir() and p.name!='__pycache__'}!=expected_names:errors.append('unexpected skill set '+str(base.relative_to(root)))

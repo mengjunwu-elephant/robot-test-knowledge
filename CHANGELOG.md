@@ -1,3 +1,6 @@
+## 0.8.6 (2026-10-23)
+- - 新增 Marsdog_vision（skills/marsdog-vision），作为 testcase-iteration 的视觉直驱补充技能
+
 # CHANGELOG
 
 ## 0.8.5 — 2026-10-23
