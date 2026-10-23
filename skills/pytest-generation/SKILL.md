@@ -5,7 +5,7 @@ description: 依据已确认用例和项目源码生成或修改单接口 pytest
 
 # 单接口pytest编写与维护
 
-先读[团队公共规则](references/team-rules.md)，再读[自动化测试契约](references/automation-contract.md)。本技能随v0.8.4分发；堵转与进行中场景按参考中的接口契约及状态时机前提处理。记录安装清单版本及来源：包内build-info.json的渠道、提交和内容指纹；仓库来源记录Git提交与未提交状态。客户端无法给出提交时记录未知及当前SKILL文件哈希，不只凭版本号判定内容。旧对话不会因仓库更新自动升级。
+先读[团队公共规则](references/team-rules.md)，再读[自动化测试契约](references/automation-contract.md)。本技能随v0.8.5分发；堵转与进行中场景按参考中的接口契约及状态时机前提处理。记录安装清单版本及来源：包内build-info.json的渠道、提交和内容指纹；仓库来源记录Git提交与未提交状态。客户端无法给出提交时记录未知及当前SKILL文件哈希，不只凭版本号判定内容。旧对话不会因仓库更新自动升级。
 
 按当前任务查看[经验入口](references/pitfalls/index.md)，只读匹配短记录，不加载全部历史或扩大授权。
 
